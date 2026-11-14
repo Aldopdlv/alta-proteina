@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="160" viewBox="0 0 720 160" role="img" aria-label="Alta Proteína (wordmark provisional, invertido)">
+  <!-- Wordmark PROVISIONAL invertido: para fondo oliva #5B6B2F (barra superior oscura, pie, hoja para cocina). -->
+  <g transform="translate(24,28)">
+    <circle cx="52" cy="52" r="52" fill="#F5EFE0"/>
+    <path d="M54 20 C 36 28, 26 46, 30 72 C 52 70, 68 56, 72 30 C 66 25, 60 21, 54 20 Z" fill="#5B6B2F"/>
+    <path d="M31 71 L 56 42" stroke="#F5EFE0" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <circle cx="80" cy="24" r="9" fill="#E8772E"/>
+  </g>
+  <text x="156" y="100" font-family="'DM Sans','Poppins','Segoe UI',Arial,sans-serif" font-size="66" font-weight="700" letter-spacing="-1.5" fill="#F5EFE0">Alta Proteína</text>
+</svg>
