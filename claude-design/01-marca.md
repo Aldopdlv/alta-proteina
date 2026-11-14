@@ -1,0 +1,13 @@
+# Marca
+- Nombre de trabajo: Alta Proteína
+- Concepto: "Comida de verdad, sin complicarte". Proteína real, lista en minutos, para gente ocupada que entrena. Salud + practicidad, sin tono de gimnasio extremo.
+- Tono: cercano, directo, honesto. Frases cortas. Tuteo.
+- Paleta:
+  - Verde oliva (principal): #5B6B2F
+  - Crema (fondo): #F5EFE0
+  - Naranja (acento, botones y CTA): #E8772E
+  - Texto oscuro: #2B2B2B
+- Tipografía sugerida: sans-serif geométrica y amigable (ej. Poppins o DM Sans) para títulos; Inter para texto.
+- Estilo visual: fotos de comida reales y limpias, mucho espacio en blanco, tarjetas redondeadas, íconos simples de línea.
+- Mensaje clave en cada producto: gramos de proteína bien visibles (ej. "150 g de pollo").
+- Logo: aún no definido; usar wordmark "Alta Proteína" provisional en verde oliva.
