@@ -11,6 +11,7 @@ Comida preparada alta en proteína, congelada y bajo pedido, con corte semanal, 
 | 11-nov-2026 | Bosquejo de web MVP y marca: nombre de trabajo, paleta oliva/crema/naranja, flujo de pedido, pagos tarjeta con recargo y Yape con captura, panel interno |
 | 14-nov-2026 | Paquete completo para Claude Design (`claude-design/`): brief consolidado, textos, datos de ejemplo, tokens, contraste verificado y wordmark provisional. Zip listo para subir |
 | 15-nov-2026 | Claude Design entregó el prototipo (`claude-design/handoff-15-nov-2026/`) con la configuración confirmada. **Web y panel implementados en `web/`**, corriendo en el Dappnode (127.0.0.1:8097). Falta publicar el túnel `altaproteina.solvelab.digital` |
+| 15-nov-2026 | Prompts de Higgsfield para las 11 imágenes que faltan (héroe, 5 fotos de producto, vista previa para WhatsApp y 4 para la demo al socio): [docs/PROMPTS-imagenes-higgsfield-15-nov-2026.md](docs/PROMPTS-imagenes-higgsfield-15-nov-2026.md) |
 
 ## Concepto en una línea
 
@@ -37,6 +38,7 @@ Implementación del prototipo de Claude Design: web pública (inicio, menú, car
 - [ANALISIS-costos-y-menu-11-nov-2026.md](docs/ANALISIS-costos-y-menu-11-nov-2026.md): supuestos de costo, costo por porción, precio sugerido, menú y técnica de congelado.
 - [WEB-MVP-y-marca-11-nov-2026.md](docs/WEB-MVP-y-marca-11-nov-2026.md): marca, decisiones, flujo del cliente, panel y alcance del MVP.
 - [PROMPT-logo-higgsfield.md](docs/PROMPT-logo-higgsfield.md): prompt para generar variantes del logo.
+- [PROMPTS-imagenes-higgsfield-15-nov-2026.md](docs/PROMPTS-imagenes-higgsfield-15-nov-2026.md): prompts de las fotos de producto, el héroe y las imágenes para la demo al socio, con estilo común, reglas de composición y entrega.
 
 ## Decisiones pendientes
 
