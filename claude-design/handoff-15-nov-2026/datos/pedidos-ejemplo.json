@@ -1,0 +1,102 @@
+{
+  "_nota": "Pedidos ficticios para prototipar el panel. Nombres, celulares y direcciones son inventados.",
+  "semana": { "etiqueta": "Semana del martes 18 de noviembre", "corte": "2026-11-15T20:00:00-05:00", "entrega": "2026-11-17", "produccion": "2026-11-16" },
+  "resumen": { "pedidos": 6, "por_confirmar": 2, "pagados": 3, "venta_soles": 270.9 },
+  "pedidos": [
+    {
+      "codigo": "AP-2611-0038",
+      "creado": "2026-11-12T21:14:00-05:00",
+      "cliente": { "nombre": "Valeria Quispe", "celular": "+51 9XX XXX 101" },
+      "entrega": { "zona": "Magdalena del Mar", "direccion": "Av. Brasil 2XXX, dpto. 402", "referencia": "Edificio gris, frente a la farmacia", "delivery_soles": 5 },
+      "items": [
+        { "producto": "Pack semanal x7", "cantidad": 1, "marinado": "Mix de la casa", "salsas": ["Ají amarillo cremoso ×4", "Chimichurri ×3"], "subtotal_soles": 80 }
+      ],
+      "subtotal_soles": 80, "recargo_soles": 0, "total_soles": 85,
+      "pago": { "medio": "yape", "captura": "captura-0038.jpg", "estado": "aprobado" },
+      "estado": "pagado"
+    },
+    {
+      "codigo": "AP-2611-0039",
+      "creado": "2026-11-13T08:02:00-05:00",
+      "cliente": { "nombre": "Diego Ramírez", "celular": "+51 9XX XXX 102" },
+      "entrega": { "zona": "San Isidro", "direccion": "Calle Los Libertadores 4XX", "referencia": "Casa con reja blanca", "delivery_soles": 6 },
+      "items": [
+        { "producto": "Burrito de pollo", "cantidad": 3, "marinado": "Ají panca", "salsas": ["Salsa criolla"], "subtotal_soles": 36 },
+        { "producto": "Fideos con pollo", "cantidad": 2, "marinado": "Teriyaki", "salsas": ["Teriyaki extra"], "subtotal_soles": 22 }
+      ],
+      "subtotal_soles": 58, "recargo_soles": 6.4, "total_soles": 70.4,
+      "pago": { "medio": "tarjeta", "proveedor": "link de pago", "estado": "aprobado" },
+      "estado": "pagado"
+    },
+    {
+      "codigo": "AP-2611-0040",
+      "creado": "2026-11-13T19:47:00-05:00",
+      "cliente": { "nombre": "Camila Torres", "celular": "+51 9XX XXX 103" },
+      "entrega": { "zona": "Magdalena del Mar", "direccion": "Jr. Castilla 8XX, dpto. 201", "referencia": "", "delivery_soles": 5 },
+      "items": [
+        { "producto": "Quesadilla de pollo", "cantidad": 2, "marinado": "Achiote", "salsas": ["Huancaína"], "subtotal_soles": 24 },
+        { "producto": "Arroz con pollo", "cantidad": 2, "marinado": "Limón con ajo y orégano", "salsas": ["Ají amarillo cremoso", "Chimichurri (extra)"], "subtotal_soles": 24 }
+      ],
+      "subtotal_soles": 48, "salsas_extra_soles": 2, "recargo_soles": 0, "total_soles": 55,
+      "pago": { "medio": "yape", "captura": "captura-0040.jpg", "estado": "pendiente" },
+      "estado": "pendiente_confirmacion"
+    },
+    {
+      "codigo": "AP-2611-0041",
+      "creado": "2026-11-14T07:30:00-05:00",
+      "cliente": { "nombre": "Renzo Castañeda", "celular": "+51 9XX XXX 104" },
+      "entrega": { "zona": "San Isidro", "direccion": "Av. Javier Prado Este 1XXX, of. 503", "referencia": "Recepción del edificio, dejar con vigilancia", "delivery_soles": 6 },
+      "items": [
+        { "producto": "Burrito de pollo", "cantidad": 5, "marinado": "Teriyaki", "salsas": ["Teriyaki extra"], "subtotal_soles": 60 }
+      ],
+      "subtotal_soles": 60, "recargo_soles": 0, "total_soles": 66,
+      "pago": { "medio": "yape", "captura": "captura-0041.jpg", "estado": "rechazado", "motivo": "Monto distinto (yapeó S/ 60, faltó el delivery)" },
+      "estado": "rechazado"
+    },
+    {
+      "codigo": "AP-2611-0042",
+      "creado": "2026-11-14T12:05:00-05:00",
+      "cliente": { "nombre": "Lucía Fernández", "celular": "+51 9XX XXX 105" },
+      "entrega": { "zona": "Magdalena del Mar", "direccion": "Calle Leoncio Prado 3XX", "referencia": "Portón de madera", "delivery_soles": 5 },
+      "items": [
+        { "producto": "Arroz con pollo", "cantidad": 2, "marinado": "Ají panca", "salsas": ["Salsa criolla"], "subtotal_soles": 22 },
+        { "producto": "Fideos con pollo", "cantidad": 1, "marinado": "Ají panca", "salsas": ["Ají amarillo cremoso"], "subtotal_soles": 11 }
+      ],
+      "subtotal_soles": 33, "recargo_soles": 0, "total_soles": 38,
+      "pago": { "medio": "yape", "captura": "captura-0042.jpg", "estado": "pendiente" },
+      "estado": "pendiente_confirmacion"
+    },
+    {
+      "codigo": "AP-2611-0043",
+      "creado": "2026-11-14T13:40:00-05:00",
+      "cliente": { "nombre": "Martín Salazar", "celular": "+51 9XX XXX 106" },
+      "entrega": { "zona": "San Isidro", "direccion": "Av. Camino Real 1XXX, dpto. 1203", "referencia": "Torre B", "delivery_soles": 6 },
+      "items": [
+        { "producto": "Pack semanal x7", "cantidad": 1, "marinado": "Ají panca", "salsas": ["Chimichurri ×7"], "subtotal_soles": 80 },
+        { "producto": "Quesadilla de pollo", "cantidad": 2, "marinado": "Achiote", "salsas": ["Huancaína"], "subtotal_soles": 24 }
+      ],
+      "subtotal_soles": 104, "recargo_soles": 5.5, "total_soles": 115.5,
+      "pago": { "medio": "tarjeta", "proveedor": "link de pago", "estado": "aprobado" },
+      "estado": "pagado"
+    }
+  ],
+  "produccion_pagados": {
+    "nota": "Solo pedidos en estado pagado (0038, 0039, 0043).",
+    "porciones_por_producto_y_marinado": [
+      { "producto": "Burrito de pollo", "marinado": "Mix de la casa (pack)", "porciones": 7 },
+      { "producto": "Burrito de pollo", "marinado": "Ají panca", "porciones": 10 },
+      { "producto": "Fideos con pollo", "marinado": "Teriyaki", "porciones": 2 },
+      { "producto": "Quesadilla de pollo", "marinado": "Achiote", "porciones": 2 }
+    ],
+    "total_porciones": 21,
+    "salsas": [
+      { "salsa": "Ají amarillo cremoso", "unidades": 4 },
+      { "salsa": "Chimichurri", "unidades": 10 },
+      { "salsa": "Salsa criolla", "unidades": 3 },
+      { "salsa": "Teriyaki extra", "unidades": 2 },
+      { "salsa": "Huancaína", "unidades": 2 }
+    ],
+    "pollo_crudo_kg": 5.25,
+    "formula": "21 porciones × 150 g cocidos ÷ 0,6 = 5 250 g crudos"
+  }
+}

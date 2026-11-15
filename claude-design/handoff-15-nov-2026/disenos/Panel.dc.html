@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF;}
+a{color:#5B6B2F;}
+a:hover{color:#4A5826;}
+button,input,select,textarea{font:inherit;}
+:focus-visible{outline:2px solid #5B6B2F;outline-offset:2px;}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="position:relative;height:100%;min-height:100%;background:#FFFFFF;color:#2B2B2B;font-family:Inter,'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.5;overflow:hidden;">
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Panel · Ingresar" style="height:100%;background:#F5EFE0;display:flex;align-items:center;justify-content:center;padding:24px 16px;box-sizing:border-box;">
+    <form onSubmit="{{ ingresar }}" style="width:100%;max-width:380px;background:#FFFFFF;border:1px solid #E3DCCB;border-radius:24px;padding:32px 24px;display:flex;flex-direction:column;gap:18px;box-sizing:border-box;">
+      <svg width="48" height="48" viewBox="0 0 104 104" aria-hidden="true"><circle cx="52" cy="52" r="52" fill="#5B6B2F"></circle><path d="M54 20 C 36 28, 26 46, 30 72 C 52 70, 68 56, 72 30 C 66 25, 60 21, 54 20 Z" fill="#F5EFE0"></path><path d="M31 71 L 56 42" stroke="#5B6B2F" stroke-width="4" stroke-linecap="round" fill="none"></path><circle cx="80" cy="24" r="9" fill="#E8772E"></circle></svg>
+      <h1 style="margin:0;font:700 24px/1.2 'DM Sans',sans-serif;letter-spacing:-0.02em;">Panel de Alta Proteína</h1>
+      <label style="display:flex;flex-direction:column;gap:6px;">
+        <span style="font:600 14px/1.3 'DM Sans',sans-serif;">Contraseña</span>
+        <input type="password" value="••••••••••" readOnly="readOnly" style="height:48px;padding:0 14px;border-radius:12px;border:1.5px solid #E3DCCB;background:#FFFFFF;outline:none;" style-focus="border-color:#5B6B2F;box-shadow:0 0 0 2px #5B6B2F;">
+      </label>
+      <button type="submit" style="min-height:50px;border:0;border-radius:12px;background:#5B6B2F;color:#FFFFFF;font:600 16px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#4A5826;">Ingresar</button>
+    </form>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ true }}">
+<div style="height:100%;display:flex;flex-direction:{{ dir }};">
+  <sc-if value="{{ desk }}" hint-placeholder-val="{{ false }}">
+    <aside style="flex:none;width:232px;background:#F5EFE0;border-right:1px solid #E3DCCB;padding:20px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:0 8px;">
+        <svg width="32" height="32" viewBox="0 0 104 104" aria-hidden="true"><circle cx="52" cy="52" r="52" fill="#5B6B2F"></circle><path d="M54 20 C 36 28, 26 46, 30 72 C 52 70, 68 56, 72 30 C 66 25, 60 21, 54 20 Z" fill="#F5EFE0"></path><path d="M31 71 L 56 42" stroke="#5B6B2F" stroke-width="4" stroke-linecap="round" fill="none"></path><circle cx="80" cy="24" r="9" fill="#E8772E"></circle></svg>
+        <span style="display:flex;flex-direction:column;line-height:1.1;"><span style="font:700 17px 'DM Sans',sans-serif;color:#5B6B2F;letter-spacing:-0.3px;">Alta Proteína</span><span style="font-size:12px;color:#5F5F5F;">Panel interno</span></span>
+      </div>
+      <nav style="display:flex;flex-direction:column;gap:2px;">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+          <button type="button" onClick="{{ n.go }}" aria-current="{{ n.current }}" style="min-height:44px;padding:0 12px;border:0;border-radius:12px;background:{{ n.fondo }};color:{{ n.color }};display:flex;align-items:center;gap:12px;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;text-align:left;">
+            {{ n.icon }}<span style="flex:1;">{{ n.label }}</span>
+            <sc-if value="{{ n.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="min-width:22px;height:22px;padding:0 6px;box-sizing:border-box;border-radius:999px;background:#E8772E;color:#2B2B2B;font:700 12px/22px 'DM Sans',sans-serif;text-align:center;">{{ n.badge }}</span></sc-if>
+          </button>
+        </sc-for>
+      </nav>
+      <button type="button" onClick="{{ salir }}" style="margin-top:auto;min-height:44px;padding:0 12px;border:0;background:transparent;color:#5F5F5F;font:500 14px/1 Inter,sans-serif;text-align:left;cursor:pointer;">Salir</button>
+    </aside>
+  </sc-if>
+  <sc-if value="{{ movil }}" hint-placeholder-val="{{ true }}">
+    <header style="flex:none;height:56px;padding:0 16px;border-bottom:1px solid #E3DCCB;background:#F5EFE0;display:flex;align-items:center;gap:10px;">
+      <svg width="28" height="28" viewBox="0 0 104 104" aria-hidden="true"><circle cx="52" cy="52" r="52" fill="#5B6B2F"></circle><path d="M54 20 C 36 28, 26 46, 30 72 C 52 70, 68 56, 72 30 C 66 25, 60 21, 54 20 Z" fill="#F5EFE0"></path><path d="M31 71 L 56 42" stroke="#5B6B2F" stroke-width="4" stroke-linecap="round" fill="none"></path><circle cx="80" cy="24" r="9" fill="#E8772E"></circle></svg>
+      <span style="font:700 17px 'DM Sans',sans-serif;">{{ tituloVista }}</span>
+    </header>
+  </sc-if>
+
+  <div style="flex:1;min-width:0;min-height:0;overflow:auto;">
+    <div style="max-width:1080px;margin:0 auto;padding:{{ pad }};box-sizing:border-box;display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
+        <sc-if value="{{ desk }}" hint-placeholder-val="{{ false }}"><h1 style="margin:0;font:700 26px/1.2 'DM Sans',sans-serif;letter-spacing:-0.02em;">{{ tituloVista }}</h1></sc-if>
+        <div style="display:flex;align-items:center;gap:4px;background:#F5EFE0;border-radius:12px;padding:2px;">
+          <button type="button" aria-label="Semana anterior" onClick="{{ semPrev }}" style="width:40px;height:40px;border:0;border-radius:10px;background:transparent;color:#5B6B2F;cursor:pointer;font:600 18px/1 'DM Sans',sans-serif;">‹</button>
+          <span style="font:600 14px/1.2 'DM Sans',sans-serif;padding:0 6px;text-align:center;">{{ semanaLabel }}</span>
+          <button type="button" aria-label="Semana siguiente" onClick="{{ semNext }}" style="width:40px;height:40px;border:0;border-radius:10px;background:transparent;color:#5B6B2F;cursor:pointer;font:600 18px/1 'DM Sans',sans-serif;">›</button>
+        </div>
+      </div>
+      <sc-if value="{{ isPedidos }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Panel · Pedidos" style="display:flex;flex-direction:column;gap:16px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;">
+      <sc-for list="{{ fichas }}" as="f" hint-placeholder-count="4">
+        <div style="border:1px solid #E3DCCB;border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;">
+          <span style="font-size:13px;color:#5F5F5F;font-weight:500;">{{ f.label }}</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font:700 24px/1.1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ f.valor }}</span>
+            <sc-if value="{{ f.alerta }}" hint-placeholder-val="{{ false }}"><span style="width:10px;height:10px;border-radius:999px;background:#E8772E;"></span></sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+      <input type="search" placeholder="Buscar por nombre o código" value="{{ q }}" onChange="{{ setQ }}" style="flex:1 1 240px;height:44px;padding:0 14px;border-radius:12px;border:1.5px solid #E3DCCB;outline:none;" style-focus="border-color:#5B6B2F;box-shadow:0 0 0 2px #5B6B2F;">
+      <div style="display:flex;gap:6px;overflow-x:auto;max-width:100%;">
+        <sc-for list="{{ filtros }}" as="f" hint-placeholder-count="6">
+          <button type="button" onClick="{{ f.pick }}" style="flex:none;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid {{ f.borde }};background:{{ f.fondo }};color:{{ f.color }};font:600 13px/1 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;">{{ f.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+
+    <sc-if value="{{ listaVacia }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px solid #E3DCCB;border-radius:16px;padding:32px 20px;text-align:center;color:#5F5F5F;">{{ vacioTxt }}</div>
+    </sc-if>
+    <sc-if value="{{ tablaDesk }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px solid #E3DCCB;border-radius:16px;overflow:hidden;">
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="background:#F5EFE0;text-align:left;font:600 12px/1.3 'DM Sans',sans-serif;color:#5F5F5F;text-transform:uppercase;letter-spacing:0.04em;">
+            <th style="padding:10px 14px;">Código</th><th style="padding:10px 14px;">Cliente</th><th style="padding:10px 14px;">Zona</th><th style="padding:10px 14px;">Ítems</th><th style="padding:10px 14px;text-align:right;">Total</th><th style="padding:10px 14px;">Pago</th><th style="padding:10px 14px;">Estado</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ lista }}" as="p" hint-placeholder-count="6">
+              <tr style="border-top:1px solid #E3DCCB;" style-hover="background:#FBF8F1;">
+                <td style="padding:12px 14px;"><button type="button" onClick="{{ p.abrir }}" style="border:0;background:transparent;padding:0;font:600 14px 'DM Sans',sans-serif;color:#4A5826;text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:nowrap;">{{ p.codigo }}</button></td>
+                <td style="padding:12px 14px;"><div style="display:flex;flex-direction:column;"><span style="font-weight:500;">{{ p.nombre }}</span><a href="{{ p.wa }}" style="font-size:13px;">{{ p.celular }}</a></div></td>
+                <td style="padding:12px 14px;">{{ p.zona }}</td>
+                <td style="padding:12px 14px;color:#5F5F5F;max-width:220px;">{{ p.resumen }}</td>
+                <td style="padding:12px 14px;text-align:right;font:600 14px 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ p.totalTxt }}</td>
+                <td style="padding:12px 14px;">{{ p.medio }}</td>
+                <td style="padding:12px 14px;">
+                  <select value="{{ p.estado }}" onChange="{{ p.cambiar }}" aria-label="Estado de {{ p.codigo }}" style="height:34px;padding:0 10px;border-radius:999px;border:0;background:{{ p.chipFondo }};color:{{ p.chipColor }};font:600 13px Inter,sans-serif;cursor:pointer;">
+                    <sc-for list="{{ opcionesEstado }}" as="o" hint-placeholder-count="5"><option value="{{ o.v }}">{{ o.label }}</option></sc-for>
+                  </select>
+                </td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ movil }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <sc-for list="{{ lista }}" as="p" hint-placeholder-count="4">
+          <div style="border:1px solid #E3DCCB;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+              <button type="button" onClick="{{ p.abrir }}" style="border:0;background:transparent;padding:0;min-height:32px;font:600 15px 'DM Sans',sans-serif;color:#4A5826;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">{{ p.codigo }}</button>
+              <span style="font:700 16px 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ p.totalTxt }}</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:8px;font-size:14px;"><span style="font-weight:500;">{{ p.nombre }}</span><a href="{{ p.wa }}">{{ p.celular }}</a></div>
+            <span style="font-size:13px;color:#5F5F5F;">{{ p.zona }} · {{ p.resumen }} · {{ p.medio }}</span>
+            <select value="{{ p.estado }}" onChange="{{ p.cambiar }}" aria-label="Estado de {{ p.codigo }}" style="align-self:flex-start;height:40px;padding:0 12px;border-radius:999px;border:0;background:{{ p.chipFondo }};color:{{ p.chipColor }};font:600 13px Inter,sans-serif;">
+              <sc-for list="{{ opcionesEstado }}" as="o" hint-placeholder-count="5"><option value="{{ o.v }}">{{ o.label }}</option></sc-for>
+            </select>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+<sc-if value="{{ isYape }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Panel · Yape" style="display:flex;flex-direction:column;gap:14px;">
+    <sc-if value="{{ colaVacia }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px solid #E3DCCB;border-radius:16px;padding:40px 20px;text-align:center;color:#5F5F5F;">No hay capturas por revisar.</div>
+    </sc-if>
+    <sc-for list="{{ cola }}" as="p" hint-placeholder-count="2">
+      <div style="border:1px solid #E3DCCB;border-radius:16px;padding:16px;display:flex;flex-wrap:wrap;gap:20px;">
+        <button type="button" onClick="{{ p.zoom }}" aria-label="Ampliar captura" style="flex:0 0 180px;height:320px;border:0;border-radius:12px;background:#EDE5D2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#5B6B2F;cursor:zoom-in;position:relative;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-5-5L5 21"></path></svg>
+          <span style="font-size:12px;font-weight:500;">Captura de Yape</span>
+          <span style="position:absolute;bottom:10px;right:10px;background:#FFFFFF;border-radius:8px;padding:4px 8px;font:600 12px 'DM Sans',sans-serif;">Ampliar</span>
+        </button>
+        <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <span style="font:600 16px 'DM Sans',sans-serif;color:#4A5826;">{{ p.codigo }}</span>
+            <span style="font-weight:500;">{{ p.nombre }}</span>
+            <span style="font-size:13px;color:#5F5F5F;">Enviado el {{ p.creado }}</span>
+          </div>
+          <div style="background:#F5EFE0;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:4px;">
+            <span style="font-size:13px;color:#5F5F5F;">Monto esperado</span>
+            <span style="font:700 30px/1.1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ p.totalTxt }}</span>
+            <span style="font-size:13px;color:#5F5F5F;">La captura debe mostrar este monto, a nombre de Alta Proteína.</span>
+          </div>
+          <sc-if value="{{ p.noRechazando }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;gap:10px;margin-top:auto;">
+              <button type="button" onClick="{{ p.aprobar }}" style="flex:1;min-height:48px;border:0;border-radius:12px;background:#3E7C4A;color:#FFFFFF;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#336840;">Aprobar</button>
+              <button type="button" onClick="{{ p.rechazar }}" style="flex:1;min-height:48px;border-radius:12px;border:1.5px solid #B3261E;background:#FFFFFF;color:#B3261E;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#F9E3E1;">Rechazar</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ p.rechazando }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:10px;border-top:1px solid #E3DCCB;padding-top:12px;">
+              <span style="font:600 14px 'DM Sans',sans-serif;">Motivo del rechazo</span>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <sc-for list="{{ motivos }}" as="m" hint-placeholder-count="4">
+                  <button type="button" onClick="{{ m.pick }}" style="min-height:40px;padding:0 12px;border-radius:999px;border:1.5px solid {{ m.borde }};background:{{ m.fondo }};color:{{ m.color }};font:500 13px Inter,sans-serif;cursor:pointer;">{{ m.m }}</button>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:10px;">
+                <button type="button" onClick="{{ p.confirmarRechazo }}" style="flex:1;min-height:46px;border:0;border-radius:12px;background:#B3261E;color:#FFFFFF;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;">Rechazar pago</button>
+                <button type="button" onClick="{{ p.cancelar }}" style="min-height:46px;padding:0 16px;border:0;background:transparent;color:#5F5F5F;text-decoration:underline;cursor:pointer;">Cancelar</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isProduccion }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Panel · Producción" style="display:flex;flex-direction:column;gap:16px;">
+    <div style="background:#5B6B2F;color:#FFFFFF;border-radius:16px;padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
+      <div style="display:flex;flex-direction:column;gap:2px;">
+        <span style="font-size:13px;opacity:0.9;">Pollo crudo a comprar</span>
+        <span style="font:700 34px/1.1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ polloKg }} kg</span>
+        <span style="font-size:13px;">{{ totalPorc }} porciones × 250 g · solo pedidos pagados</span>
+      </div>
+      <button type="button" onClick="{{ abrirCocina }}" style="min-height:46px;padding:0 18px;border:0;border-radius:12px;background:#F5EFE0;color:#2B2B2B;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;">Imprimir hoja para cocina</button>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;">
+      <section style="flex:3 1 340px;border:1px solid #E3DCCB;border-radius:16px;overflow:hidden;">
+        <h2 style="margin:0;padding:14px 16px;font:600 16px 'DM Sans',sans-serif;background:#F5EFE0;">Porciones por producto y marinado</h2>
+        <sc-for list="{{ productos }}" as="g" hint-placeholder-count="3">
+          <div style="border-top:1px solid #E3DCCB;">
+            <sc-for list="{{ g.filas }}" as="f" hint-placeholder-count="1">
+              <div style="display:flex;justify-content:space-between;gap:12px;padding:10px 16px;font-size:14px;"><span><span style="font-weight:500;">{{ g.prod }}</span> <span style="color:#5F5F5F;">· {{ f.mar }}</span></span><span style="font:600 15px 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ f.n }}</span></div>
+            </sc-for>
+            <div style="display:flex;justify-content:space-between;padding:8px 16px 12px;font:600 13px 'DM Sans',sans-serif;color:#4A5826;"><span>Total {{ g.prod }}</span><span>{{ g.total }}</span></div>
+          </div>
+        </sc-for>
+        <div style="border-top:2px solid #2B2B2B;display:flex;justify-content:space-between;padding:12px 16px;font:700 16px 'DM Sans',sans-serif;"><span>Total porciones</span><span>{{ totalPorc }}</span></div>
+      </section>
+      <section style="flex:2 1 260px;border:1px solid #E3DCCB;border-radius:16px;overflow:hidden;">
+        <h2 style="margin:0;padding:14px 16px;font:600 16px 'DM Sans',sans-serif;background:#F5EFE0;">Salsas</h2>
+        <sc-for list="{{ salsasProd }}" as="x" hint-placeholder-count="5">
+          <div style="border-top:1px solid #E3DCCB;display:flex;justify-content:space-between;padding:10px 16px;font-size:14px;"><span>{{ x.nombre }}</span><span style="font:600 15px 'DM Sans',sans-serif;">{{ x.n }}</span></div>
+        </sc-for>
+      </section>
+    </div>
+    <p style="margin:0;font-size:13px;color:#5F5F5F;">{{ polloTexto }}. Cálculo: porciones × 150 g cocidos ÷ 0,6 de rendimiento.</p>
+  </div>
+</sc-if>
+<sc-if value="{{ isEntregas }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Panel · Entregas" style="display:flex;flex-direction:column;gap:16px;">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;">
+      <span style="font-size:14px;color:#5F5F5F;">Domingo 22 de noviembre · 9 a. m. a 3 p. m. · Agrupar por zona</span>
+      <button type="button" onClick="{{ copiar }}" style="min-height:44px;padding:0 16px;border-radius:12px;border:1.5px solid #5B6B2F;background:#FFFFFF;color:#5B6B2F;font:600 14px/1 'DM Sans',sans-serif;cursor:pointer;">{{ copiarTxt }}</button>
+    </div>
+    <sc-for list="{{ zonas }}" as="z" hint-placeholder-count="2">
+      <section style="display:flex;flex-direction:column;gap:8px;">
+        <h2 style="margin:0;font:700 18px 'DM Sans',sans-serif;">{{ z.zona }} <span style="font:500 14px Inter,sans-serif;color:#5F5F5F;">· {{ z.n }} entregas</span></h2>
+        <sc-for list="{{ z.pedidos }}" as="p" hint-placeholder-count="2">
+          <div style="border:1px solid #E3DCCB;border-radius:16px;padding:14px;display:flex;gap:14px;align-items:flex-start;opacity:{{ p.opac }};">
+            <button type="button" role="checkbox" aria-checked="{{ p.done }}" aria-label="Entregado" onClick="{{ p.toggle }}" style="flex:none;width:44px;height:44px;margin:-6px 0 0 -6px;border:0;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+              <span style="width:24px;height:24px;border-radius:7px;border:2px solid {{ p.checkBorde }};background:{{ p.check }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{ p.tick }}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+            </button>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
+              <div style="display:flex;justify-content:space-between;gap:8px;"><span style="font:600 15px 'DM Sans',sans-serif;">{{ p.nombre }}</span><span style="font:600 15px 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ p.totalTxt }}</span></div>
+              <span style="font-size:14px;">{{ p.direccion }}</span>
+              <span style="font-size:13px;color:#5F5F5F;">{{ p.refTxt }}</span>
+              <span style="font-size:13px;color:#5F5F5F;">{{ p.resumen }} · {{ p.codigo }}</span>
+              <a href="{{ p.wa }}" style="align-self:flex-start;min-height:36px;display:flex;align-items:center;font-size:14px;font-weight:500;">WhatsApp {{ p.celular }}</a>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+    </sc-for>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isConfig }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Panel · Configuración" style="border:1px solid #E3DCCB;border-radius:16px;max-width:760px;">
+    <sc-for list="{{ config }}" as="c" hint-placeholder-count="6">
+      <div style="border-top:{{ c.borde }};">
+        <button type="button" onClick="{{ c.toggle }}" aria-expanded="{{ c.open }}" style="width:100%;min-height:56px;padding:0 16px;border:0;background:transparent;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;color:#2B2B2B;font:600 16px 'DM Sans',sans-serif;text-align:left;">
+          <span>{{ c.titulo }}</span>
+          <span aria-hidden="true" style="width:28px;height:28px;border-radius:999px;background:#EEF0E3;color:#5B6B2F;display:flex;align-items:center;justify-content:center;font-size:18px;">{{ c.icon }}</span>
+        </button>
+        <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ c.filas }}" as="f" hint-placeholder-count="4">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #F0EBDF;">
+                <span style="flex:1 1 160px;font-size:14px;font-weight:500;">{{ f.nombre }}</span>
+                <sc-if value="{{ f.hasValor }}" hint-placeholder-val="{{ true }}">
+                  <input type="text" value="{{ f.valor }}" readOnly="readOnly" style="width:180px;height:40px;padding:0 12px;border-radius:10px;border:1.5px solid #E3DCCB;font-size:14px;outline:none;" style-focus="border-color:#5B6B2F;">
+                </sc-if>
+                <sc-if value="{{ f.hasToggle }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#5F5F5F;">
+                    <span role="switch" aria-checked="{{ f.hasToggle }}" style="position:relative;width:44px;height:24px;border-radius:999px;background:{{ f.pista }};"><span style="position:absolute;top:2px;left:{{ f.knob }};width:20px;height:20px;border-radius:999px;background:#FFFFFF;"></span></span>
+                    {{ f.toggleLabel }}
+                  </span>
+                </sc-if>
+              </div>
+            </sc-for>
+            <button type="button" style="align-self:flex-start;margin-top:6px;min-height:44px;padding:0 18px;border:0;border-radius:12px;background:#5B6B2F;color:#FFFFFF;font:600 14px/1 'DM Sans',sans-serif;cursor:pointer;">Guardar cambios</button>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{ movil }}" hint-placeholder-val="{{ true }}">
+    <nav style="flex:none;display:flex;border-top:1px solid #E3DCCB;background:#FFFFFF;padding:4px 4px 8px;">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+        <button type="button" onClick="{{ n.go }}" aria-current="{{ n.current }}" style="flex:1;min-width:0;min-height:52px;border:0;background:transparent;color:{{ n.colorMovil }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;position:relative;">
+          {{ n.icon }}<span style="font:600 12px/1 'DM Sans',sans-serif;">{{ n.corto }}</span>
+          <sc-if value="{{ n.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:4px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:999px;background:#E8772E;color:#2B2B2B;font:700 11px/18px 'DM Sans',sans-serif;">{{ n.badge }}</span></sc-if>
+        </button>
+      </sc-for>
+    </nav>
+  </sc-if>
+</div>
+<sc-if value="{{ detOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;background:rgba(43,43,43,0.4);display:flex;justify-content:{{ detAlign }};z-index:10;">
+    <div role="dialog" aria-label="Detalle {{ det.codigo }}" style="width:{{ detW }};height:100%;background:#FFFFFF;box-shadow:-8px 0 24px rgba(43,43,43,0.12);display:flex;flex-direction:column;">
+      <div style="padding:14px 16px 14px 20px;border-bottom:1px solid #E3DCCB;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-start;">
+          <span style="font:700 20px 'DM Sans',sans-serif;">{{ det.codigo }}</span>
+          <span style="background:{{ det.chipFondo }};color:{{ det.chipColor }};border-radius:999px;padding:3px 10px;font:600 12px Inter,sans-serif;">{{ det.estadoLabel }}</span>
+        </div>
+        <button type="button" onClick="{{ cerrarDet }}" aria-label="Cerrar" style="width:44px;height:44px;border:0;border-radius:12px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;" style-hover="background:#F5EFE0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B2B2B" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+      </div>
+      <div style="flex:1;overflow:auto;padding:18px 20px;display:flex;flex-direction:column;gap:18px;font-size:14px;">
+        <sc-if value="{{ det.tieneMotivo }}" hint-placeholder-val="{{ false }}"><div style="background:#F9E3E1;color:#B3261E;border-radius:12px;padding:10px 12px;font-weight:500;">Motivo: {{ det.motivo }}</div></sc-if>
+        <section style="display:flex;flex-direction:column;gap:3px;">
+          <h3 style="margin:0 0 4px;font:600 13px 'DM Sans',sans-serif;color:#5F5F5F;text-transform:uppercase;letter-spacing:0.04em;">Cliente</h3>
+          <span style="font-weight:600;font-size:15px;">{{ det.nombre }}</span>
+          <a href="{{ det.wa }}">WhatsApp {{ det.celular }}</a>
+          <span>{{ det.zona }} · {{ det.direccion }}</span>
+          <span style="color:#5F5F5F;">{{ det.referencia }}</span>
+          <span style="color:#5F5F5F;">Pedido el {{ det.creado }}</span>
+        </section>
+        <section style="display:flex;flex-direction:column;gap:8px;">
+          <h3 style="margin:0;font:600 13px 'DM Sans',sans-serif;color:#5F5F5F;text-transform:uppercase;letter-spacing:0.04em;">Ítems</h3>
+          <sc-for list="{{ det.itemsDet }}" as="i" hint-placeholder-count="2">
+            <div style="display:flex;flex-direction:column;"><span style="font-weight:500;">{{ i.titulo }}</span><span style="color:#5F5F5F;">{{ i.sub }}</span></div>
+          </sc-for>
+          <div style="border-top:1px solid #E3DCCB;padding-top:8px;display:flex;justify-content:space-between;font:700 16px 'DM Sans',sans-serif;"><span>Total · {{ det.medio }}</span><span>{{ det.totalTxt }}</span></div>
+        </section>
+        <sc-if value="{{ det.esYape }}" hint-placeholder-val="{{ false }}">
+          <section style="display:flex;flex-direction:column;gap:8px;">
+            <h3 style="margin:0;font:600 13px 'DM Sans',sans-serif;color:#5F5F5F;text-transform:uppercase;letter-spacing:0.04em;">Captura Yape</h3>
+            <div role="img" aria-label="Captura de Yape" style="width:140px;height:240px;border-radius:12px;background:#EDE5D2;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5B6B2F;">Captura</div>
+          </section>
+        </sc-if>
+        <label style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font:600 13px 'DM Sans',sans-serif;color:#5F5F5F;text-transform:uppercase;letter-spacing:0.04em;">Notas internas</span>
+          <textarea rows="3" style="padding:10px 12px;border-radius:12px;border:1.5px solid #E3DCCB;outline:none;resize:vertical;" style-focus="border-color:#5B6B2F;"></textarea>
+        </label>
+      </div>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ cocinaOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;background:rgba(43,43,43,0.5);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px;box-sizing:border-box;z-index:30;">
+    <div data-screen-label="Hoja para cocina" style="width:100%;max-width:640px;display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;justify-content:flex-end;gap:8px;">
+        <button type="button" onClick="{{ imprimir }}" style="min-height:44px;padding:0 18px;border:0;border-radius:12px;background:#5B6B2F;color:#FFFFFF;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;">Imprimir / Guardar PDF</button>
+        <button type="button" onClick="{{ cerrarCocina }}" style="min-height:44px;padding:0 16px;border:0;border-radius:12px;background:#FFFFFF;color:#2B2B2B;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;">Cerrar</button>
+      </div>
+      <article style="background:#FFFFFF;border-radius:8px;padding:36px 32px;display:flex;flex-direction:column;gap:22px;color:#2B2B2B;">
+        <header style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:2px solid #2B2B2B;padding-bottom:14px;">
+          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font:700 22px/1.2 'DM Sans',sans-serif;">Hoja de producción</span><span style="font-size:14px;">{{ semanaLabel }} · Cocina el sábado</span></div>
+          <span style="font:700 16px 'DM Sans',sans-serif;color:#5B6B2F;">Alta Proteína</span>
+        </header>
+        <section style="display:flex;flex-direction:column;gap:6px;">
+          <h3 style="margin:0 0 4px;font:700 14px 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.05em;">Porciones por producto y marinado</h3>
+          <sc-for list="{{ productos }}" as="g" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;border-bottom:1px solid #D6CFBD;padding-bottom:6px;">
+              <sc-for list="{{ g.filas }}" as="r" hint-placeholder-count="1">
+                <div style="display:flex;justify-content:space-between;font-size:15px;padding:3px 0;"><span>{{ g.prod }} · {{ r.mar }}</span><span style="font:700 16px 'DM Sans',sans-serif;">{{ r.n }}</span></div>
+              </sc-for>
+            </div>
+          </sc-for>
+          <div style="display:flex;justify-content:space-between;font:700 17px 'DM Sans',sans-serif;padding-top:4px;"><span>Total porciones</span><span>{{ totalPorc }}</span></div>
+        </section>
+        <section style="display:flex;flex-direction:column;gap:4px;">
+          <h3 style="margin:0 0 4px;font:700 14px 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.05em;">Salsas (envases)</h3>
+          <sc-for list="{{ salsasProd }}" as="x" hint-placeholder-count="5">
+            <div style="display:flex;justify-content:space-between;font-size:15px;padding:3px 0;border-bottom:1px solid #EDE5D2;"><span>{{ x.nombre }}</span><span style="font:700 16px 'DM Sans',sans-serif;">{{ x.n }}</span></div>
+          </sc-for>
+        </section>
+        <section style="border:2px solid #2B2B2B;border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;">
+          <span style="font:700 14px 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.05em;">Pollo crudo</span>
+          <span style="font:700 26px/1.2 'DM Sans',sans-serif;">{{ polloKg }} kg</span>
+          <span style="font-size:14px;">{{ totalPorc }} porciones × 250 g crudos (150 g cocidos ÷ 0,6)</span>
+        </section>
+      </article>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ zoomOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ cerrarZoom }}" style="position:absolute;inset:0;background:rgba(20,20,20,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:20;cursor:zoom-out;">
+    <div role="img" aria-label="Captura ampliada" style="height:78%;aspect-ratio:9/16;border-radius:16px;background:#EDE5D2;display:flex;align-items:center;justify-content:center;color:#5B6B2F;font-weight:500;">Captura {{ zoomCodigo }}</div>
+    <span style="color:#FFFFFF;font-size:14px;">Toca para cerrar</span>
+  </div>
+</sc-if>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vista&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;ingresar&quot;,&quot;pedidos&quot;,&quot;yape&quot;,&quot;produccion&quot;,&quot;entregas&quot;,&quot;configuracion&quot;],&quot;default&quot;:&quot;pedidos&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;detalle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;hojaCocina&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estado&quot;}}">
+const h = React.createElement;
+const ico = d => h('svg', { width: 22, height: 22, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.75, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true, style: { flex: 'none' } }, ...d.map((x, i) => typeof x === 'string' ? h('path', { key: i, d: x }) : h(x[0], { key: i, ...x[1] })));
+const ICONS = {
+  pedidos: ['M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'],
+  yape: [['rect', { x: 5, y: 2, width: 14, height: 20, rx: 2 }], 'm9 12 2 2 4-4'],
+  produccion: ['M2 12h20M4 12v6a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-6M8 8V5M12 8V3M16 8V5'],
+  entregas: ['M3 6h11v10H3zM14 9h4l3 3v4h-7', ['circle', { cx: 7, cy: 18, r: 2 }], ['circle', { cx: 17, cy: 18, r: 2 }]],
+  configuracion: ['M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12', ['circle', { cx: 16, cy: 6, r: 2 }], ['circle', { cx: 10, cy: 12, r: 2 }], ['circle', { cx: 18, cy: 18, r: 2 }]]
+};
+const NAV = [['pedidos', 'Pedidos', 'Pedidos'], ['yape', 'Yape', 'Yape'], ['produccion', 'Producción', 'Producción'], ['entregas', 'Entregas', 'Entregas'], ['configuracion', 'Configuración', 'Ajustes']];
+const PEDIDOS = [
+  { codigo: 'AP-2611-0038', creado: '12 nov · 9:14 p. m.', nombre: 'Valeria Quispe', celular: '+51 9XX XXX 101', zona: 'Magdalena del Mar', direccion: 'Av. Brasil 2XXX, dpto. 402', referencia: 'Edificio gris, frente a la farmacia', delivery: 5,
+    items: [{ producto: 'Pack semanal x7', cantidad: 1, marinado: 'Mix de la casa', salsas: ['Ají amarillo cremoso ×4', 'Chimichurri ×3'] }], total: 80, medio: 'Yape', estado: 'pagado' },
+  { codigo: 'AP-2611-0039', creado: '13 nov · 8:02 a. m.', nombre: 'Diego Ramírez', celular: '+51 9XX XXX 102', zona: 'San Isidro', direccion: 'Calle Los Libertadores 4XX', referencia: 'Casa con reja blanca', delivery: 6,
+    items: [{ producto: 'Burrito de pollo', cantidad: 3, marinado: 'Ají panca', salsas: ['Salsa criolla'] }, { producto: 'Fideos con pollo', cantidad: 2, marinado: 'Teriyaki', salsas: ['Teriyaki extra'] }], total: 63.8, medio: 'Tarjeta', estado: 'pagado' },
+  { codigo: 'AP-2611-0040', creado: '13 nov · 7:47 p. m.', nombre: 'Camila Torres', celular: '+51 9XX XXX 103', zona: 'Magdalena del Mar', direccion: 'Jr. Castilla 8XX, dpto. 201', referencia: '', delivery: 5,
+    items: [{ producto: 'Quesadilla de pollo', cantidad: 2, marinado: 'Achiote', salsas: ['Huancaína'] }, { producto: 'Arroz con pollo', cantidad: 2, marinado: 'Limón con ajo y orégano', salsas: ['Ají amarillo cremoso', 'Chimichurri (extra)'] }], total: 50, medio: 'Yape', estado: 'pendiente' },
+  { codigo: 'AP-2611-0041', creado: '14 nov · 7:30 a. m.', nombre: 'Renzo Castañeda', celular: '+51 9XX XXX 104', zona: 'San Isidro', direccion: 'Av. Javier Prado Este 1XXX, of. 503', referencia: 'Recepción del edificio, dejar con vigilancia', delivery: 6,
+    items: [{ producto: 'Burrito de pollo', cantidad: 5, marinado: 'Teriyaki', salsas: ['Teriyaki extra'] }], total: 60, medio: 'Yape', estado: 'rechazado', motivo: 'Monto distinto (yapeó S/ 50, faltaban S/ 10)' },
+  { codigo: 'AP-2611-0042', creado: '14 nov · 12:05 p. m.', nombre: 'Lucía Fernández', celular: '+51 9XX XXX 105', zona: 'Magdalena del Mar', direccion: 'Calle Leoncio Prado 3XX', referencia: 'Portón de madera', delivery: 5,
+    items: [{ producto: 'Arroz con pollo', cantidad: 3, marinado: 'Ají panca', salsas: ['Salsa criolla'] }, { producto: 'Fideos con pollo', cantidad: 2, marinado: 'Ají panca', salsas: ['Ají amarillo cremoso'] }], total: 55, medio: 'Yape', estado: 'pendiente' },
+  { codigo: 'AP-2611-0043', creado: '14 nov · 1:40 p. m.', nombre: 'Martín Salazar', celular: '+51 9XX XXX 106', zona: 'San Isidro', direccion: 'Av. Camino Real 1XXX, dpto. 1203', referencia: 'Torre B', delivery: 6,
+    items: [{ producto: 'Pack semanal x7', cantidad: 1, marinado: 'Ají panca', salsas: ['Chimichurri ×7'] }, { producto: 'Quesadilla de pollo', cantidad: 2, marinado: 'Achiote', salsas: ['Huancaína'] }], total: 109.2, medio: 'Tarjeta', estado: 'pagado' }
+];
+const ESTADOS = {
+  pendiente: ['Pendiente de pago', '#FBF3DC', '#6E5108'], pagado: ['Pagado', '#E6F0E8', '#3E7C4A'], preparado: ['Preparado', '#EEF0E3', '#5B6B2F'],
+  entregado: ['Entregado', '#ECECEC', '#5F5F5F'], rechazado: ['Rechazado', '#F9E3E1', '#B3261E']
+};
+const MOTIVOS = ['Monto distinto', 'Captura ilegible', 'No encontramos el pago', 'Otro'];
+const f2 = n => 'S/ ' + n.toFixed(2).replace('.', ',');
+const kg = n => n.toFixed(2).replace('.', ',').replace(/,?0+$/, '');
+const CONFIG = [
+  ['Productos', [['Burrito de pollo', 'S/ 12', true], ['Quesadilla de pollo', 'S/ 12', true], ['Arroz con pollo', 'S/ 11', true], ['Fideos con pollo', 'S/ 11', true], ['Pack semanal x7', 'S/ 80', true]]],
+  ['Marinados y salsas', [['Ají panca', '', true], ['Achiote', '', true], ['Limón con ajo y orégano', '', true], ['Teriyaki', '', true], ['Salsa extra (precio)', 'S/ 2', null]]],
+  ['Zonas y delivery', [['San Miguel', 'Gratis', true], ['Magdalena del Mar', 'Gratis', true], ['San Isidro', 'Gratis', true], ['Miraflores', 'Gratis', true], ['San Borja', 'Gratis', true]]],
+  ['Corte y día de entrega', [['Corte', 'Jueves · 7:00 p. m.', null], ['Producción', 'Sábado', null], ['Entrega', 'Domingo · 9 a. m. a 3 p. m.', null], ['Pedido mínimo', 'S/ 50', null]]],
+  ['Pagos (Yape y tarjeta)', [['Número de Yape', '+51 933 980 759', null], ['Titular', 'Alta Proteína', null], ['Recargo tarjeta bajo S/ 100', '10 %', null], ['Recargo tarjeta desde S/ 100', '5 %', null], ['Proveedor de link de pago', 'Por definir', null]]],
+  ['Rendimiento de cocción', [['Pollo cocido por porción', '150 g', null], ['Rendimiento', '60 %', null]]]
+];
+
+class Component extends DCLogic {
+  rootRef = React.createRef();
+  state = {
+    vista: this.props.vista ?? 'pedidos',
+    estados: Object.fromEntries(PEDIDOS.map(p => [p.codigo, p.estado])),
+    motivos: { 'AP-2611-0041': PEDIDOS[3].motivo },
+    filtro: 'todos', q: '',
+    detalle: this.props.detalle ? 'AP-2611-0040' : null,
+    rechazando: null, motivo: 0, zoom: null,
+    entregados: {}, cfgOpen: 3, copiado: false, semana: 1, cocina: !!this.props.hojaCocina,
+    ancho: 1280
+  };
+  componentDidMount() {
+    const el = this.rootRef.current;
+    if (!el) return;
+    this.ro = new ResizeObserver(() => this.setState({ ancho: el.clientWidth }));
+    this.ro.observe(el);
+  }
+  componentWillUnmount() { this.ro && this.ro.disconnect(); }
+  componentDidUpdate(p) {
+    if (p.vista !== this.props.vista && this.props.vista) this.setState({ vista: this.props.vista });
+  }
+  setEstado(c, e, motivo) {
+    this.setState(s => ({ estados: { ...s.estados, [c]: e }, motivos: motivo ? { ...s.motivos, [c]: motivo } : s.motivos, rechazando: null }));
+  }
+  pedido(p) {
+    const s = this.state, e = s.estados[p.codigo], [label, fondo, color] = ESTADOS[e];
+    return { ...p, estado: e, estadoLabel: label, chipFondo: fondo, chipColor: color, totalTxt: f2(p.total),
+      resumen: p.items.map(i => `${i.cantidad} × ${i.producto.replace(' de pollo', '').replace(' con pollo', '')}`).join(', '),
+      itemsDet: p.items.map(i => ({ titulo: `${i.cantidad} × ${i.producto}`, sub: `${i.marinado} · ${i.salsas.join(', ')}` })),
+      wa: 'https://wa.me/51', abrir: () => this.setState({ detalle: p.codigo }),
+      cambiar: ev => this.setEstado(p.codigo, ev.target.value),
+      motivo: s.motivos[p.codigo] || '', tieneMotivo: !!s.motivos[p.codigo] && e === 'rechazado',
+      esYape: p.medio === 'Yape' };
+  }
+  renderVals() {
+    const s = this.state;
+    const desk = s.ancho >= 760;
+    const all = (s.semana === 1 ? PEDIDOS : []).map(p => this.pedido(p));
+    const pend = all.filter(p => p.estado === 'pendiente');
+    const pagados = all.filter(p => ['pagado', 'preparado', 'entregado'].includes(p.estado));
+    const venta = pagados.reduce((a, p) => a + p.total, 0);
+    // producción
+    const porc = {}, sal = {};
+    let totalPorc = 0;
+    all.filter(p => p.estado === 'pagado' || p.estado === 'preparado').forEach(p => p.items.forEach(i => {
+      const pack = i.producto.startsWith('Pack');
+      const prod = pack ? 'Burrito de pollo' : i.producto;
+      const n = pack ? 7 * i.cantidad : i.cantidad;
+      const mar = i.marinado === 'Mix de la casa' ? 'Mix de la casa (pack)' : i.marinado;
+      porc[prod] = porc[prod] || {}; porc[prod][mar] = (porc[prod][mar] || 0) + n; totalPorc += n;
+      i.salsas.forEach(x => { const m = x.match(/^(.*?)\s*×(\d+)$/); const name = (m ? m[1] : x).replace(' (extra)', ''); sal[name] = (sal[name] || 0) + (m ? +m[2] : n); });
+    }));
+    const lista = all.filter(p => (s.filtro === 'todos' || p.estado === s.filtro) && (!s.q || (p.nombre + p.codigo).toLowerCase().includes(s.q.toLowerCase())));
+    const tituloVista = NAV.find(n => n[0] === s.vista)?.[1] || '';
+    const det = s.detalle ? all.find(p => p.codigo === s.detalle) : null;
+    const rutas = {};
+    all.filter(p => ['pagado', 'preparado', 'entregado'].includes(p.estado)).forEach(p => { (rutas[p.zona] = rutas[p.zona] || []).push(p); });
+    return {
+      semanaLabel: ['Semana del domingo 15 de noviembre', 'Semana del domingo 22 de noviembre', 'Semana del domingo 29 de noviembre'][s.semana],
+      semPrev: () => this.setState({ semana: Math.max(0, s.semana - 1) }),
+      semNext: () => this.setState({ semana: Math.min(2, s.semana + 1) }),
+      cocinaOpen: s.cocina, abrirCocina: () => this.setState({ cocina: true }), cerrarCocina: () => this.setState({ cocina: false }),
+      imprimir: () => window.print(),
+      rootRef: this.rootRef, desk, movil: !desk, dir: desk ? 'row' : 'column', pad: desk ? '28px 32px 48px' : '16px 16px 32px',
+      isLogin: s.vista === 'ingresar', isApp: s.vista !== 'ingresar',
+      ingresar: e => { e.preventDefault(); this.setState({ vista: 'pedidos' }); },
+      salir: () => this.setState({ vista: 'ingresar' }),
+      tituloVista,
+      nav: NAV.map(([id, label, corto]) => {
+        const cur = s.vista === id, badge = id === 'yape' ? pend.length : 0;
+        return { label, corto, icon: ico(ICONS[id]), current: cur, fondo: cur ? '#FFFFFF' : 'transparent', color: cur ? '#4A5826' : '#2B2B2B', colorMovil: cur ? '#4A5826' : '#5F5F5F',
+          badge, hasBadge: badge > 0, go: () => this.setState({ vista: id, detalle: null }) };
+      }),
+      isPedidos: s.vista === 'pedidos', isYape: s.vista === 'yape', isProduccion: s.vista === 'produccion', isEntregas: s.vista === 'entregas', isConfig: s.vista === 'configuracion',
+      fichas: [['Pedidos', all.length, false], ['Por confirmar', pend.length, true], ['Pagados', pagados.length, false], ['Venta de la semana', f2(venta), false]]
+        .map(([label, valor, alerta]) => ({ label, valor, alerta: alerta && valor > 0, normal: !(alerta && valor > 0) })),
+      filtros: [['todos', 'Todos'], ...Object.entries(ESTADOS).map(([k, v]) => [k, v[0]])].map(([id, label]) => {
+        const on = s.filtro === id;
+        return { label, fondo: on ? '#5B6B2F' : '#FFFFFF', color: on ? '#FFFFFF' : '#2B2B2B', borde: on ? '#5B6B2F' : '#E3DCCB', pick: () => this.setState({ filtro: id }) };
+      }),
+      q: s.q, setQ: e => this.setState({ q: e.target.value }),
+      listaVacia: lista.length === 0, tablaDesk: desk && lista.length > 0, vacioTxt: s.semana === 2 ? 'Todavía no hay pedidos para esta semana.' : 'Sin pedidos que coincidan.',
+      lista,
+      opcionesEstado: Object.entries(ESTADOS).map(([v, e]) => ({ v, label: e[0] })),
+      // detalle
+      detOpen: !!det, det: det || {}, cerrarDet: () => this.setState({ detalle: null }),
+      detAlign: desk ? 'flex-end' : 'stretch', detW: desk ? '440px' : '100%',
+      // yape
+      cola: pend.map(p => ({ ...p, rechazando: s.rechazando === p.codigo, noRechazando: s.rechazando !== p.codigo,
+        aprobar: () => this.setEstado(p.codigo, 'pagado'),
+        rechazar: () => this.setState({ rechazando: p.codigo, motivo: 0 }),
+        cancelar: () => this.setState({ rechazando: null }),
+        confirmarRechazo: () => this.setEstado(p.codigo, 'rechazado', MOTIVOS[s.motivo]),
+        zoom: () => this.setState({ zoom: p.codigo }) })),
+      colaVacia: pend.length === 0, colaHay: pend.length > 0,
+      motivos: MOTIVOS.map((m, i) => ({ m, fondo: s.motivo === i ? '#B3261E' : '#FFFFFF', color: s.motivo === i ? '#FFFFFF' : '#2B2B2B', borde: s.motivo === i ? '#B3261E' : '#E3DCCB', pick: () => this.setState({ motivo: i }) })),
+      zoomOpen: !!s.zoom, zoomCodigo: s.zoom, cerrarZoom: () => this.setState({ zoom: null }),
+      // producción
+      productos: Object.entries(porc).map(([prod, m]) => ({ prod, total: Object.values(m).reduce((a, b) => a + b, 0), filas: Object.entries(m).map(([mar, n]) => ({ mar, n })) })),
+      salsasProd: Object.entries(sal).sort((a, b) => b[1] - a[1]).map(([nombre, n]) => ({ nombre, n })),
+      totalPorc,
+      polloTexto: `Pollo crudo a comprar: ${kg(totalPorc * 0.25)} kg (${totalPorc} porciones × 250 g)`,
+      polloKg: kg(totalPorc * 0.25),
+      // entregas
+      zonas: Object.entries(rutas).map(([zona, ps]) => ({ zona, n: ps.length, pedidos: ps.map(p => {
+        const done = !!s.entregados[p.codigo] || p.estado === 'entregado';
+        return { ...p, done, check: done ? '#5B6B2F' : '#FFFFFF', checkBorde: done ? '#5B6B2F' : '#B9B2A0', tick: done ? '#FFFFFF' : 'transparent', opac: done ? 0.55 : 1,
+          refTxt: p.referencia || 'Sin referencia',
+          toggle: () => this.setState(st => ({ entregados: { ...st.entregados, [p.codigo]: !done } })) };
+      }) })),
+      copiar: () => { try { navigator.clipboard && navigator.clipboard.writeText('933980759'); } catch (e) {} this.setState({ copiado: true }); setTimeout(() => this.setState({ copiado: false }), 1600); },
+      copiarTxt: s.copiado ? 'Lista copiada' : 'Copiar lista para el motorizado',
+      // config
+      config: CONFIG.map(([titulo, filas], i) => {
+        const open = s.cfgOpen === i;
+        return { titulo, open, icon: open ? '−' : '+', borde: i ? '1px solid #E3DCCB' : '0', toggle: () => this.setState({ cfgOpen: open ? -1 : i }),
+          filas: filas.map(([nombre, valor, activo]) => ({ nombre, valor, hasValor: !!valor, hasToggle: activo !== null,
+            pista: activo ? '#5B6B2F' : '#D6CFBD', knob: activo ? '22px' : '2px', toggleLabel: activo ? 'Activo' : 'Inactivo' })) };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+{
+  "_nota": "Datos de ejemplo para prototipar. Los valores marcados en 'propuesta' no están confirmados por Aldo y Ale; todo es editable desde el panel.",
+  "marca": {
+    "nombre": "Alta Proteína",
+    "eslogan": "Comida de verdad, sin complicarte.",
+    "ciudad": "Lima, Perú",
+    "whatsapp": "+51 9XX XXX XXX",
+    "instagram": "@altaproteina.pe"
+  },
+  "configuracion": {
+    "corte": { "dia": "domingo", "hora": "20:00", "propuesta": true },
+    "entrega": { "dia": "martes", "ventana": "18:00-21:00", "propuesta": true },
+    "produccion": { "dia": "lunes", "propuesta": true },
+    "pedido_minimo_soles": { "valor": 30, "propuesta": true },
+    "salsa_extra_soles": { "valor": 2, "propuesta": true },
+    "duracion_congelado_dias": { "valor": 30, "propuesta": true },
+    "rendimiento_coccion": 0.6,
+    "gramos_pollo_cocido_por_porcion": 150,
+    "gramos_pollo_crudo_por_porcion": 250,
+    "proteina_estimada_g_por_porcion": { "valor": 45, "propuesta": true },
+    "codigo_pedido": { "formato": "AP-AAMM-NNNN", "ejemplo": "AP-2611-0042", "propuesta": true }
+  },
+  "pagos": {
+    "yape": { "numero": "9XX XXX XXX", "titular": "Alta Proteína", "qr": "placeholder", "recargo": 0 },
+    "tarjeta": {
+      "proveedor": "por definir (Culqi, Izipay o Mercado Pago)",
+      "recargo": { "umbral_soles": 100, "menor_al_umbral": 0.10, "desde_el_umbral": 0.05 },
+      "nota": "El recargo se calcula sobre subtotal + delivery y se muestra como línea separada antes de confirmar."
+    }
+  },
+  "zonas": [
+    { "id": "magdalena", "nombre": "Magdalena del Mar", "delivery_soles": 5, "activa": true, "propuesta_costo": true },
+    { "id": "san-isidro", "nombre": "San Isidro", "delivery_soles": 6, "activa": true, "propuesta_costo": true },
+    { "id": "jesus-maria", "nombre": "Jesús María", "delivery_soles": 6, "activa": false, "propuesta_costo": true },
+    { "id": "pueblo-libre", "nombre": "Pueblo Libre", "delivery_soles": 6, "activa": false, "propuesta_costo": true },
+    { "id": "san-miguel", "nombre": "San Miguel", "delivery_soles": 7, "activa": false, "propuesta_costo": true },
+    { "id": "lince", "nombre": "Lince", "delivery_soles": 7, "activa": false, "propuesta_costo": true },
+    { "id": "miraflores", "nombre": "Miraflores", "delivery_soles": 8, "activa": false, "propuesta_costo": true }
+  ],
+  "marinados": [
+    { "id": "aji-panca", "nombre": "Ají panca", "descripcion": "Ahumado y suave, con ajo y comino. El clásico.", "activo": true },
+    { "id": "achiote", "nombre": "Achiote", "descripcion": "Color intenso, sabor suave y terroso.", "activo": true },
+    { "id": "limon-ajo-oregano", "nombre": "Limón con ajo y orégano", "descripcion": "Fresco y ligero.", "activo": true },
+    { "id": "teriyaki", "nombre": "Teriyaki", "descripcion": "Dulce y salado, al estilo oriental.", "activo": true }
+  ],
+  "salsas": [
+    { "id": "aji-amarillo", "nombre": "Ají amarillo cremoso", "activa": true, "propuesta": true },
+    { "id": "chimichurri", "nombre": "Chimichurri", "activa": true, "propuesta": true },
+    { "id": "criolla", "nombre": "Salsa criolla", "activa": true, "propuesta": true },
+    { "id": "teriyaki-extra", "nombre": "Teriyaki extra", "activa": true, "propuesta": true },
+    { "id": "huancaina", "nombre": "Huancaína", "activa": true, "propuesta": true }
+  ],
+  "productos": [
+    {
+      "id": "burrito-pollo",
+      "nombre": "Burrito de pollo",
+      "descripcion": "Pollo marinado, arroz, frejoles y vegetales envueltos en tortilla de trigo.",
+      "categoria": "burritos-quesadillas",
+      "precio_soles": 12,
+      "pollo_cocido_g": 150,
+      "proteina_estimada_g": 45,
+      "congelado": true,
+      "recalentado": "Microondas tapado, 3 a 4 minutos.",
+      "salsas_incluidas": 1,
+      "imagen": "placeholder",
+      "activo": true
+    },
+    {
+      "id": "quesadilla-pollo",
+      "nombre": "Quesadilla de pollo",
+      "descripcion": "Pollo marinado y queso fundido en tortilla dorada.",
+      "categoria": "burritos-quesadillas",
+      "precio_soles": 12,
+      "pollo_cocido_g": 150,
+      "proteina_estimada_g": 45,
+      "congelado": true,
+      "recalentado": "Microondas tapado, 3 a 4 minutos.",
+      "salsas_incluidas": 1,
+      "imagen": "placeholder",
+      "activo": true
+    },
+    {
+      "id": "arroz-pollo",
+      "nombre": "Arroz con pollo",
+      "descripcion": "Pollo marinado sobre arroz con verduras; salsa aparte.",
+      "categoria": "arroz-fideos",
+      "precio_soles": 11,
+      "precio_provisional": true,
+      "pollo_cocido_g": 150,
+      "proteina_estimada_g": 45,
+      "congelado": true,
+      "recalentado": "Microondas tapado, 3 a 4 minutos.",
+      "salsas_incluidas": 1,
+      "imagen": "placeholder",
+      "activo": true
+    },
+    {
+      "id": "fideos-pollo",
+      "nombre": "Fideos con pollo",
+      "descripcion": "Pasta corta al dente con pollo marinado; salsa aparte.",
+      "categoria": "arroz-fideos",
+      "precio_soles": 11,
+      "precio_provisional": true,
+      "pollo_cocido_g": 150,
+      "proteina_estimada_g": 45,
+      "congelado": true,
+      "recalentado": "Microondas tapado, 3 a 4 minutos, con un chorrito de agua.",
+      "salsas_incluidas": 1,
+      "imagen": "placeholder",
+      "activo": true
+    }
+  ],
+  "packs": [
+    {
+      "id": "pack-7-burritos",
+      "nombre": "Pack semanal x7",
+      "descripcion": "7 burritos de pollo para toda la semana.",
+      "categoria": "packs",
+      "contenido": [{ "producto_id": "burrito-pollo", "cantidad": 7 }],
+      "precio_soles": 80,
+      "precio_unitario_equivalente": 11.43,
+      "ahorro_soles": 4,
+      "marinado": { "opciones": ["uno-para-todos", "mix-de-la-casa"], "propuesta": true },
+      "salsas_incluidas": 7,
+      "imagen": "placeholder",
+      "activo": true
+    }
+  ]
+}

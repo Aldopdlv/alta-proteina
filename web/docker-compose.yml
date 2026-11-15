@@ -1,0 +1,72 @@
+# Alta Proteína — Dappnode
+#   docker compose up -d --build       app + base + túnel (https://altaproteina.solvelab.digital)
+#   scripts/migrar.sh                  migraciones pendientes (después de cada despliegue)
+#   Local en el Dappnode: http://127.0.0.1:8097
+name: altaproteina
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: altaproteina
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?definir en .env}
+      APP_DB_USER: altaproteina_app
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?definir en .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Solo en el PRIMER arranque (volumen vacío), en orden:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - ./db/03-app-user.sh:/docker-entrypoint-initdb.d/03-app-user.sh:ro
+    # Sin "ports": la base no se expone ni al host.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d altaproteina"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Rol con privilegios mínimos, nunca el superusuario.
+      DATABASE_URL: postgresql://altaproteina_app:${APP_DB_PASSWORD}@db:5432/altaproteina
+      SITIO_URL: ${SITIO_URL:-https://altaproteina.solvelab.digital}
+      SITIO_INDEXABLE: ${SITIO_INDEXABLE:-0}
+      PANEL_CLAVE_HASH: ${PANEL_CLAVE_HASH:?definir en .env (node scripts/clave-panel.mjs)}
+      SESION_SECRETO: ${SESION_SECRETO:?definir en .env}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+      CAPTURAS_DIR: /app/uploads/capturas
+      FOTOS_DIR: /app/uploads/fotos
+      TZ: America/Lima
+    # DNS propio: el del host (MagicDNS de Tailscale) a veces no resuelve y Telegram fallaría.
+    dns: [1.1.1.1, 8.8.8.8]
+    volumes:
+      - capturas:/app/uploads/capturas
+      - fotos:/app/uploads/fotos
+    ports:
+      - "127.0.0.1:8097:3000"
+
+  # Túnel con nombre de Cloudflare (credenciales en tunel/, fuera de git).
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    user: "1000:1000"
+    command: tunnel --no-autoupdate --protocol http2 --config /etc/cloudflared/config.yml run
+    dns: [1.1.1.1, 1.0.0.1]
+    volumes:
+      - ./tunel:/etc/cloudflared:ro
+    depends_on: [app]
+
+volumes:
+  pgdata:
+  capturas:
+  fotos:
+
+# RESPALDO diario (cron del host): ver scripts/respaldo.sh

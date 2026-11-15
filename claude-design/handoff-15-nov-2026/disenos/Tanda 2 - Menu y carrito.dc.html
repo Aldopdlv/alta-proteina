@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E9E4D8;}a{color:#5B6B2F;}a:hover{color:#4A5826;}</style>
+</helmet>
+<section style="padding:64px;display:flex;flex-direction:column;gap:40px;font-family:'DM Sans',sans-serif;color:#2B2B2B;">
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <span style="font-size:14px;font-weight:500;color:#5F5F5F;">Tanda 2 · 14 nov 2026 · Todas las pantallas son interactivas</span>
+    <h1 style="margin:0;font-size:40px;font-weight:700;letter-spacing:-0.02em;">Alta Proteína — Menú, personalización y carrito</h1>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px;">
+    <h2 style="margin:0;font-size:22px;font-weight:700;">Móvil · 390 × 844</h2>
+    <div style="display:flex;align-items:flex-start;gap:40px;">
+      <div id="2a" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2a</span><span style="font-size:16px;font-weight:500;">Menú con ítems</span></div>
+        <div style="width:390px;height:844px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+          <dc-import name="Menu" carrito-inicial="ejemplo" fideos-agotado="{{ fideosAgotado }}" mostrar-proteina="{{ mostrarProteina }}" corte-cerrado="{{ corteCerrado }}" style="height:844px" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+      <div id="2b" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2b</span><span style="font-size:16px;font-weight:500;">Personalización · plato</span></div>
+        <div style="width:390px;height:844px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+          <dc-import name="Menu" carrito-inicial="ejemplo" hoja="burrito-pollo" mostrar-proteina="{{ mostrarProteina }}" corte-cerrado="{{ corteCerrado }}" style="height:844px" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+      <div id="2c" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2c</span><span style="font-size:16px;font-weight:500;">Personalización · pack x7</span></div>
+        <div style="width:390px;height:844px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+          <dc-import name="Menu" carrito-inicial="ejemplo" hoja="pack-7" mostrar-proteina="{{ mostrarProteina }}" corte-cerrado="{{ corteCerrado }}" style="height:844px" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+      <div id="2d" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2d</span><span style="font-size:16px;font-weight:500;">Carrito con ítems</span></div>
+        <div style="width:390px;height:844px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+          <dc-import name="Menu" vista="carrito" carrito-inicial="ejemplo" corte-cerrado="{{ corteCerrado }}" style="height:844px" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+      <div id="2e" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2e</span><span style="font-size:16px;font-weight:500;">Carrito bajo el mínimo</span></div>
+        <div style="width:390px;height:844px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+          <dc-import name="Menu" vista="carrito" carrito-inicial="bajo-minimo" corte-cerrado="{{ corteCerrado }}" style="height:844px" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+      <div id="2f" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2f</span><span style="font-size:16px;font-weight:500;">Carrito vacío</span></div>
+        <div style="width:390px;height:844px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+          <dc-import name="Menu" vista="carrito" carrito-inicial="vacio" corte-cerrado="{{ corteCerrado }}" style="height:844px" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px;">
+    <h2 style="margin:0;font-size:22px;font-weight:700;">Escritorio · 1280 × 900</h2>
+    <div style="display:flex;align-items:flex-start;gap:40px;">
+      <div id="2g" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2g</span><span style="font-size:16px;font-weight:500;">Menú</span></div>
+        <div style="width:1280px;height:900px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+          <dc-import name="Menu" carrito-inicial="ejemplo" fideos-agotado="{{ fideosAgotado }}" mostrar-proteina="{{ mostrarProteina }}" corte-cerrado="{{ corteCerrado }}" style="height:900px" hint-size="1280px,900px"></dc-import>
+        </div>
+      </div>
+      <div id="2h" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2h</span><span style="font-size:16px;font-weight:500;">Personalización (modal)</span></div>
+        <div style="width:1280px;height:900px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+          <dc-import name="Menu" carrito-inicial="ejemplo" hoja="burrito-pollo" mostrar-proteina="{{ mostrarProteina }}" corte-cerrado="{{ corteCerrado }}" style="height:900px" hint-size="1280px,900px"></dc-import>
+        </div>
+      </div>
+      <div id="2i" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2i</span><span style="font-size:16px;font-weight:500;">Carrito</span></div>
+        <div style="width:1280px;height:900px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+          <dc-import name="Menu" vista="carrito" carrito-inicial="ejemplo" corte-cerrado="{{ corteCerrado }}" style="height:900px" hint-size="1280px,900px"></dc-import>
+        </div>
+      </div>
+    </div>
+  </div>
+<div style="display:flex;flex-direction:column;gap:16px;"><h2 style="margin:0;font-size:22px;font-weight:700;">Estados transversales · móvil</h2><div style="display:flex;align-items:flex-start;gap:40px;"><div id="2j" style="display:flex;flex-direction:column;gap:12px;"><div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2j</span><span style="font-size:16px;font-weight:500;">Cargando (esqueletos)</span></div><div style="width:390px;height:844px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);"><dc-import name="Menu" estado="cargando" style="height:844px" hint-size="390px,844px"></dc-import></div></div>
+<div id="2k" style="display:flex;flex-direction:column;gap:12px;"><div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2k</span><span style="font-size:16px;font-weight:500;">Sin menú publicado</span></div><div style="width:390px;height:844px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);"><dc-import name="Menu" estado="sin-menu" style="height:844px" hint-size="390px,844px"></dc-import></div></div>
+<div id="2l" style="display:flex;flex-direction:column;gap:12px;"><div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2l</span><span style="font-size:16px;font-weight:500;">Error de red</span></div><div style="width:390px;height:844px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);"><dc-import name="Menu" estado="error-red" carrito-inicial="ejemplo" style="height:844px" hint-size="390px,844px"></dc-import></div></div>
+<div id="2m" style="display:flex;flex-direction:column;gap:12px;"><div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">2m</span><span style="font-size:16px;font-weight:500;">Términos</span></div><div style="width:390px;height:844px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);"><dc-import name="Terminos"  style="height:844px" hint-size="390px,844px"></dc-import></div></div></div></div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;corteCerrado&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;fideosAgotado&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;mostrarProteina&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Propuestas&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      corteCerrado: this.props.corteCerrado ?? false,
+      mostrarProteina: this.props.mostrarProteina ?? true,
+      fideosAgotado: this.props.fideosAgotado ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>

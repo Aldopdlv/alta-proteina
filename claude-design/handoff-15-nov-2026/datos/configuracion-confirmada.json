@@ -1,0 +1,29 @@
+{
+  "_nota": "Valores confirmados por Aldo y Ale el 14-nov-2026. Prevalecen sobre menu-ejemplo.json. Todo debe ser editable desde /panel/configuracion.",
+  "zona_horaria": "America/Lima",
+  "corte": { "dia": "jueves", "dia_iso": 4, "hora": "19:00" },
+  "cocina": { "dia": "sabado", "dia_iso": 6 },
+  "entrega": { "dia": "domingo", "dia_iso": 7, "ventana": "09:00-15:00" },
+  "pedido_minimo_soles": 50,
+  "salsa_extra_soles": 2,
+  "mostrar_proteina": true,
+  "proteina_estimada_g_por_porcion": 45,
+  "gramos_pollo_cocido_por_porcion": 150,
+  "rendimiento_coccion": 0.6,
+  "duracion_congelado_dias": 30,
+  "codigo_pedido": { "formato": "AP-AAMM-NNNN", "ejemplo": "AP-2611-0042" },
+  "zonas": [
+    { "id": "san-miguel", "nombre": "San Miguel", "delivery_soles": 0, "activa": true },
+    { "id": "magdalena", "nombre": "Magdalena del Mar", "delivery_soles": 0, "activa": true },
+    { "id": "san-isidro", "nombre": "San Isidro", "delivery_soles": 0, "activa": true },
+    { "id": "miraflores", "nombre": "Miraflores", "delivery_soles": 0, "activa": true },
+    { "id": "san-borja", "nombre": "San Borja", "delivery_soles": 0, "activa": true }
+  ],
+  "pack_x7": { "modos": ["mezcla", "mix-de-la-casa"], "mezcla_suma": 7, "nota": "El cliente elige cuántos de cada marinado (suma 7) o deja que la cocina combine." },
+  "pagos": {
+    "yape": { "numero": "933980759", "numero_mostrado": "933 980 759", "titular": "Alta Proteína", "recargo": 0 },
+    "tarjeta": { "proveedor": null, "recargo": { "umbral_soles": 100, "menor_al_umbral": 0.10, "desde_el_umbral": 0.05 }, "base": "subtotal + delivery" }
+  },
+  "whatsapp": { "numero": "51933980759", "url": "https://wa.me/51933980759" },
+  "pendiente": ["proveedor del link de pago", "nombres definitivos de salsas", "logo definitivo", "fotos de producto"]
+}

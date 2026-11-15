@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E9E4D8;}a{color:#5B6B2F;}a:hover{color:#4A5826;}</style>
+</helmet>
+<section style="padding:64px;display:flex;flex-direction:column;gap:32px;font-family:'DM Sans',sans-serif;color:#2B2B2B;">
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <span style="font-size:14px;font-weight:500;color:#5F5F5F;">Tanda 1 · 14 nov 2026</span>
+    <h1 style="margin:0;font-size:40px;font-weight:700;letter-spacing:-0.02em;">Alta Proteína — Inicio</h1>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:64px;">
+    <div id="1a" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">1a</span><span style="font-size:16px;font-weight:500;">Móvil · 390 px</span></div>
+      <div style="width:390px;border-radius:20px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+        <dc-import name="Inicio" corte-cerrado="{{ corteCerrado }}" mostrar-proteina="{{ mostrarProteina }}" hint-size="390px,3600px"></dc-import>
+      </div>
+    </div>
+    <div id="1b" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;"><span style="background:#2B2B2B;color:#F5EFE0;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;">1b</span><span style="font-size:16px;font-weight:500;">Escritorio · 1280 px</span></div>
+      <div style="width:1280px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+        <dc-import name="Inicio" corte-cerrado="{{ corteCerrado }}" mostrar-proteina="{{ mostrarProteina }}" hint-size="1280px,2600px"></dc-import>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;corteCerrado&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;mostrarProteina&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Propuestas&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { corteCerrado: this.props.corteCerrado ?? false, mostrarProteina: this.props.mostrarProteina ?? true };
+  }
+}
+</script>
+</body>
+</html>

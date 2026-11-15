@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fuentes servidas desde el propio sitio: el DNS del Dappnode a veces no
+   resuelve y next/font/google falla al compilar (lección de La Doble T). */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url('./fuentes/dmsans.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('./fuentes/inter.woff2') format('woff2');
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: #f5efe0;
+  color: #2b2b2b;
+  font-family: Inter, 'Segoe UI', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a {
+  color: #5b6b2f;
+}
+a:hover {
+  color: #4a5826;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+/* Foco visible global (ESPECIFICACION.md §11). */
+:focus-visible {
+  outline: 2px solid #5b6b2f;
+  outline-offset: 2px;
+}
+
+@layer components {
+  /* Botón principal: naranja con texto oscuro (nunca blanco). */
+  .btn-cta {
+    @apply flex min-h-[52px] cursor-pointer items-center justify-center rounded-xl border-0 bg-naranja px-6 font-titulo text-base font-semibold leading-none text-tinta no-underline hover:bg-naranja-hover hover:text-tinta;
+  }
+  .btn-cta:disabled,
+  .btn-cta[aria-disabled='true'] {
+    @apply cursor-not-allowed bg-crema-oscura text-tinta-suave;
+  }
+  .btn-sec {
+    @apply flex min-h-[44px] cursor-pointer items-center justify-center rounded-xl border-[1.5px] border-solid border-oliva bg-transparent px-[18px] font-titulo text-[15px] font-semibold leading-none text-oliva no-underline hover:bg-oliva-claro hover:text-oliva;
+  }
+  .btn-oliva {
+    @apply flex min-h-[48px] cursor-pointer items-center justify-center rounded-xl border-0 bg-oliva px-6 font-titulo text-[15px] font-semibold leading-none text-white no-underline hover:bg-oliva-oscuro hover:text-white;
+  }
+  .enlace {
+    @apply cursor-pointer border-0 bg-transparent p-0 font-titulo font-semibold text-oliva underline underline-offset-4;
+  }
+  .campo {
+    @apply h-12 w-full rounded-xl border-[1.5px] border-solid border-borde bg-white px-3.5 text-tinta outline-none focus:border-oliva focus:shadow-[0_0_0_2px_#5B6B2F];
+  }
+  .campo[aria-invalid='true'] {
+    @apply border-error;
+  }
+  .etiqueta {
+    @apply font-titulo text-sm font-semibold leading-[1.3];
+  }
+  .error-campo {
+    @apply text-[13px] font-medium text-error;
+  }
+  .tarjeta {
+    @apply rounded-2xl border border-solid border-borde bg-white;
+  }
+  .h1 {
+    @apply m-0 font-titulo text-[26px] font-bold leading-[1.2] tracking-[-0.02em];
+  }
+  .h2-seccion {
+    @apply m-0 font-titulo text-[clamp(22px,2.6vw,32px)] font-bold leading-[1.2] tracking-[-0.02em];
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+  .contenedor {
+    @apply mx-auto w-full max-w-[1120px] px-4 sm:px-6;
+  }
+}
+
+/* Hoja para cocina: al imprimir solo sale la hoja. */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body {
+    background: #fff !important;
+  }
+  .no-imprimir {
+    display: none !important;
+  }
+  .hoja-cocina {
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}

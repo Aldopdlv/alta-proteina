@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5EFE0;}
+a{color:#5B6B2F;}
+a:hover{color:#4A5826;}
+button,input,select,textarea{font:inherit;}
+:focus-visible{outline:2px solid #5B6B2F;outline-offset:2px;}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="position:relative;height:100%;display:flex;flex-direction:column;background:#F5EFE0;color:#2B2B2B;font-family:Inter,'Segoe UI',system-ui,sans-serif;font-size:16px;line-height:1.5;overflow:hidden;">
+<div style="flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;">
+  <div style="background:#5B6B2F;color:#F5EFE0;font-size:14px;line-height:1.4;font-weight:500;padding:8px 16px;text-align:center;">Pide hasta el jueves 7:00 p. m. · Recibes el domingo 22</div>
+  <header style="border-bottom:1px solid #E3DCCB;">
+    <div style="max-width:1120px;margin:0 auto;padding:0 16px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <a href="Inicio.dc.html" aria-label="Alta Proteína, inicio" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <svg width="36" height="36" viewBox="0 0 104 104" aria-hidden="true"><circle cx="52" cy="52" r="52" fill="#5B6B2F"></circle><path d="M54 20 C 36 28, 26 46, 30 72 C 52 70, 68 56, 72 30 C 66 25, 60 21, 54 20 Z" fill="#F5EFE0"></path><path d="M31 71 L 56 42" stroke="#5B6B2F" stroke-width="4" stroke-linecap="round" fill="none"></path><circle cx="80" cy="24" r="9" fill="#E8772E"></circle></svg>
+        <span style="font-family:'DM Sans',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.4px;color:#5B6B2F;">Alta Proteína</span>
+      </a>
+      <sc-if value="{{ enCheckout }}" hint-placeholder-val="{{ true }}">
+        <span style="font-size:13px;font-weight:500;color:#5F5F5F;">{{ pasoTexto }}</span>
+      </sc-if>
+    </div>
+  </header>
+
+  <sc-if value="{{ isEntrega }}" hint-placeholder-val="{{ true }}">
+  <main data-screen-label="Entrega" style="flex:1;max-width:1120px;width:100%;box-sizing:border-box;margin:0 auto;padding:20px 16px 32px;display:flex;flex-direction:column;gap:20px;">
+    <button type="button" onClick="{{ volverCarrito }}" style="align-self:flex-start;min-height:44px;margin:-8px 0 -12px -4px;padding:0 4px;border:0;background:transparent;color:#5B6B2F;font:600 14px/1 'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>Volver al carrito</button>
+    <h1 style="margin:0;font:700 26px/1.2 'DM Sans',sans-serif;letter-spacing:-0.02em;">¿A dónde te lo llevamos?</h1>
+
+    <sc-if value="{{ movil }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;">
+        <button type="button" onClick="{{ toggleResumen }}" aria-expanded="{{ resumenAbierto }}" style="width:100%;min-height:52px;padding:0 16px;border:0;background:transparent;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;color:#2B2B2B;">
+          <span style="font:600 15px/1 'DM Sans',sans-serif;">{{ resumenEtiqueta }}</span>
+          <span style="font:700 17px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ totalEntrega }}</span>
+        </button>
+        <sc-if value="{{ resumenAbierto }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 16px 14px;display:flex;flex-direction:column;gap:8px;font-size:14px;">
+            <sc-for list="{{ lineas }}" as="l" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;gap:12px;"><span>{{ l.q }} × {{ l.nombre }}</span><span style="font-variant-numeric:tabular-nums;">{{ l.totalTxt }}</span></div></sc-for>
+            <div style="border-top:1px solid #E3DCCB;padding-top:8px;display:flex;justify-content:space-between;"><span>Subtotal</span><span>{{ subtotalTxt }}</span></div>
+            <div style="display:flex;justify-content:space-between;color:#5F5F5F;"><span>{{ deliveryLabel }}</span><span>{{ deliveryTxt }}</span></div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:20px 40px;">
+      <form onSubmit="{{ enviarEntrega }}" novalidate="novalidate" style="flex:3 1 420px;min-width:0;display:flex;flex-direction:column;gap:18px;">
+        <label style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font:600 14px/1.3 'DM Sans',sans-serif;">Nombre y apellido</span>
+          <input type="text" autocomplete="name" value="{{ nombre }}" onChange="{{ setNombre }}" aria-invalid="{{ errNombre }}" style="height:48px;padding:0 14px;border-radius:12px;border:1.5px solid {{ bordeNombre }};background:#FFFFFF;color:#2B2B2B;outline:none;" style-focus="border-color:#5B6B2F;box-shadow:0 0 0 2px #5B6B2F;">
+          <sc-if value="{{ errNombre }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:500;color:#B3261E;">Escribe tu nombre</span></sc-if>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font:600 14px/1.3 'DM Sans',sans-serif;">Celular (WhatsApp)</span>
+          <div style="display:flex;height:48px;border-radius:12px;border:1.5px solid {{ bordeCelular }};background:#FFFFFF;overflow:hidden;">
+            <span style="display:flex;align-items:center;padding:0 12px;background:#F5EFE0;border-right:1px solid #E3DCCB;font-weight:500;color:#5F5F5F;">+51</span>
+            <input type="tel" inputmode="numeric" maxlength="9" autocomplete="tel-national" value="{{ celular }}" onChange="{{ setCelular }}" aria-invalid="{{ errCelular }}" style="flex:1;min-width:0;border:0;padding:0 14px;outline:none;color:#2B2B2B;letter-spacing:0.04em;">
+          </div>
+          <sc-if value="{{ errCelular }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:500;color:#B3261E;">El celular debe tener 9 dígitos</span></sc-if>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font:600 14px/1.3 'DM Sans',sans-serif;">Zona</span>
+          <select value="{{ zona }}" onChange="{{ setZona }}" aria-invalid="{{ errZona }}" style="height:48px;padding:0 14px;border-radius:12px;border:1.5px solid {{ bordeZona }};background:#FFFFFF;color:#2B2B2B;outline:none;" style-focus="border-color:#5B6B2F;box-shadow:0 0 0 2px #5B6B2F;">
+            <option value="">Elige tu zona</option>
+            <option value="san-miguel">San Miguel · Envío gratis</option>
+            <option value="magdalena">Magdalena del Mar · Envío gratis</option>
+            <option value="san-isidro">San Isidro · Envío gratis</option>
+            <option value="miraflores">Miraflores · Envío gratis</option>
+            <option value="san-borja">San Borja · Envío gratis</option>
+            <option value="otra">Mi zona no está en la lista</option>
+          </select>
+          <sc-if value="{{ errZona }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:500;color:#B3261E;">Elige tu zona</span></sc-if>
+          <sc-if value="{{ zonaOtra }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:4px;padding:12px 14px;border-radius:12px;background:#EEF0E3;color:#2B2B2B;font-size:14px;display:flex;flex-direction:column;gap:6px;">
+              <span>Todavía no llegamos a tu zona. Escríbenos por WhatsApp y te avisamos cuando lleguemos.</span>
+              <a href="https://wa.me/51933980759" style="font-weight:600;color:#4A5826;">Escribir por WhatsApp</a>
+            </div>
+          </sc-if>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font:600 14px/1.3 'DM Sans',sans-serif;">Dirección</span>
+          <input type="text" autocomplete="street-address" value="{{ direccion }}" onChange="{{ setDireccion }}" aria-invalid="{{ errDireccion }}" style="height:48px;padding:0 14px;border-radius:12px;border:1.5px solid {{ bordeDireccion }};background:#FFFFFF;color:#2B2B2B;outline:none;" style-focus="border-color:#5B6B2F;box-shadow:0 0 0 2px #5B6B2F;">
+          <sc-if value="{{ errDireccion }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:500;color:#B3261E;">Escribe tu dirección</span></sc-if>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font:600 14px/1.3 'DM Sans',sans-serif;">Referencia (opcional)</span>
+          <input type="text" placeholder="Edificio verde, dpto. 302" value="{{ referencia }}" onChange="{{ setReferencia }}" style="height:48px;padding:0 14px;border-radius:12px;border:1.5px solid #E3DCCB;background:#FFFFFF;color:#2B2B2B;outline:none;" style-focus="border-color:#5B6B2F;box-shadow:0 0 0 2px #5B6B2F;">
+        </label>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:12px;background:#EEF0E3;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B6B2F" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:1px;"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+          <div style="display:flex;flex-direction:column;gap:2px;"><span style="font:600 14px/1.3 'DM Sans',sans-serif;color:#4A5826;">Día de entrega</span><span style="font-size:15px;">Recibes el domingo 22 de noviembre, entre 9 a. m. y 3 p. m.</span></div>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font:600 14px/1.3 'DM Sans',sans-serif;">Notas para la entrega (opcional)</span>
+          <textarea rows="3" value="{{ notas }}" onChange="{{ setNotas }}" style="padding:12px 14px;border-radius:12px;border:1.5px solid #E3DCCB;background:#FFFFFF;color:#2B2B2B;outline:none;resize:vertical;" style-focus="border-color:#5B6B2F;box-shadow:0 0 0 2px #5B6B2F;"></textarea>
+        </label>
+        <button type="submit" style="min-height:52px;border:0;border-radius:12px;background:#E8772E;color:#2B2B2B;font:600 16px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#DC6E28;">Continuar al pago</button>
+      </form>
+
+      <sc-if value="{{ desk }}" hint-placeholder-val="{{ false }}">
+        <aside style="flex:2 1 300px;position:sticky;top:20px;background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;font-size:15px;">
+          <h2 style="margin:0 0 4px;font:600 18px/1.3 'DM Sans',sans-serif;">Resumen</h2>
+          <sc-for list="{{ lineas }}" as="l" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;gap:12px;"><span>{{ l.q }} × {{ l.nombre }}</span><span style="font-variant-numeric:tabular-nums;">{{ l.totalTxt }}</span></div></sc-for>
+          <div style="border-top:1px solid #E3DCCB;padding-top:10px;display:flex;justify-content:space-between;"><span>Subtotal</span><span>{{ subtotalTxt }}</span></div>
+          <div style="display:flex;justify-content:space-between;color:#5F5F5F;"><span>{{ deliveryLabel }}</span><span>{{ deliveryTxt }}</span></div>
+          <div style="border-top:1px solid #E3DCCB;padding-top:10px;display:flex;justify-content:space-between;align-items:baseline;"><span style="font:600 16px 'DM Sans',sans-serif;">Total</span><span style="font:700 22px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ totalEntrega }}</span></div>
+        </aside>
+      </sc-if>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isPago }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Pago" style="flex:1;max-width:640px;width:100%;box-sizing:border-box;margin:0 auto;padding:20px 16px 40px;display:flex;flex-direction:column;gap:16px;">
+    <button type="button" onClick="{{ volverEntrega }}" style="align-self:flex-start;min-height:44px;margin:-8px 0 -8px -4px;padding:0 4px;border:0;background:transparent;color:#5B6B2F;font:600 14px/1 'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>Volver a entrega</button>
+
+    <div style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px;font-size:14px;">
+      <div style="display:flex;justify-content:space-between;"><span>Ítems</span><span style="font-variant-numeric:tabular-nums;">{{ itemsTxt }}</span></div>
+      <div style="display:flex;justify-content:space-between;"><span>{{ deliveryPagoLabel }}</span><span style="font-variant-numeric:tabular-nums;">{{ deliveryPagoTxt }}</span></div>
+      <sc-if value="{{ esTarjeta }}" hint-placeholder-val="{{ false }}"><div style="display:flex;justify-content:space-between;color:#A84E17;font-weight:500;"><span>{{ recargoLabel }}</span><span style="font-variant-numeric:tabular-nums;">{{ recargoTxt }}</span></div></sc-if>
+      <div style="border-top:1px solid #E3DCCB;margin-top:4px;padding-top:10px;display:flex;justify-content:space-between;align-items:baseline;"><span style="font:600 16px 'DM Sans',sans-serif;">Total</span><span style="font:700 24px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ totalTxt }}</span></div>
+    </div>
+
+    <h1 style="margin:8px 0 0;font:700 26px/1.2 'DM Sans',sans-serif;letter-spacing:-0.02em;">¿Cómo quieres pagar?</h1>
+
+    <div role="radiogroup" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:#FFFFFF;border:2px solid {{ bordeYape }};border-radius:16px;overflow:hidden;">
+        <button type="button" role="radio" aria-checked="{{ esYape }}" onClick="{{ pickYape }}" style="width:100%;min-height:64px;padding:14px 16px;border:0;background:transparent;display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;color:#2B2B2B;">
+          <span style="flex:none;width:22px;height:22px;border-radius:999px;border:2px solid #5B6B2F;box-sizing:border-box;display:flex;align-items:center;justify-content:center;"><span style="width:11px;height:11px;border-radius:999px;background:{{ dotYape }};"></span></span>
+          <span style="flex:1;display:flex;flex-direction:column;"><span style="font:700 17px/1.3 'DM Sans',sans-serif;">Yape</span><span style="font-size:14px;color:#3E7C4A;font-weight:500;">Sin recargo.</span></span>
+        </button>
+        <sc-if value="{{ esYape }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:4px 16px 18px;display:flex;flex-direction:column;gap:16px;">
+            <div style="background:#F5EFE0;border-radius:12px;padding:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
+              <div style="flex:1 1 180px;display:flex;flex-direction:column;gap:6px;">
+                <span style="font-size:14px;color:#5F5F5F;">Yapea exactamente <strong style="color:#2B2B2B;font:700 20px/1 'DM Sans',sans-serif;">{{ montoYape }}</strong> a:</span>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font:700 26px/1.1 'DM Sans',sans-serif;letter-spacing:0.02em;">933 980 759</span>
+                  <button type="button" onClick="{{ copiar }}" style="min-height:40px;padding:0 12px;border-radius:10px;border:1.5px solid #5B6B2F;background:#FFFFFF;color:#5B6B2F;font:600 14px/1 'DM Sans',sans-serif;cursor:pointer;">{{ copiarTxt }}</button>
+                </div>
+                <span style="font-size:14px;color:#5F5F5F;">Titular: Alta Proteína</span>
+              </div>
+              <div role="img" aria-label="Código QR de Yape" style="flex:none;width:104px;height:104px;border-radius:10px;background:#FFFFFF;border:1px dashed #B9B2A0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5F5F5F;">QR</div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <span style="font:600 15px/1.3 'DM Sans',sans-serif;">Sube la captura de tu pago</span>
+              <sc-if value="{{ yapeInicial }}" hint-placeholder-val="{{ true }}">
+                <button type="button" onClick="{{ subir }}" style="min-height:96px;border:1.5px dashed #5B6B2F;border-radius:12px;background:#EEF0E3;color:#4A5826;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"></path></svg>
+                  <span style="font:600 15px/1.3 'DM Sans',sans-serif;">Elegir imagen</span>
+                  <span style="font-size:13px;color:#5F5F5F;">JPG, PNG o HEIC, hasta 5 MB</span>
+                </button>
+              </sc-if>
+              <sc-if value="{{ yapeSubida }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:12px;padding:10px;border:1px solid #E3DCCB;border-radius:12px;">
+                  <div role="img" aria-label="Vista previa de la captura" style="flex:none;width:56px;height:84px;border-radius:8px;background:#EDE5D2;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5B6B2F" stroke-width="1.75" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-5-5L5 21"></path></svg></div>
+                  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-weight:500;font-size:14px;">captura-yape.jpg</span><span style="font-size:13px;color:#3E7C4A;font-weight:500;">Imagen lista · 1,2 MB</span></div>
+                  <button type="button" onClick="{{ quitarCaptura }}" style="min-height:44px;padding:0 8px;border:0;background:transparent;color:#5F5F5F;text-decoration:underline;font-size:14px;cursor:pointer;">Cambiar</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ yapeError }}" hint-placeholder-val="{{ false }}">
+                <div role="alert" style="padding:12px 14px;border-radius:12px;background:#F9E3E1;color:#B3261E;font-size:14px;font-weight:500;display:flex;flex-direction:column;gap:8px;">
+                  <span>No pudimos subir la imagen. Intenta de nuevo o envíala por WhatsApp al 933 980 759 con tu código de pedido.</span>
+                  <button type="button" onClick="{{ subir }}" style="align-self:flex-start;min-height:40px;padding:0 14px;border-radius:10px;border:1.5px solid #B3261E;background:#FFFFFF;color:#B3261E;font:600 14px/1 'DM Sans',sans-serif;cursor:pointer;">Intentar de nuevo</button>
+                </div>
+              </sc-if>
+            </div>
+
+            <button type="button" role="checkbox" aria-checked="{{ confirmo }}" onClick="{{ toggleConfirmo }}" style="min-height:44px;padding:0;border:0;background:transparent;display:flex;align-items:center;gap:12px;cursor:pointer;color:#2B2B2B;text-align:left;font-size:15px;">
+              <span style="flex:none;width:22px;height:22px;border-radius:6px;border:2px solid {{ checkBorde }};background:{{ checkFondo }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{ tick }}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+              Confirmo que ya pagué este monto
+            </button>
+            <sc-if value="{{ puedeEnviar }}" hint-placeholder-val="{{ false }}">
+              <button type="button" onClick="{{ enviarPedido }}" style="min-height:52px;border:0;border-radius:12px;background:#E8772E;color:#2B2B2B;font:600 16px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#DC6E28;">Enviar pedido</button>
+            </sc-if>
+            <sc-if value="{{ noPuedeEnviar }}" hint-placeholder-val="{{ true }}">
+              <button type="button" disabled="disabled" style="min-height:52px;border:0;border-radius:12px;background:#EDE5D2;color:#5F5F5F;font:600 16px/1 'DM Sans',sans-serif;cursor:not-allowed;">Enviar pedido</button>
+            </sc-if>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="background:#FFFFFF;border:2px solid {{ bordeTarjeta }};border-radius:16px;overflow:hidden;">
+        <button type="button" role="radio" aria-checked="{{ esTarjeta }}" onClick="{{ pickTarjeta }}" style="width:100%;min-height:64px;padding:14px 16px;border:0;background:transparent;display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;color:#2B2B2B;">
+          <span style="flex:none;width:22px;height:22px;border-radius:999px;border:2px solid #5B6B2F;box-sizing:border-box;display:flex;align-items:center;justify-content:center;"><span style="width:11px;height:11px;border-radius:999px;background:{{ dotTarjeta }};"></span></span>
+          <span style="flex:1;display:flex;flex-direction:column;"><span style="font:700 17px/1.3 'DM Sans',sans-serif;">Tarjeta (link de pago)</span><span style="font-size:14px;color:#5F5F5F;">Recargo del 10 % en compras menores a S/ 100; 5 % desde S/ 100.</span></span>
+        </button>
+        <sc-if value="{{ esTarjeta }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:4px 16px 18px;display:flex;flex-direction:column;gap:12px;">
+            <button type="button" onClick="{{ pagarTarjeta }}" style="min-height:52px;border:0;border-radius:12px;background:#E8772E;color:#2B2B2B;font:600 16px/1 'DM Sans',sans-serif;cursor:pointer;font-variant-numeric:tabular-nums;" style-hover="background:#DC6E28;">{{ ctaTarjeta }}</button>
+            <p style="margin:0;font-size:13px;color:#5F5F5F;display:flex;gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" style="flex:none;margin-top:2px;"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Te llevaremos a una página segura para pagar. Al terminar, vuelves aquí con tu pedido confirmado.</p>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </main>
+</sc-if>
+  <sc-if value="{{ isPedido }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Estado del pedido" style="flex:1;max-width:640px;width:100%;box-sizing:border-box;margin:0 auto;padding:28px 16px 40px;display:flex;flex-direction:column;gap:20px;">
+    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:10px;">
+      <span style="background:{{ chipFondo }};color:{{ chipColor }};border-radius:999px;padding:5px 12px;font:600 13px/1.3 Inter,sans-serif;">{{ chip }}</span>
+      <h1 style="margin:0;font:700 26px/1.25 'DM Sans',sans-serif;letter-spacing:-0.02em;">¡Listo! Tu pedido es el <span style="display:block;margin-top:4px;font-size:34px;letter-spacing:0.01em;color:#5B6B2F;font-variant-numeric:tabular-nums;">AP-2611-0042</span></h1>
+      <p style="margin:0;font-size:15px;color:#5F5F5F;text-wrap:pretty;">{{ estadoMsg }}</p>
+      <sc-if value="{{ rechazado }}" hint-placeholder-val="{{ false }}">
+        <button type="button" style="margin-top:4px;min-height:48px;padding:0 20px;border:0;border-radius:12px;background:#E8772E;color:#2B2B2B;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;">Volver a subir captura</button>
+      </sc-if>
+    </div>
+
+    <ol style="list-style:none;margin:0;padding:18px 16px;background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;display:flex;flex-direction:column;">
+      <sc-for list="{{ pasos }}" as="p" hint-placeholder-count="4">
+        <li style="display:flex;gap:14px;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <span style="flex:none;width:26px;height:26px;border-radius:999px;border:2px solid {{ p.borde }};background:{{ p.fondo }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;color:#5F5F5F;font:600 12px/1 'DM Sans',sans-serif;">
+              <sc-if value="{{ p.done }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+              <sc-if value="{{ p.err }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg></sc-if>
+              <sc-if value="{{ p.pend }}" hint-placeholder-val="{{ true }}"><span>{{ p.num }}</span></sc-if>
+            </span>
+            <sc-if value="{{ p.linea }}" hint-placeholder-val="{{ true }}"><span style="width:2px;flex:1;min-height:20px;background:{{ p.lineaColor }};"></span></sc-if>
+          </div>
+          <span style="padding:2px 0 18px;font:{{ p.peso }} 15px/1.4 'DM Sans',sans-serif;color:{{ p.color }};">{{ p.t }}</span>
+        </li>
+      </sc-for>
+    </ol>
+
+    <section style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px;">
+      <h2 style="margin:0 0 4px;font:600 17px/1.3 'DM Sans',sans-serif;">Tu entrega</h2>
+      <span style="font-weight:500;">Domingo 22 de noviembre, entre 9 a. m. y 3 p. m.</span>
+      <span style="font-size:14px;color:#5F5F5F;">{{ entregaDir }}</span>
+    </section>
+
+    <section style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:14px;">
+      <h2 style="margin:0;font:600 17px/1.3 'DM Sans',sans-serif;">Tu pedido</h2>
+      <sc-for list="{{ lineas }}" as="l" hint-placeholder-count="2">
+        <div style="display:flex;justify-content:space-between;gap:12px;"><span style="display:flex;flex-direction:column;"><span style="font-weight:500;font-size:15px;">{{ l.q }} × {{ l.nombre }}</span><span style="color:#5F5F5F;">{{ l.detalle }}</span></span><span style="font-variant-numeric:tabular-nums;">{{ l.totalTxt }}</span></div>
+      </sc-for>
+      <div style="display:flex;justify-content:space-between;color:#5F5F5F;"><span>{{ deliveryPagoLabel }}</span><span>{{ deliveryPagoTxt }}</span></div>
+      <sc-if value="{{ pedidoConRecargo }}" hint-placeholder-val="{{ false }}"><div style="display:flex;justify-content:space-between;color:#5F5F5F;"><span>{{ recargoLabel }}</span><span>{{ recargoTxt }}</span></div></sc-if>
+      <div style="border-top:1px solid #E3DCCB;padding-top:10px;display:flex;justify-content:space-between;align-items:baseline;"><span style="font:600 15px 'DM Sans',sans-serif;">{{ totalPedidoLabel }}</span><span style="font:700 20px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ totalPedido }}</span></div>
+    </section>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <p style="margin:0;font-size:14px;color:#5F5F5F;">Guarda este enlace: aquí verás el estado de tu pedido.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <button type="button" onClick="{{ guardar }}" style="flex:1 1 180px;min-height:48px;border-radius:12px;border:1.5px solid #5B6B2F;background:transparent;color:#5B6B2F;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#EEF0E3;">{{ guardarTxt }}</button>
+        <a href="https://wa.me/51933980759?text=Hola%2C%20mi%20pedido%20es%20el%20AP-2611-0042" style="flex:1 1 180px;min-height:48px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#5B6B2F;color:#FFFFFF;font:600 15px/1 'DM Sans',sans-serif;text-decoration:none;" style-hover="background:#4A5826;color:#FFFFFF;">Escribir por WhatsApp</a>
+      </div>
+      <a href="Menu.dc.html" style="align-self:center;min-height:44px;display:flex;align-items:center;font:600 15px/1 'DM Sans',sans-serif;text-underline-offset:4px;">Volver al menú</a>
+    </div>
+  </main>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vista&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;entrega&quot;,&quot;pago&quot;,&quot;pedido&quot;],&quot;default&quot;:&quot;entrega&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;errores&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;metodo&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;yape&quot;,&quot;tarjeta&quot;],&quot;default&quot;:&quot;yape&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Pago&quot;},&quot;yapeEstado&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;inicial&quot;,&quot;subida&quot;,&quot;error&quot;],&quot;default&quot;:&quot;inicial&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Pago&quot;},&quot;estado&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pendiente&quot;,&quot;pagado&quot;,&quot;preparado&quot;,&quot;entregado&quot;,&quot;rechazado&quot;],&quot;default&quot;:&quot;pendiente&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Pedido&quot;}}">
+const LINEAS = [
+  { nombre: 'Burrito de pollo', detalle: 'Ají panca · Salsa: Ají amarillo cremoso', q: 2, total: 24 },
+  { nombre: 'Quesadilla de pollo', detalle: 'Achiote · Salsa: Huancaína', q: 2, total: 24 },
+  { nombre: 'Arroz con pollo', detalle: 'Achiote · Salsa: Salsa criolla', q: 1, total: 11 }
+];
+const ZONAS = { 'san-miguel': { nombre: 'San Miguel', costo: 0 }, magdalena: { nombre: 'Magdalena del Mar', costo: 0 }, 'san-isidro': { nombre: 'San Isidro', costo: 0 }, miraflores: { nombre: 'Miraflores', costo: 0 }, 'san-borja': { nombre: 'San Borja', costo: 0 } };
+const SUB = LINEAS.reduce((a, l) => a + l.total, 0);
+const f2 = n => 'S/ ' + n.toFixed(2).replace('.', ',');
+const f0 = n => 'S/ ' + (Number.isInteger(n) ? n : n.toFixed(2).replace('.', ','));
+const STANDALONE = () => decodeURIComponent(location.pathname).endsWith('Checkout.dc.html');
+const STORED = () => { if (!STANDALONE()) return null; try { const v = JSON.parse(localStorage.getItem('ap-resumen')); return Array.isArray(v) && v.length ? v : null; } catch (e) { return null; } };
+const LLENO = { nombre: 'Lucía Ramírez', celular: '987654321', zona: 'magdalena', direccion: 'Av. Brasil 2850', referencia: 'Edificio verde, dpto. 302', notas: '' };
+const VACIO = { nombre: '', celular: '98765', zona: '', direccion: '', referencia: '', notas: '' };
+const ESTADOS = {
+  pendiente: { chip: 'Pendiente de confirmación', fondo: '#FBF3DC', color: '#6E5108', msg: 'Estamos revisando tu captura de Yape. Te confirmamos por WhatsApp en menos de 24 horas.', paso: 1 },
+  pagado: { chip: 'Pagado', fondo: '#E6F0E8', color: '#3E7C4A', msg: 'Pago confirmado. Cocinamos tu pedido el sábado y lo recibes el domingo 22.', paso: 2 },
+  preparado: { chip: 'Preparado', fondo: '#EEF0E3', color: '#5B6B2F', msg: 'Tu pedido ya está cocinado y congelado. Sale el domingo.', paso: 3 },
+  entregado: { chip: 'Entregado', fondo: '#ECECEC', color: '#5F5F5F', msg: 'Entregado el domingo 22. ¡Buen provecho!', paso: 4 },
+  rechazado: { chip: 'Rechazado', fondo: '#F9E3E1', color: '#B3261E', msg: 'No pudimos validar tu pago: el monto de la captura no coincide. Vuelve a subir la captura o escríbenos.', paso: 1, error: true }
+};
+const PASOS = ['Pedido recibido', 'Pago confirmado', 'Cocinado y congelado', 'Entregado'];
+
+class Component extends DCLogic {
+  rootRef = React.createRef();
+  state = {
+    vista: this.props.vista ?? 'entrega',
+    lineas: STORED() || LINEAS,
+    estadoLocal: null,
+    ...((this.props.errores ?? false) ? VACIO : LLENO),
+    intentado: this.props.errores ?? false,
+    resumenAbierto: false,
+    metodo: this.props.metodo ?? 'yape',
+    yape: this.props.yapeEstado ?? 'inicial',
+    confirmo: (this.props.yapeEstado ?? 'inicial') === 'subida',
+    copiado: false,
+    ancho: 390
+  };
+  componentDidMount() {
+    const el = this.rootRef.current;
+    if (!el) return;
+    this.ro = new ResizeObserver(() => this.setState({ ancho: el.clientWidth }));
+    this.ro.observe(el);
+  }
+  componentWillUnmount() { this.ro && this.ro.disconnect(); }
+  componentDidUpdate(p) {
+    const patch = {};
+    if (p.vista !== this.props.vista && this.props.vista) patch.vista = this.props.vista;
+    if (p.metodo !== this.props.metodo && this.props.metodo) patch.metodo = this.props.metodo;
+    if (p.yapeEstado !== this.props.yapeEstado && this.props.yapeEstado) patch.yape = this.props.yapeEstado;
+    if (Object.keys(patch).length) this.setState(patch);
+  }
+  set(k) { return e => this.setState({ [k]: k === 'celular' ? e.target.value.replace(/\D/g, '').slice(0, 9) : e.target.value }); }
+  errs() {
+    const s = this.state;
+    if (!s.intentado) return {};
+    return { nombre: !s.nombre.trim(), celular: s.celular.length !== 9, zona: !ZONAS[s.zona], direccion: !s.direccion.trim() };
+  }
+  renderVals() {
+    const s = this.state;
+    const LIN = s.lineas;
+    const SUB = LIN.reduce((a, l) => a + l.total, 0);
+    const desk = s.ancho >= 720;
+    const z = ZONAS[s.zona] || ZONAS.magdalena;
+    const zonaOk = !!ZONAS[s.zona];
+    const delivery = zonaOk ? z.costo : 0;
+    const base = SUB + z.costo;
+    const pct = base < 100 ? 10 : 5;
+    const recargo = Math.round(base * pct) / 100;
+    const esTarjeta = s.metodo === 'tarjeta';
+    const total = esTarjeta ? base + recargo : base;
+    const e = this.errs();
+    const bord = k => (e[k] ? '#B3261E' : '#E3DCCB');
+    const est = ESTADOS[s.estadoLocal || this.props.estado || 'pendiente'] || ESTADOS.pendiente;
+    const ON = '#5B6B2F', OFF = '#E3DCCB';
+    return {
+      rootRef: this.rootRef, desk, movil: !desk,
+      isEntrega: s.vista === 'entrega', isPago: s.vista === 'pago', isPedido: s.vista === 'pedido',
+      enCheckout: s.vista !== 'pedido',
+      pasoTexto: s.vista === 'entrega' ? 'Paso 1 de 2 · Entrega' : 'Paso 2 de 2 · Pago',
+      lineas: LIN.map(l => ({ ...l, totalTxt: f0(l.total) })),
+      subtotalTxt: f0(SUB),
+      deliveryLabel: zonaOk ? `Delivery (${z.nombre})` : 'Delivery',
+      deliveryTxt: zonaOk ? 'Gratis' : 'Elige tu zona',
+      totalEntrega: f0(SUB + delivery),
+      resumenAbierto: s.resumenAbierto,
+      resumenEtiqueta: s.resumenAbierto ? 'Ocultar resumen' : `Ver resumen · ${LIN.reduce((a, l) => a + l.q, 0)} ítems`,
+      toggleResumen: () => this.setState({ resumenAbierto: !s.resumenAbierto }),
+      nombre: s.nombre, celular: s.celular, zona: s.zona, direccion: s.direccion, referencia: s.referencia, notas: s.notas,
+      setNombre: this.set('nombre'), setCelular: this.set('celular'), setZona: this.set('zona'),
+      setDireccion: this.set('direccion'), setReferencia: this.set('referencia'), setNotas: this.set('notas'),
+      errNombre: !!e.nombre, errCelular: !!e.celular, errZona: !!e.zona && s.zona !== 'otra', errDireccion: !!e.direccion,
+      bordeNombre: bord('nombre'), bordeCelular: bord('celular'), bordeZona: bord('zona'), bordeDireccion: bord('direccion'),
+      zonaOtra: s.zona === 'otra',
+      enviarEntrega: ev => {
+        ev.preventDefault();
+        const ok = s.nombre.trim() && s.celular.length === 9 && ZONAS[s.zona] && s.direccion.trim();
+        if (ok) this.setState({ vista: 'pago', intentado: false }); else this.setState({ intentado: true });
+      },
+      // pago
+      volverEntrega: () => this.setState({ vista: 'entrega' }),
+      esTarjeta, esYape: !esTarjeta,
+      pickTarjeta: () => this.setState({ metodo: 'tarjeta' }),
+      pickYape: () => this.setState({ metodo: 'yape' }),
+      bordeTarjeta: esTarjeta ? ON : OFF, bordeYape: esTarjeta ? OFF : ON,
+      dotTarjeta: esTarjeta ? ON : 'transparent', dotYape: esTarjeta ? 'transparent' : ON,
+      itemsTxt: f2(SUB), deliveryPagoLabel: `Delivery (${z.nombre})`, deliveryPagoTxt: 'Gratis',
+      recargoLabel: `Recargo por tarjeta (${pct} %)`, recargoTxt: f2(recargo),
+      totalTxt: f2(total), montoYape: f2(base),
+      ctaTarjeta: `Pagar ${f2(base + recargo)} con tarjeta`,
+      copiar: () => { try { navigator.clipboard && navigator.clipboard.writeText('933980759'); } catch (e) {} this.setState({ copiado: true }); setTimeout(() => this.setState({ copiado: false }), 1600); },
+      copiarTxt: s.copiado ? 'Copiado' : 'Copiar',
+      yapeInicial: s.yape === 'inicial', yapeSubida: s.yape === 'subida', yapeError: s.yape === 'error',
+      subir: () => this.setState({ yape: 'subida' }),
+      quitarCaptura: () => this.setState({ yape: 'inicial', confirmo: false }),
+      confirmo: s.confirmo,
+      checkFondo: s.confirmo ? ON : '#FFFFFF', checkBorde: s.confirmo ? ON : '#B9B2A0', tick: s.confirmo ? '#FFFFFF' : 'transparent',
+      toggleConfirmo: () => this.setState({ confirmo: !s.confirmo }),
+      puedeEnviar: s.yape === 'subida' && s.confirmo, noPuedeEnviar: !(s.yape === 'subida' && s.confirmo),
+      enviarPedido: () => this.setState({ vista: 'pedido', estadoLocal: 'pendiente' }),
+      // pedido
+      chip: est.chip, chipFondo: est.fondo, chipColor: est.color, estadoMsg: est.msg, rechazado: !!est.error,
+      pasos: PASOS.map((t, i) => {
+        const done = i < est.paso, actual = i === est.paso && !est.error, err = est.error && i === est.paso;
+        return { t, done, err, pend: !done && !err,
+          fondo: done ? '#5B6B2F' : err ? '#B3261E' : '#FFFFFF', borde: done ? '#5B6B2F' : err ? '#B3261E' : actual ? '#5B6B2F' : '#D6CFBD',
+          color: done ? '#2B2B2B' : err ? '#B3261E' : actual ? '#2B2B2B' : '#5F5F5F', peso: done || actual || err ? 600 : 500,
+          linea: i < PASOS.length - 1, lineaColor: i < est.paso - 1 || (done && i + 1 < est.paso) ? '#5B6B2F' : '#D6CFBD', num: i + 1 };
+      }),
+      totalPedido: f2(total),
+      guardarTxt: s.guardado ? 'Enlace copiado' : 'Guardar enlace',
+      guardar: () => { try { navigator.clipboard && navigator.clipboard.writeText(location.origin + '/pedido/AP-2611-0042'); } catch (e) {} this.setState({ guardado: true }); setTimeout(() => this.setState({ guardado: false }), 1800); },
+      totalPedidoLabel: `Total · ${esTarjeta ? 'Tarjeta' : 'Yape'}`,
+      pedidoConRecargo: esTarjeta,
+      entregaDir: [z.nombre, s.direccion, s.referencia].filter(Boolean).join(' · '),
+      volverCarrito: () => { location.href = 'Menu.dc.html?vista=carrito'; },
+      pagarTarjeta: () => this.setState({ vista: 'pedido', estadoLocal: 'pagado' })
+    };
+  }
+}
+</script>
+</body>
+</html>

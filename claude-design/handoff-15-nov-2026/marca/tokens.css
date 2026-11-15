@@ -1,0 +1,99 @@
+/* Alta Proteína — tokens de diseño (14-nov-2026)
+   Paleta de 01-marca.md + roles y reglas de contraste de paleta-y-contraste.md */
+
+:root {
+  /* Color: marca */
+  --ap-crema: #F5EFE0;          /* fondo general */
+  --ap-crema-oscura: #EDE5D2;   /* bloques de placeholder, fondos de sección */
+  --ap-blanco: #FFFFFF;         /* tarjetas, formularios */
+  --ap-oliva: #5B6B2F;          /* primario de marca */
+  --ap-oliva-oscuro: #4A5826;   /* hover / presionado */
+  --ap-oliva-claro: #EEF0E3;    /* fondo de tarjeta de pack, chips suaves */
+  --ap-naranja: #E8772E;        /* acento: SOLO fondos de botón y elementos grandes */
+  --ap-naranja-oscuro: #A84E17; /* única variante de naranja permitida como texto */
+  --ap-texto: #2B2B2B;
+  --ap-texto-secundario: #5F5F5F;
+  --ap-borde: #E3DCCB;
+
+  /* Color: estados */
+  --ap-exito: #3E7C4A;
+  --ap-exito-fondo: #E6F0E8;
+  --ap-aviso: #B8860B;
+  --ap-aviso-fondo: #FBF3DC;
+  --ap-error: #B3261E;
+  --ap-error-fondo: #F9E3E1;
+  --ap-neutro: #6B6B6B;
+  --ap-neutro-fondo: #ECECEC;
+
+  /* Tipografía */
+  --ap-fuente-titulos: "DM Sans", "Poppins", "Segoe UI", system-ui, sans-serif;
+  --ap-fuente-texto: "Inter", "Segoe UI", system-ui, sans-serif;
+  --ap-t-32: 2rem;      /* héroe móvil */
+  --ap-t-26: 1.625rem;  /* título de página */
+  --ap-t-22: 1.375rem;  /* título de sección */
+  --ap-t-18: 1.125rem;  /* nombre de producto */
+  --ap-t-16: 1rem;      /* texto */
+  --ap-t-14: 0.875rem;  /* ayuda */
+  --ap-t-12: 0.75rem;   /* etiquetas */
+  --ap-lh-titulo: 1.3;
+  --ap-lh-texto: 1.5;
+
+  /* Espacio (retícula de 4 px) */
+  --ap-e-1: 4px;  --ap-e-2: 8px;  --ap-e-3: 12px; --ap-e-4: 16px;
+  --ap-e-5: 20px; --ap-e-6: 24px; --ap-e-8: 32px; --ap-e-10: 40px; --ap-e-12: 48px;
+  --ap-margen-movil: 16px;
+  --ap-margen-tablet: 24px;
+  --ap-contenedor-max: 1120px;
+
+  /* Forma */
+  --ap-radio-control: 12px;   /* botones e inputs */
+  --ap-radio-tarjeta: 16px;
+  --ap-radio-hoja: 24px;      /* hojas inferiores y modales */
+  --ap-radio-chip: 999px;
+  --ap-sombra-suave: 0 2px 8px rgba(43, 43, 43, 0.08);
+  --ap-sombra-hoja: 0 -8px 24px rgba(43, 43, 43, 0.12);
+  --ap-foco: 0 0 0 2px var(--ap-oliva);
+
+  /* Tamaños de toque */
+  --ap-toque-min: 44px;
+  --ap-boton-alto: 48px;
+  --ap-input-alto: 48px;
+}
+
+/* Botón principal: naranja con TEXTO OSCURO (4,8:1). Nunca texto blanco sobre naranja. */
+.ap-boton-primario {
+  background: var(--ap-naranja);
+  color: var(--ap-texto);
+  font: 600 var(--ap-t-16)/1 var(--ap-fuente-titulos);
+  min-height: var(--ap-boton-alto);
+  border-radius: var(--ap-radio-control);
+  padding: 0 var(--ap-e-6);
+  border: 0;
+}
+.ap-boton-primario:hover { filter: brightness(0.95); }
+.ap-boton-primario:disabled { background: var(--ap-crema-oscura); color: var(--ap-texto-secundario); }
+
+/* Botón secundario: borde oliva */
+.ap-boton-secundario {
+  background: transparent;
+  color: var(--ap-oliva);
+  border: 1.5px solid var(--ap-oliva);
+  font: 600 var(--ap-t-16)/1 var(--ap-fuente-titulos);
+  min-height: var(--ap-boton-alto);
+  border-radius: var(--ap-radio-control);
+  padding: 0 var(--ap-e-6);
+}
+
+/* Chips de estado del pedido */
+.ap-chip { border-radius: var(--ap-radio-chip); padding: 4px 12px; font: 500 var(--ap-t-12)/1.4 var(--ap-fuente-texto); }
+.ap-chip--pendiente  { background: var(--ap-aviso-fondo);  color: var(--ap-aviso); }
+.ap-chip--pagado     { background: var(--ap-exito-fondo);  color: var(--ap-exito); }
+.ap-chip--preparado  { background: var(--ap-oliva-claro);  color: var(--ap-oliva); }
+.ap-chip--entregado  { background: var(--ap-neutro-fondo); color: var(--ap-neutro); }
+.ap-chip--rechazado  { background: var(--ap-error-fondo);  color: var(--ap-error); }
+
+/* Barra de corte semanal */
+.ap-barra-corte { background: var(--ap-oliva); color: var(--ap-crema); font: 500 var(--ap-t-14)/1.4 var(--ap-fuente-texto); padding: var(--ap-e-2) var(--ap-e-4); text-align: center; }
+
+/* Etiqueta de proteína sobre la foto */
+.ap-etiqueta-proteina { background: var(--ap-oliva); color: var(--ap-crema); border-radius: var(--ap-radio-chip); padding: 4px 10px; font: 600 var(--ap-t-12)/1.3 var(--ap-fuente-titulos); }

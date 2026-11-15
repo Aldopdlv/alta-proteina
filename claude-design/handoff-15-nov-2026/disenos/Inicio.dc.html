@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5EFE0;}
+a{color:#5B6B2F;}
+a:hover{color:#4A5826;}
+button{font:inherit;}
+:focus-visible{outline:2px solid #5B6B2F;outline-offset:2px;}
+</style>
+</helmet>
+<div style="container-type:inline-size;background:#F5EFE0;color:#2B2B2B;font-family:Inter,'Segoe UI',system-ui,sans-serif;font-size:16px;line-height:1.5;min-height:100%;">
+
+  <div data-screen-label="Barra de corte" style="background:#5B6B2F;color:#F5EFE0;font-size:14px;line-height:1.4;font-weight:500;padding:8px 16px;text-align:center;text-wrap:balance;">
+    <sc-if value="{{ abierto }}" hint-placeholder-val="{{ true }}"><span>Pide hasta el jueves 7:00 p. m. · Recibes el domingo 22</span></sc-if>
+    <sc-if value="{{ cerrado }}" hint-placeholder-val="{{ false }}"><span>El menú de esta semana cerró · Lo que pidas ahora llega el domingo 29</span></sc-if>
+  </div>
+
+  <header style="border-bottom:1px solid #E3DCCB;">
+    <div style="max-width:1120px;margin:0 auto;padding:0 16px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <a href="#" aria-label="Alta Proteína, inicio" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <svg width="36" height="36" viewBox="0 0 104 104" aria-hidden="true"><circle cx="52" cy="52" r="52" fill="#5B6B2F"></circle><path d="M54 20 C 36 28, 26 46, 30 72 C 52 70, 68 56, 72 30 C 66 25, 60 21, 54 20 Z" fill="#F5EFE0"></path><path d="M31 71 L 56 42" stroke="#5B6B2F" stroke-width="4" stroke-linecap="round" fill="none"></path><circle cx="80" cy="24" r="9" fill="#E8772E"></circle></svg>
+        <span style="font-family:'DM Sans',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.4px;color:#5B6B2F;">Alta Proteína</span>
+      </a>
+      <nav style="display:flex;align-items:center;gap:8px;">
+        <a href="Menu.dc.html" style="font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;color:#5B6B2F;text-decoration:none;padding:0 12px;min-height:44px;display:flex;align-items:center;border-radius:12px;" style-hover="background:#EEF0E3;">Menú</a>
+        <a href="Menu.dc.html?vista=carrito" aria-label="Carrito, {{ count }} ítems" style="position:relative;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;color:#5B6B2F;" style-hover="background:#EEF0E3;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <sc-if value="{{ hasCount }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;top:4px;right:2px;min-width:20px;height:20px;padding:0 5px;box-sizing:border-box;border-radius:999px;background:#E8772E;color:#2B2B2B;font:600 12px/20px 'DM Sans',sans-serif;text-align:center;font-variant-numeric:tabular-nums;">{{ count }}</span>
+          </sc-if>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <section data-screen-label="Héroe" style="max-width:1120px;margin:0 auto;padding:clamp(32px,6cqw,80px) 16px clamp(48px,7cqw,96px);display:flex;flex-wrap:wrap;align-items:center;gap:clamp(28px,5cqw,64px);">
+    <div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:16px;">
+      <h1 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:700;font-size:clamp(32px,4.6cqw,58px);line-height:1.1;letter-spacing:-0.03em;color:#2B2B2B;text-wrap:balance;">Comida de verdad, sin complicarte.</h1>
+      <p style="margin:0;font-size:clamp(16px,1.5cqw,18px);color:#5F5F5F;max-width:46ch;text-wrap:pretty;">Platos con 150 g de pollo, listos en 4 minutos. Pides una vez a la semana y recibes todo congelado en tu puerta.</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;margin-top:8px;">
+        <a href="Menu.dc.html" style="flex:1 1 200px;max-width:280px;min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#E8772E;color:#2B2B2B;font:600 17px/1 'DM Sans',sans-serif;text-decoration:none;padding:0 24px;" style-hover="background:#DC6E28;color:#2B2B2B;">Arma tu semana</a>
+        <a href="#como" style="min-height:44px;display:flex;align-items:center;font:600 16px/1 'DM Sans',sans-serif;color:#5B6B2F;text-underline-offset:4px;">Ver cómo funciona</a>
+      </div>
+    </div>
+    <div style="flex:1 1 340px;min-width:0;">
+      <div role="img" aria-label="Foto: varias porciones etiquetadas" style="aspect-ratio:16/9;border-radius:16px;background:#EDE5D2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#5B6B2F;">
+        <svg width="120" height="64" viewBox="0 0 120 64" fill="none" stroke="#5B6B2F" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="14" width="34" height="46" rx="5"></rect><rect x="43" y="6" width="34" height="54" rx="5"></rect><rect x="84" y="14" width="34" height="46" rx="5"></rect><path d="M8 26h22M49 18h22M90 26h22"></path><path d="M8 32h14M49 24h14M90 32h14"></path></svg>
+        <span style="font-size:13px;font-weight:500;">Foto · Tu semana resuelta</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="como" data-screen-label="Así de simple" style="max-width:1120px;margin:0 auto;padding:0 16px clamp(56px,8cqw,104px);">
+    <h2 style="margin:0 0 24px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:clamp(22px,2.6cqw,32px);line-height:1.2;letter-spacing:-0.02em;">Así de simple</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;">
+      <div style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px;">
+        <span style="font:700 40px/1 'DM Sans',sans-serif;color:#5B6B2F;letter-spacing:-0.02em;">1</span>
+        <h3 style="margin:8px 0 0;font:600 18px/1.3 'DM Sans',sans-serif;">Pide hasta el jueves.</h3>
+        <p style="margin:0;font-size:15px;color:#5F5F5F;">Elige tus platos, marinados y salsas.</p>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px;">
+        <span style="font:700 40px/1 'DM Sans',sans-serif;color:#5B6B2F;letter-spacing:-0.02em;">2</span>
+        <h3 style="margin:8px 0 0;font:600 18px/1.3 'DM Sans',sans-serif;">Cocinamos en lote.</h3>
+        <p style="margin:0;font-size:15px;color:#5F5F5F;">Un chef prepara todo el mismo día y lo congelamos al instante.</p>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px;">
+        <span style="font:700 40px/1 'DM Sans',sans-serif;color:#5B6B2F;letter-spacing:-0.02em;">3</span>
+        <h3 style="margin:8px 0 0;font:600 18px/1.3 'DM Sans',sans-serif;">Recibes tu semana.</h3>
+        <p style="margin:0;font-size:15px;color:#5F5F5F;">Te llega el domingo a tu zona. Guardas en el congelador y listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" data-screen-label="Menú destacado" style="background:#EDE5D2;">
+    <div style="max-width:1120px;margin:0 auto;padding:clamp(48px,7cqw,88px) 16px;">
+      <div style="display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;margin-bottom:24px;">
+        <h2 style="margin:0;font-family:'DM Sans',sans-serif;font-weight:700;font-size:clamp(22px,2.6cqw,32px);line-height:1.2;letter-spacing:-0.02em;">El menú de esta semana</h2>
+        <span style="font-size:14px;color:#5F5F5F;">Congelado · Microondas 3-4 min</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:16px;">
+        <sc-for list="{{ productos }}" as="p" hint-placeholder-count="4">
+          <article style="background:#FFFFFF;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(43,43,43,0.08);">
+            <div role="img" aria-label="{{ p.nombre }}" style="position:relative;aspect-ratio:4/3;background:#F5EFE0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+              <svg width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#5B6B2F" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h48l-4 16a4 4 0 0 1-4 3H12a4 4 0 0 1-4-3Z"></path><path d="M16 18c0-6 5-10 12-10s12 4 12 10"></path><path d="M24 4c0 2 2 2 2 4M32 4c0 2 2 2 2 4"></path></svg>
+              <span style="font-size:12px;font-weight:500;color:#5B6B2F;">{{ p.nombre }}</span>
+              <div style="position:absolute;top:12px;left:12px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;">
+                <span style="background:#5B6B2F;color:#F5EFE0;border-radius:999px;padding:4px 10px;font:600 12px/1.3 'DM Sans',sans-serif;">150 g de pollo</span>
+                <sc-if value="{{ prot }}" hint-placeholder-val="{{ true }}">
+                  <span style="background:#FFFFFF;color:#4A5826;border-radius:999px;padding:3px 10px;font:500 12px/1.3 Inter,sans-serif;">≈ 45 g de proteína</span>
+                </sc-if>
+              </div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:6px;flex:1;">
+              <h3 style="margin:0;font:600 18px/1.3 'DM Sans',sans-serif;">{{ p.nombre }}</h3>
+              <p style="margin:0;font-size:14px;color:#5F5F5F;text-wrap:pretty;flex:1;">{{ p.descripcion }}</p>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;">
+                <span style="font:700 20px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ p.precio }}</span>
+                <sc-if value="{{ p.none }}" hint-placeholder-val="{{ true }}">
+                  <button type="button" onClick="{{ p.inc }}" style="min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid #5B6B2F;background:transparent;color:#5B6B2F;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#EEF0E3;">Agregar</button>
+                </sc-if>
+                <sc-if value="{{ p.has }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;align-items:center;border:1.5px solid #5B6B2F;border-radius:12px;">
+                    <button type="button" aria-label="Quitar uno" onClick="{{ p.dec }}" style="width:44px;height:42px;border:0;background:transparent;color:#5B6B2F;font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">−</button>
+                    <span style="min-width:20px;text-align:center;font:600 16px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ p.q }}</span>
+                    <button type="button" aria-label="Agregar uno" onClick="{{ p.inc }}" style="width:44px;height:42px;border:0;background:transparent;color:#5B6B2F;font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">+</button>
+                  </div>
+                </sc-if>
+              </div>
+              <a href="Menu.dc.html?hoja={{ p.id }}" style="font-size:14px;font-weight:500;color:#5B6B2F;text-underline-offset:3px;min-height:32px;display:flex;align-items:center;">Elegir marinado y salsa</a>
+            </div>
+          </article>
+        </sc-for>
+
+        <article style="grid-column:1 / -1;background:#EEF0E3;border:1px solid #D9DEC4;border-radius:16px;overflow:hidden;display:flex;flex-wrap:wrap;">
+          <div role="img" aria-label="Pack semanal x7" style="flex:1 1 280px;aspect-ratio:4/3;max-height:260px;background:#E3E7D2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative;">
+            <svg width="96" height="40" viewBox="0 0 96 40" fill="none" stroke="#5B6B2F" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><rect x="2" y="10" width="10" height="26" rx="5"></rect><rect x="15" y="10" width="10" height="26" rx="5"></rect><rect x="28" y="10" width="10" height="26" rx="5"></rect><rect x="41" y="10" width="10" height="26" rx="5"></rect><rect x="54" y="10" width="10" height="26" rx="5"></rect><rect x="67" y="10" width="10" height="26" rx="5"></rect><rect x="80" y="10" width="10" height="26" rx="5"></rect></svg>
+            <span style="font-size:12px;font-weight:500;color:#5B6B2F;">Pack semanal x7</span>
+          </div>
+          <div style="flex:2 1 300px;padding:20px;display:flex;flex-direction:column;justify-content:center;gap:8px;">
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <span style="background:#E8772E;color:#2B2B2B;border-radius:999px;padding:4px 12px;font:600 12px/1.4 'DM Sans',sans-serif;">Ahorra S/ {{ ahorro }}</span>
+              <span style="background:#5B6B2F;color:#F5EFE0;border-radius:999px;padding:4px 12px;font:600 12px/1.4 'DM Sans',sans-serif;">7 × 150 g de pollo</span>
+            </div>
+            <h3 style="margin:4px 0 0;font:700 clamp(20px,2.2cqw,26px)/1.2 'DM Sans',sans-serif;letter-spacing:-0.01em;">Pack semanal x7</h3>
+            <p style="margin:0;font-size:15px;color:#5F5F5F;">7 burritos de pollo para toda la semana.</p>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;">
+              <span style="display:flex;align-items:baseline;gap:8px;"><span style="font:700 24px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">S/ 80</span><s style="font-size:14px;color:#5F5F5F;">S/ {{ sinPack }}</s></span>
+              <sc-if value="{{ pack.none }}" hint-placeholder-val="{{ true }}">
+                <button type="button" onClick="{{ pack.inc }}" style="min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid #5B6B2F;background:#FFFFFF;color:#5B6B2F;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#F5EFE0;">Agregar</button>
+              </sc-if>
+              <sc-if value="{{ pack.has }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;border:1.5px solid #5B6B2F;border-radius:12px;background:#FFFFFF;">
+                  <button type="button" aria-label="Quitar uno" onClick="{{ pack.dec }}" style="width:44px;height:42px;border:0;background:transparent;color:#5B6B2F;font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">−</button>
+                  <span style="min-width:20px;text-align:center;font:600 16px/1 'DM Sans',sans-serif;">{{ pack.q }}</span>
+                  <button type="button" aria-label="Agregar uno" onClick="{{ pack.inc }}" style="width:44px;height:42px;border:0;background:transparent;color:#5B6B2F;font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">+</button>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div style="display:flex;justify-content:center;margin-top:28px;">
+        <a href="Menu.dc.html" style="min-height:48px;padding:0 28px;display:flex;align-items:center;border-radius:12px;border:1.5px solid #5B6B2F;color:#5B6B2F;font:600 16px/1 'DM Sans',sans-serif;text-decoration:none;" style-hover="background:#5B6B2F;color:#FFFFFF;">Ver todo el menú</a>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Lo que ves es lo que comes" style="max-width:1120px;margin:0 auto;padding:clamp(56px,8cqw,104px) 16px;">
+    <h2 style="margin:0 0 28px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:clamp(22px,2.6cqw,32px);line-height:1.2;letter-spacing:-0.02em;">Lo que ves es lo que comes</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:28px 32px;">
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <span style="width:48px;height:48px;border-radius:999px;background:#EEF0E3;display:flex;align-items:center;justify-content:center;color:#5B6B2F;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <h3 style="margin:8px 0 0;font:600 18px/1.3 'DM Sans',sans-serif;">Proteína visible.</h3>
+        <p style="margin:0;font-size:15px;color:#5F5F5F;">Cada plato dice cuántos gramos de pollo lleva. Sin letra chica.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <span style="width:48px;height:48px;border-radius:999px;background:#EEF0E3;display:flex;align-items:center;justify-content:center;color:#5B6B2F;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20M5 5l14 14M19 5 5 19"></path><path d="m9 3 3 3 3-3M9 21l3-3 3 3M3 9l3 3-3 3M21 9l-3 3 3 3"></path></svg></span>
+        <h3 style="margin:8px 0 0;font:600 18px/1.3 'DM Sans',sans-serif;">Congelado el mismo día.</h3>
+        <p style="margin:0;font-size:15px;color:#5F5F5F;">Cocinamos y congelamos de inmediato para que llegue como recién hecho.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <span style="width:48px;height:48px;border-radius:999px;background:#EEF0E3;display:flex;align-items:center;justify-content:center;color:#5B6B2F;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2M10 2h4"></path></svg></span>
+        <h3 style="margin:8px 0 0;font:600 18px/1.3 'DM Sans',sans-serif;">Listo en 4 minutos.</h3>
+        <p style="margin:0;font-size:15px;color:#5F5F5F;">Microondas tapado y a comer. Los fideos, con un chorrito de agua.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Preguntas frecuentes" style="max-width:1120px;margin:0 auto;padding:0 16px clamp(56px,8cqw,104px);display:flex;flex-wrap:wrap;gap:16px 64px;">
+    <h2 style="flex:1 1 240px;margin:0;font-family:'DM Sans',sans-serif;font-weight:700;font-size:clamp(22px,2.6cqw,32px);line-height:1.2;letter-spacing:-0.02em;">Preguntas frecuentes</h2>
+    <div style="flex:3 1 480px;min-width:0;background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="8">
+        <div style="border-top:{{ f.borde }};">
+          <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;min-height:56px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;border:0;background:transparent;text-align:left;cursor:pointer;color:#2B2B2B;font:600 16px/1.35 'DM Sans',sans-serif;">
+            <span>{{ f.q }}</span>
+            <span aria-hidden="true" style="flex:none;width:28px;height:28px;border-radius:999px;background:#EEF0E3;color:#5B6B2F;display:flex;align-items:center;justify-content:center;font:500 18px/1 'DM Sans',sans-serif;">{{ f.icon }}</span>
+          </button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0;padding:0 20px 18px;font-size:15px;color:#5F5F5F;max-width:62ch;text-wrap:pretty;">{{ f.a }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer style="background:#5B6B2F;color:#F5EFE0;">
+    <div style="max-width:1120px;margin:0 auto;padding:40px 16px 32px;display:flex;flex-direction:column;gap:24px;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="36" height="36" viewBox="0 0 104 104" aria-hidden="true"><circle cx="52" cy="52" r="52" fill="#F5EFE0"></circle><path d="M54 20 C 36 28, 26 46, 30 72 C 52 70, 68 56, 72 30 C 66 25, 60 21, 54 20 Z" fill="#5B6B2F"></path><path d="M31 71 L 56 42" stroke="#F5EFE0" stroke-width="4" stroke-linecap="round" fill="none"></path><circle cx="80" cy="24" r="9" fill="#E8772E"></circle></svg>
+          <span style="font-family:'DM Sans',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.4px;">Alta Proteína</span>
+        </div>
+        <p style="margin:0;max-width:40ch;font-size:15px;">Repartimos gratis en San Miguel, Magdalena del Mar, San Isidro, Miraflores y San Borja. ¿Tu zona no está? <a href="https://wa.me/51933980759" style="color:#FFFFFF;font-weight:600;text-underline-offset:3px;">Escríbenos.</a></p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px 20px;">
+        <a href="https://wa.me/51933980759" style="color:#F5EFE0;min-height:44px;display:flex;align-items:center;font-weight:500;text-underline-offset:3px;">WhatsApp</a>
+        <a href="#" style="color:#F5EFE0;min-height:44px;display:flex;align-items:center;font-weight:500;text-underline-offset:3px;">Instagram</a>
+        <a href="Terminos.dc.html" style="color:#F5EFE0;min-height:44px;display:flex;align-items:center;font-weight:500;text-underline-offset:3px;">Términos y entregas</a>
+      </div>
+      <div style="border-top:1px solid rgba(245,239,224,0.25);padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:14px;">
+        <span>Pagas con Yape o tarjeta</span>
+        <span>Alta Proteína · Lima, Perú</span>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;corteCerrado&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;mostrarProteina&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Propuestas&quot;}}">
+const PRODUCTOS = [
+  { id: 'burrito-pollo', nombre: 'Burrito de pollo', descripcion: 'Pollo marinado, arroz, frejoles y vegetales envueltos en tortilla de trigo.', precio: 12 },
+  { id: 'quesadilla-pollo', nombre: 'Quesadilla de pollo', descripcion: 'Pollo marinado y queso fundido en tortilla dorada.', precio: 12 },
+  { id: 'arroz-pollo', nombre: 'Arroz con pollo', descripcion: 'Pollo marinado sobre arroz con verduras; salsa aparte.', precio: 11 },
+  { id: 'fideos-pollo', nombre: 'Fideos con pollo', descripcion: 'Pasta corta al dente con pollo marinado; salsa aparte.', precio: 11 }
+];
+const PACK = { id: 'pack-7', precio: 80, unidades: 7, base: 12 };
+const FAQS = [
+  ['¿Qué es exactamente lo que recibo?', 'Platos cocinados y congelados, en envases individuales con etiqueta. Cada uno lleva 150 g de pollo cocido más su acompañamiento. Las salsas van aparte, en envases pequeños.'],
+  ['¿Cuándo tengo que pedir y cuándo me llega?', 'Pides hasta el jueves a las 7 p. m. y recibes el domingo entre 9 a. m. y 3 p. m. en tu dirección. Si pides después del corte, tu pedido entra en la semana siguiente.'],
+  ['¿Cómo lo recaliento?', 'Microondas, tapado, 3 a 4 minutos. Los fideos quedan mejor con un chorrito de agua antes de calentar. También puedes descongelar en la refrigeradora la noche anterior.'],
+  ['¿Cuánto dura congelado?', 'Hasta 30 días en el congelador. Una vez descongelado, consúmelo el mismo día y no lo vuelvas a congelar.'],
+  ['¿Cómo pago?', 'Con Yape (sin recargo) subiendo la captura de tu pago, o con tarjeta mediante un link de pago. La tarjeta tiene un recargo del 10 % en compras menores a S/ 100 y del 5 % desde S/ 100, y lo ves antes de confirmar.'],
+  ['¿Puedo cambiar o cancelar mi pedido?', 'Sí, hasta la hora de corte del jueves, escribiéndonos por WhatsApp. Después de esa hora ya compramos y cocinamos para ti, así que no podemos cancelar.'],
+  ['¿Llegan a mi zona?', 'Por ahora repartimos en San Miguel, Magdalena del Mar, San Isidro, Miraflores y San Borja, con envío gratis. Estamos sumando zonas: escríbenos y te avisamos.'],
+  ['¿Quién cocina?', 'Un chef aliado, en una cocina autorizada, con recetas que diseñamos para que aguanten bien el congelado y recalentado.']
+];
+
+class Component extends DCLogic {
+  state = { cart: {}, faq: 0 };
+  standalone() { return decodeURIComponent(location.pathname).endsWith('Inicio.dc.html'); }
+  componentDidMount() {
+    if (!this.standalone()) return;
+    try {
+      const lines = JSON.parse(localStorage.getItem('ap-carrito') || '[]');
+      const cart = {};
+      lines.forEach(l => { const id = l.id === 'pack-7' ? 'pack-7' : l.id; cart[id] = (cart[id] || 0) + l.q; });
+      this.setState({ cart });
+    } catch (e) {}
+  }
+  add(id, d) {
+    this.setState(s => ({ cart: { ...s.cart, [id]: Math.max(0, (s.cart[id] || 0) + d) } }));
+    {
+      if (!this.standalone()) return;
+      let lines = [];
+      try { lines = JSON.parse(localStorage.getItem('ap-carrito') || '[]'); } catch (e) {}
+      if (d > 0) {
+        const l = lines.find(l => l.id === id && !l.mar && !l.sal && !(l.ext || []).length);
+        if (l) l.q++; else lines.push({ id, mar: 0, sal: 0, ext: [], q: 1, modo: 'uno', key: Date.now() });
+      } else {
+        const l = [...lines].reverse().find(l => l.id === id); if (l) l.q--;
+      }
+      localStorage.setItem('ap-carrito', JSON.stringify(lines.filter(l => l.q > 0)));
+      localStorage.removeItem('ap-resumen');
+    }
+  }
+  _unusedAdd(id, d) {
+  add(id, d) {
+    this.setState(s => ({ cart: { ...s.cart, [id]: Math.max(0, (s.cart[id] || 0) + d) } }));
+  }
+  item(id) {
+    const q = this.state.cart[id] || 0;
+    return { q, has: q > 0, none: q === 0, inc: () => this.add(id, 1), dec: () => this.add(id, -1) };
+  }
+  renderVals() {
+    const cerrado = this.props.corteCerrado ?? false;
+    const count = Object.values(this.state.cart).reduce((a, b) => a + b, 0);
+    return {
+      abierto: !cerrado,
+      cerrado,
+      prot: this.props.mostrarProteina ?? true,
+      count,
+      hasCount: count > 0,
+      productos: PRODUCTOS.map(p => ({ ...p, precio: `S/ ${p.precio}`, ...this.item(p.id) })),
+      pack: this.item(PACK.id),
+      sinPack: PACK.unidades * PACK.base,
+      ahorro: PACK.unidades * PACK.base - PACK.precio,
+      faqs: FAQS.map(([q, a], i) => {
+        const open = this.state.faq === i;
+        return { q, a, open, icon: open ? '−' : '+', borde: i === 0 ? '0' : '1px solid #E3DCCB',
+          toggle: () => this.setState({ faq: open ? -1 : i }) };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5EFE0;}
+a{color:#5B6B2F;}
+a:hover{color:#4A5826;}
+button{font:inherit;}
+:focus-visible{outline:2px solid #5B6B2F;outline-offset:2px;}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#F5EFE0;color:#2B2B2B;font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.5;">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(28px,6vw,64px) 16px 64px;display:flex;flex-direction:column;gap:40px;">
+    <header style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <svg width="40" height="40" viewBox="0 0 104 104" aria-hidden="true"><circle cx="52" cy="52" r="52" fill="#5B6B2F"></circle><path d="M54 20 C 36 28, 26 46, 30 72 C 52 70, 68 56, 72 30 C 66 25, 60 21, 54 20 Z" fill="#F5EFE0"></path><path d="M31 71 L 56 42" stroke="#5B6B2F" stroke-width="4" stroke-linecap="round" fill="none"></path><circle cx="80" cy="24" r="9" fill="#E8772E"></circle></svg>
+        <span style="font:700 22px 'DM Sans',sans-serif;color:#5B6B2F;letter-spacing:-0.4px;">Alta Proteína</span>
+      </div>
+      <h1 style="margin:0;font:700 clamp(30px,4vw,44px)/1.1 'DM Sans',sans-serif;letter-spacing:-0.03em;">Prototipo navegable · Web MVP</h1>
+      <p style="margin:0;color:#5F5F5F;max-width:62ch;">Versión del 14 de noviembre de 2026. El carrito se guarda en este navegador: lo que agregas en Inicio o en el Menú llega hasta Entrega y Pago.</p>
+    </header>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;">
+      <section style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+        <h2 style="margin:0;font:700 20px 'DM Sans',sans-serif;">Web de pedidos</h2>
+        <p style="margin:0;font-size:14px;color:#5F5F5F;">Recorrido del cliente, de principio a fin.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="Inicio.dc.html" style="min-height:52px;padding:0 16px;border-radius:12px;background:#E8772E;color:#2B2B2B;display:flex;align-items:center;justify-content:space-between;font:600 16px 'DM Sans',sans-serif;text-decoration:none;" style-hover="background:#DC6E28;color:#2B2B2B;"><span>Empezar en Inicio</span><span aria-hidden="true">→</span></a>
+          <a href="Menu.dc.html" style="min-height:48px;padding:0 16px;border-radius:12px;border:1.5px solid #E3DCCB;display:flex;align-items:center;justify-content:space-between;font:600 15px 'DM Sans',sans-serif;text-decoration:none;color:#2B2B2B;" style-hover="border-color:#5B6B2F;color:#2B2B2B;"><span>Menú de la semana</span><span style="font:400 13px Inter,sans-serif;color:#5F5F5F;">/menu</span></a>
+          <a href="Menu.dc.html?vista=carrito" style="min-height:48px;padding:0 16px;border-radius:12px;border:1.5px solid #E3DCCB;display:flex;align-items:center;justify-content:space-between;font:600 15px 'DM Sans',sans-serif;text-decoration:none;color:#2B2B2B;" style-hover="border-color:#5B6B2F;color:#2B2B2B;"><span>Carrito</span><span style="font:400 13px Inter,sans-serif;color:#5F5F5F;">/carrito</span></a>
+          <a href="Checkout.dc.html" style="min-height:48px;padding:0 16px;border-radius:12px;border:1.5px solid #E3DCCB;display:flex;align-items:center;justify-content:space-between;font:600 15px 'DM Sans',sans-serif;text-decoration:none;color:#2B2B2B;" style-hover="border-color:#5B6B2F;color:#2B2B2B;"><span>Entrega, pago y estado</span><span style="font:400 13px Inter,sans-serif;color:#5F5F5F;">/entrega · /pago · /pedido</span></a>
+          <a href="Terminos.dc.html" style="min-height:48px;padding:0 16px;border-radius:12px;border:1.5px solid #E3DCCB;display:flex;align-items:center;justify-content:space-between;font:600 15px 'DM Sans',sans-serif;text-decoration:none;color:#2B2B2B;" style-hover="border-color:#5B6B2F;color:#2B2B2B;"><span>Términos y entregas</span><span style="font:400 13px Inter,sans-serif;color:#5F5F5F;">/terminos</span></a>
+        </div>
+        <button type="button" onClick="{{ vaciar }}" style="align-self:flex-start;min-height:44px;padding:0;border:0;background:transparent;color:#5F5F5F;font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">{{ vaciarTxt }}</button>
+      </section>
+
+      <section style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+        <h2 style="margin:0;font:700 20px 'DM Sans',sans-serif;">Panel interno</h2>
+        <p style="margin:0;font-size:14px;color:#5F5F5F;">Para Aldo y Ale. Con los 6 pedidos de ejemplo.</p>
+        <a href="Panel.dc.html" style="min-height:52px;padding:0 16px;border-radius:12px;background:#5B6B2F;color:#FFFFFF;display:flex;align-items:center;justify-content:space-between;font:600 16px 'DM Sans',sans-serif;text-decoration:none;" style-hover="background:#4A5826;color:#FFFFFF;"><span>Abrir el panel</span><span aria-hidden="true">→</span></a>
+        <h3 style="margin:12px 0 0;font:600 15px 'DM Sans',sans-serif;">Tableros por tanda</h3>
+        <div style="display:flex;flex-direction:column;">
+          <a href="Tanda 1 - Inicio.dc.html" style="min-height:40px;display:flex;align-items:center;font-weight:500;">1 · Inicio</a>
+          <a href="Tanda 2 - Menu y carrito.dc.html" style="min-height:40px;display:flex;align-items:center;font-weight:500;">2 · Menú, personalización y carrito</a>
+          <a href="Tanda 3 - Entrega pago y pedido.dc.html" style="min-height:40px;display:flex;align-items:center;font-weight:500;">3 · Entrega, pago y estado del pedido</a>
+          <a href="Tanda 4 - Panel interno.dc.html" style="min-height:40px;display:flex;align-items:center;font-weight:500;">4 · Panel interno</a>
+        </div>
+      </section>
+    </div>
+
+    <section style="display:flex;flex-direction:column;gap:14px;">
+      <h2 style="margin:0;font:700 22px 'DM Sans',sans-serif;">Revisión de accesibilidad</h2>
+      <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:10px;">
+        <li style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:12px;padding:14px 16px;font-size:14px;"><strong style="font-family:'DM Sans',sans-serif;">Contraste AA.</strong> Botón naranja siempre con texto #2B2B2B. Naranja como texto solo en #A84E17. El aviso “pendiente” usa un dorado más oscuro (#6E5108) porque #B8860B no llega a 4,5:1.</li>
+        <li style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:12px;padding:14px 16px;font-size:14px;"><strong style="font-family:'DM Sans',sans-serif;">Foco visible.</strong> Contorno oliva de 2 px en todos los botones, enlaces y campos al navegar con teclado.</li>
+        <li style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:12px;padding:14px 16px;font-size:14px;"><strong style="font-family:'DM Sans',sans-serif;">Toque de 44 px.</strong> Steppers, chips, casillas y navegación del panel cumplen el mínimo. Texto mínimo de 12 px.</li>
+        <li style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:12px;padding:14px 16px;font-size:14px;"><strong style="font-family:'DM Sans',sans-serif;">Formularios.</strong> Etiquetas reales, error bajo cada campo y estado aria-invalid. Celular con teclado numérico.</li>
+        <li style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:12px;padding:14px 16px;font-size:14px;"><strong style="font-family:'DM Sans',sans-serif;">Imágenes.</strong> Todos los placeholders tienen texto alternativo con el nombre del producto y proporción fija (4:3 y 16:9).</li>
+        <li style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:12px;padding:14px 16px;font-size:14px;"><strong style="font-family:'DM Sans',sans-serif;">Componentes unificados.</strong> Una sola tarjeta de producto, stepper, chip de estado y resumen de totales en todas las pantallas.</li>
+      </ul>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:14px;">
+      <h2 style="margin:0;font:700 22px 'DM Sans',sans-serif;">Decisiones confirmadas · 14 nov 2026</h2>
+      <ul style="margin:0;padding:0 0 0 22px;display:flex;flex-direction:column;gap:6px;font-size:15px;max-width:72ch;">
+        <li>Se muestra “≈ 45 g de proteína” junto a “150 g de pollo”.</li>
+        <li>Corte: jueves 7:00 p. m. Entrega: domingo entre 9 a. m. y 3 p. m.</li>
+        <li>Envío gratis a San Miguel, Magdalena del Mar, San Isidro, Miraflores y San Borja.</li>
+        <li>Pedido mínimo: S/ 50.</li>
+        <li>Pack x7: el cliente elige cuántos de cada marinado (o “Mix de la casa”). Cocina los sábados. WhatsApp de atención = número de Yape.</li>
+        <li>Código de pedido: AP-AAMM-0001.</li>
+        <li>Yape: +51 933 980 759.</li>
+        <li>Duración congelado: 30 días.</li>
+      </ul>
+      <h3 style="margin:8px 0 0;font:700 17px 'DM Sans',sans-serif;">Aún pendiente</h3>
+      <ul style="margin:0;padding:0 0 0 22px;display:flex;flex-direction:column;gap:6px;font-size:15px;max-width:72ch;">
+        <li>Logo definitivo y fotos de producto (esta semana).</li>
+        <li>Nombres definitivos de las salsas.</li>
+        <li>Proveedor del link de pago (Culqi, Izipay o Mercado Pago).</li>
+                      </ul>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { vaciado: false };
+  renderVals() {
+    return {
+      vaciar: () => { localStorage.removeItem('ap-carrito'); localStorage.removeItem('ap-resumen'); this.setState({ vaciado: true }); },
+      vaciarTxt: this.state.vaciado ? 'Carrito de prueba vaciado' : 'Vaciar carrito de prueba'
+    };
+  }
+}
+</script>
+</body>
+</html>

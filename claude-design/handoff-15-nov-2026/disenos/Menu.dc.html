@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5EFE0;}
+a{color:#5B6B2F;}
+a:hover{color:#4A5826;}
+button{font:inherit;}
+:focus-visible{outline:2px solid #5B6B2F;outline-offset:2px;}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="position:relative;height:100%;display:flex;flex-direction:column;background:#F5EFE0;color:#2B2B2B;font-family:Inter,'Segoe UI',system-ui,sans-serif;font-size:16px;line-height:1.5;overflow:hidden;">
+<div style="flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;">
+
+  <div style="background:#5B6B2F;color:#F5EFE0;font-size:14px;line-height:1.4;font-weight:500;padding:8px 16px;text-align:center;text-wrap:balance;">
+    <sc-if value="{{ abierto }}" hint-placeholder-val="{{ true }}"><span>Pide hasta el jueves 7:00 p. m. · Recibes el domingo 22</span></sc-if>
+    <sc-if value="{{ cerrado }}" hint-placeholder-val="{{ false }}"><span>El menú de esta semana cerró · Lo que pidas ahora llega el domingo 29</span></sc-if>
+  </div>
+
+  <header style="border-bottom:1px solid #E3DCCB;background:#F5EFE0;">
+    <div style="max-width:1120px;margin:0 auto;padding:0 16px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <a href="Inicio.dc.html" aria-label="Alta Proteína, inicio" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <svg width="36" height="36" viewBox="0 0 104 104" aria-hidden="true"><circle cx="52" cy="52" r="52" fill="#5B6B2F"></circle><path d="M54 20 C 36 28, 26 46, 30 72 C 52 70, 68 56, 72 30 C 66 25, 60 21, 54 20 Z" fill="#F5EFE0"></path><path d="M31 71 L 56 42" stroke="#5B6B2F" stroke-width="4" stroke-linecap="round" fill="none"></path><circle cx="80" cy="24" r="9" fill="#E8772E"></circle></svg>
+        <span style="font-family:'DM Sans',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.4px;color:#5B6B2F;">Alta Proteína</span>
+      </a>
+      <nav style="display:flex;align-items:center;gap:8px;">
+        <button type="button" onClick="{{ verMenu }}" style="font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;color:#5B6B2F;background:transparent;border:0;padding:0 12px;min-height:44px;border-radius:12px;cursor:pointer;" style-hover="background:#EEF0E3;">Menú</button>
+        <button type="button" onClick="{{ verCarrito }}" aria-label="Carrito, {{ count }} ítems" style="position:relative;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;color:#5B6B2F;background:transparent;border:0;cursor:pointer;" style-hover="background:#EEF0E3;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <sc-if value="{{ hasCount }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;top:4px;right:2px;min-width:20px;height:20px;padding:0 5px;box-sizing:border-box;border-radius:999px;background:#E8772E;color:#2B2B2B;font:600 12px/20px 'DM Sans',sans-serif;text-align:center;">{{ count }}</span>
+          </sc-if>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <sc-if value="{{ isMenu }}" hint-placeholder-val="{{ true }}">
+  <main data-screen-label="Menú de la semana" style="flex:1;max-width:1120px;width:100%;box-sizing:border-box;margin:0 auto;padding:24px 16px 40px;display:flex;flex-direction:column;gap:20px;">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;">
+      <h1 style="margin:0;font:700 26px/1.2 'DM Sans',sans-serif;letter-spacing:-0.02em;">Menú de la semana</h1>
+      <span style="display:flex;align-items:center;gap:6px;background:#EEF0E3;color:#4A5826;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:500;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+        <sc-if value="{{ abierto }}" hint-placeholder-val="{{ true }}"><span>Pide hasta el jueves 7:00 p. m. · Recibes el domingo 22</span></sc-if>
+        <sc-if value="{{ cerrado }}" hint-placeholder-val="{{ false }}"><span>Lo que pidas ahora llega el domingo 29</span></sc-if>
+      </span>
+    </div>
+    <div role="group" aria-label="Filtrar menú" style="display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px 2px;">
+      <sc-for list="{{ filtros }}" as="f" hint-placeholder-count="4">
+        <button type="button" aria-pressed="{{ f.active }}" onClick="{{ f.pick }}" style="flex:none;min-height:40px;padding:0 16px;border-radius:999px;border:1.5px solid {{ f.borde }};background:{{ f.fondo }};color:{{ f.color }};font:600 14px/1 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;">{{ f.label }}</button>
+      </sc-for>
+    </div>
+    <sc-if value="{{ cargando }}" hint-placeholder-val="{{ false }}">
+      <div aria-busy="true" aria-label="Cargando menú" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:16px;">
+        <sc-for list="{{ esqueletos }}" as="k" hint-placeholder-count="4">
+          <div style="background:#FFFFFF;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="aspect-ratio:4/3;background:#EDE5D2;"></div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
+              <div style="height:18px;width:60%;border-radius:6px;background:#EDE5D2;"></div>
+              <div style="height:12px;width:90%;border-radius:6px;background:#F2ECDD;"></div>
+              <div style="height:12px;width:70%;border-radius:6px;background:#F2ECDD;"></div>
+              <div style="display:flex;justify-content:space-between;margin-top:8px;"><div style="height:22px;width:56px;border-radius:6px;background:#EDE5D2;"></div><div style="height:44px;width:96px;border-radius:12px;background:#F2ECDD;"></div></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ sinMenu }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:48px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#5B6B2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18M9 15h6"></path></svg>
+        <p style="margin:0;max-width:40ch;font-size:16px;">Estamos armando el menú de la próxima semana. Escríbenos por WhatsApp y te avisamos cuando esté listo.</p>
+        <a href="https://wa.me/51933980759" style="min-height:48px;padding:0 24px;display:flex;align-items:center;border-radius:12px;background:#5B6B2F;color:#FFFFFF;font:600 15px 'DM Sans',sans-serif;text-decoration:none;" style-hover="background:#4A5826;color:#FFFFFF;">Escribir por WhatsApp</a>
+      </div>
+    </sc-if>
+    <sc-if value="{{ hayMenu }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:16px;">
+      <sc-for list="{{ productos }}" as="p" hint-placeholder-count="4">
+        <article style="background:#FFFFFF;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(43,43,43,0.08);opacity:{{ p.opacidad }};">
+          <div role="img" aria-label="{{ p.nombre }}" style="position:relative;aspect-ratio:4/3;background:#EDE5D2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+            <svg width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#5B6B2F" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h48l-4 16a4 4 0 0 1-4 3H12a4 4 0 0 1-4-3Z"></path><path d="M16 18c0-6 5-10 12-10s12 4 12 10"></path><path d="M24 4c0 2 2 2 2 4M32 4c0 2 2 2 2 4"></path></svg>
+            <span style="font-size:12px;font-weight:500;color:#5B6B2F;">{{ p.nombre }}</span>
+            <div style="position:absolute;top:12px;left:12px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;">
+              <span style="background:#5B6B2F;color:#F5EFE0;border-radius:999px;padding:4px 10px;font:600 12px/1.3 'DM Sans',sans-serif;">150 g de pollo</span>
+              <sc-if value="{{ prot }}" hint-placeholder-val="{{ true }}">
+                <span style="background:#FFFFFF;color:#4A5826;border-radius:999px;padding:3px 10px;font:500 12px/1.3 Inter,sans-serif;">≈ 45 g de proteína</span>
+              </sc-if>
+            </div>
+          </div>
+          <div style="padding:16px;display:flex;flex-direction:column;gap:6px;flex:1;">
+            <h3 style="margin:0;font:600 18px/1.3 'DM Sans',sans-serif;">{{ p.nombre }}</h3>
+            <p style="margin:0;font-size:14px;color:#5F5F5F;text-wrap:pretty;flex:1;">{{ p.descripcion }}</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;min-height:44px;">
+              <span style="font:700 20px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ p.precioTxt }}</span>
+              <sc-if value="{{ p.agotado }}" hint-placeholder-val="{{ false }}">
+                <span style="background:#ECECEC;color:#6B6B6B;border-radius:999px;padding:4px 12px;font:500 12px/1.4 Inter,sans-serif;">Esta semana no</span>
+              </sc-if>
+              <sc-if value="{{ p.none }}" hint-placeholder-val="{{ true }}">
+                <button type="button" onClick="{{ p.inc }}" style="min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid #5B6B2F;background:transparent;color:#5B6B2F;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#EEF0E3;">Agregar</button>
+              </sc-if>
+              <sc-if value="{{ p.has }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;border:1.5px solid #5B6B2F;border-radius:12px;">
+                  <button type="button" aria-label="Quitar uno" onClick="{{ p.dec }}" style="width:44px;height:42px;border:0;background:transparent;color:#5B6B2F;font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">−</button>
+                  <span style="min-width:20px;text-align:center;font:600 16px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ p.q }}</span>
+                  <button type="button" aria-label="Agregar uno" onClick="{{ p.inc }}" style="width:44px;height:42px;border:0;background:transparent;color:#5B6B2F;font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">+</button>
+                </div>
+              </sc-if>
+            </div>
+            <span style="font-size:12px;color:#5F5F5F;">Congelado · Microondas 3-4 min</span>
+            <sc-if value="{{ p.disponible }}" hint-placeholder-val="{{ true }}">
+              <button type="button" onClick="{{ p.abrir }}" style="align-self:flex-start;padding:0;min-height:32px;border:0;background:transparent;font-size:14px;font-weight:500;color:#5B6B2F;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Elegir marinado y salsa</button>
+            </sc-if>
+          </div>
+        </article>
+      </sc-for>
+
+      <sc-if value="{{ showPack }}" hint-placeholder-val="{{ true }}">
+      <article style="grid-column:1 / -1;background:#EEF0E3;border:1px solid #D9DEC4;border-radius:16px;overflow:hidden;display:flex;flex-wrap:wrap;">
+        <div role="img" aria-label="Pack semanal x7" style="flex:1 1 280px;aspect-ratio:4/3;max-height:260px;background:#E3E7D2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+          <svg width="96" height="40" viewBox="0 0 96 40" fill="none" stroke="#5B6B2F" stroke-width="1.75" aria-hidden="true"><rect x="2" y="10" width="10" height="26" rx="5"></rect><rect x="15" y="10" width="10" height="26" rx="5"></rect><rect x="28" y="10" width="10" height="26" rx="5"></rect><rect x="41" y="10" width="10" height="26" rx="5"></rect><rect x="54" y="10" width="10" height="26" rx="5"></rect><rect x="67" y="10" width="10" height="26" rx="5"></rect><rect x="80" y="10" width="10" height="26" rx="5"></rect></svg>
+          <span style="font-size:12px;font-weight:500;color:#5B6B2F;">Pack semanal x7</span>
+        </div>
+        <div style="flex:2 1 300px;padding:20px;display:flex;flex-direction:column;justify-content:center;gap:8px;">
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="background:#E8772E;color:#2B2B2B;border-radius:999px;padding:4px 12px;font:600 12px/1.4 'DM Sans',sans-serif;">Ahorra S/ {{ ahorro }}</span>
+            <span style="background:#5B6B2F;color:#F5EFE0;border-radius:999px;padding:4px 12px;font:600 12px/1.4 'DM Sans',sans-serif;">7 × 150 g de pollo</span>
+          </div>
+          <h3 style="margin:4px 0 0;font:700 22px/1.2 'DM Sans',sans-serif;letter-spacing:-0.01em;">Pack semanal x7</h3>
+          <p style="margin:0;font-size:15px;color:#5F5F5F;">7 burritos de pollo para toda la semana.</p>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;">
+            <span style="display:flex;align-items:baseline;gap:8px;"><span style="font:700 24px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">S/ 80</span><s style="font-size:14px;color:#5F5F5F;">S/ {{ sinPack }}</s></span>
+            <button type="button" onClick="{{ abrirPack }}" style="min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid #5B6B2F;background:#FFFFFF;color:#5B6B2F;font:600 15px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#F5EFE0;">Elegir marinado</button>
+          </div>
+        </div>
+      </article>
+      </sc-if>
+    </div>
+    </sc-if>
+  </main>
+  <sc-if value="{{ barra }}" hint-placeholder-val="{{ false }}">
+    <div style="position:sticky;bottom:0;background:#FFFFFF;border-top:1px solid #E3DCCB;box-shadow:0 -8px 24px rgba(43,43,43,0.12);">
+      <div style="max-width:1120px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+        <span style="font:600 16px/1.3 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ barraTexto }}</span>
+        <button type="button" onClick="{{ verCarrito }}" style="min-height:48px;padding:0 24px;border-radius:12px;border:0;background:#E8772E;color:#2B2B2B;font:600 16px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#DC6E28;">Ver carrito</button>
+      </div>
+    </div>
+  </sc-if>
+  </sc-if>
+
+  <sc-if value="{{ isCart }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Carrito" style="flex:1;max-width:1120px;width:100%;box-sizing:border-box;margin:0 auto;padding:24px 16px 40px;display:flex;flex-direction:column;gap:20px;">
+    <h1 style="margin:0;font:700 26px/1.2 'DM Sans',sans-serif;letter-spacing:-0.02em;">Tu semana</h1>
+
+    <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:48px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;">
+        <svg width="72" height="56" viewBox="0 0 72 56" fill="none" stroke="#5B6B2F" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14 8 22v28a4 4 0 0 0 4 4h48a4 4 0 0 0 4-4V22l-6-8Z"></path><path d="M8 22h56"></path><path d="M46 30a10 10 0 0 1-20 0"></path><path d="M30 4v4M36 2v6M42 4v4" stroke-dasharray="2 3"></path></svg>
+        <h2 style="margin:8px 0 0;font:700 22px/1.25 'DM Sans',sans-serif;">Todavía no armaste tu semana</h2>
+        <p style="margin:0;color:#5F5F5F;max-width:34ch;">Elige tus platos del menú y arma tu pedido.</p>
+        <button type="button" onClick="{{ verMenu }}" style="margin-top:8px;min-height:48px;padding:0 28px;border:0;border-radius:12px;background:#E8772E;color:#2B2B2B;font:600 16px/1 'DM Sans',sans-serif;cursor:pointer;" style-hover="background:#DC6E28;">Ver el menú</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ cartHas }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:20px 32px;">
+      <div style="flex:3 1 420px;min-width:0;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:8px;background:#EEF0E3;color:#4A5826;border-radius:12px;padding:10px 14px;font-size:14px;font-weight:500;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+          <span>Tu pedido entra en la semana del {{ semana }}</span>
+        </div>
+        <ul style="list-style:none;margin:0;padding:0;background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;">
+          <sc-for list="{{ lineas }}" as="l" hint-placeholder-count="2">
+            <li style="padding:16px;display:flex;gap:14px;border-bottom:1px solid #E3DCCB;">
+              <div role="img" aria-label="{{ l.nombre }}" style="flex:none;width:72px;height:72px;border-radius:12px;background:#EDE5D2;display:flex;align-items:center;justify-content:center;">
+                <svg width="34" height="24" viewBox="0 0 56 40" fill="none" stroke="#5B6B2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h48l-4 16a4 4 0 0 1-4 3H12a4 4 0 0 1-4-3Z"></path><path d="M16 18c0-6 5-10 12-10s12 4 12 10"></path></svg>
+              </div>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;justify-content:space-between;gap:12px;">
+                  <h3 style="margin:0;font:600 16px/1.3 'DM Sans',sans-serif;">{{ l.nombre }}</h3>
+                  <span style="font:700 16px/1.3 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ l.total }}</span>
+                </div>
+                <p style="margin:0;font-size:13px;color:#5F5F5F;text-wrap:pretty;">{{ l.detalle }}</p>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;">
+                  <div style="display:flex;align-items:center;border:1.5px solid #5B6B2F;border-radius:12px;">
+                    <button type="button" aria-label="Quitar uno" onClick="{{ l.dec }}" style="width:44px;height:40px;border:0;background:transparent;color:#5B6B2F;font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">−</button>
+                    <span style="min-width:20px;text-align:center;font:600 15px/1 'DM Sans',sans-serif;">{{ l.q }}</span>
+                    <button type="button" aria-label="Agregar uno" onClick="{{ l.inc }}" style="width:44px;height:40px;border:0;background:transparent;color:#5B6B2F;font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">+</button>
+                  </div>
+                  <button type="button" onClick="{{ l.quitar }}" style="min-height:44px;padding:0 4px;border:0;background:transparent;color:#5F5F5F;font:500 14px/1 Inter,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Quitar</button>
+                </div>
+              </div>
+            </li>
+          </sc-for>
+        </ul>
+        <button type="button" onClick="{{ verMenu }}" style="align-self:flex-start;min-height:44px;padding:0;border:0;background:transparent;color:#5B6B2F;font:600 15px/1 'DM Sans',sans-serif;text-decoration:underline;text-underline-offset:4px;cursor:pointer;">Seguir pidiendo</button>
+      </div>
+
+      <aside style="flex:2 1 300px;min-width:0;background:#FFFFFF;border:1px solid #E3DCCB;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+        <h2 style="margin:0 0 4px;font:600 18px/1.3 'DM Sans',sans-serif;">Resumen</h2>
+        <div style="display:flex;justify-content:space-between;gap:12px;font-size:15px;"><span>Subtotal</span><span style="font-variant-numeric:tabular-nums;">{{ subtotal }}</span></div>
+        <div style="display:flex;justify-content:space-between;gap:12px;font-size:14px;color:#5F5F5F;"><span>Delivery: gratis</span></div>
+        <div style="border-top:1px solid #E3DCCB;padding-top:12px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;">
+          <span style="font:600 16px/1.3 'DM Sans',sans-serif;">Total parcial</span>
+          <span style="font:700 22px/1 'DM Sans',sans-serif;font-variant-numeric:tabular-nums;">{{ subtotal }}</span>
+        </div>
+        <sc-if value="{{ bajoMinimo }}" hint-placeholder-val="{{ false }}">
+          <p role="status" style="margin:4px 0 0;padding:10px 12px;border-radius:12px;background:#FBF3DC;color:#6E5108;font-size:14px;font-weight:500;">{{ minimoTexto }}</p>
+          <button type="button" disabled="disabled" style="min-height:52px;border:0;border-radius:12px;background:#EDE5D2;color:#5F5F5F;font:600 16px/1 'DM Sans',sans-serif;cursor:not-allowed;">Continuar a entrega</button>
+        </sc-if>
+        <sc-if value="{{ okMinimo }}" hint-placeholder-val="{{ true }}">
+          <a href="Checkout.dc.html" style="margin-top:4px;min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#E8772E;color:#2B2B2B;font:600 16px/1 'DM Sans',sans-serif;text-decoration:none;" style-hover="background:#DC6E28;color:#2B2B2B;">Continuar a entrega</a>
+        </sc-if>
+      </aside>
+    </div>
+    </sc-if>
+  </main>
+</sc-if>
+</div>
+<sc-if value="{{ errorRed }}" hint-placeholder-val="{{ false }}">
+  <div role="alert" style="position:absolute;left:16px;right:16px;bottom:88px;display:flex;justify-content:center;z-index:5;">
+    <div style="max-width:440px;width:100%;background:#2B2B2B;color:#FFFFFF;border-radius:12px;padding:10px 10px 10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 8px 24px rgba(43,43,43,0.25);font-size:14px;">
+      <span>No hay conexión. Tu carrito sigue guardado.</span>
+      <button type="button" onClick="{{ reintentar }}" style="flex:none;min-height:40px;padding:0 14px;border:0;border-radius:10px;background:#F5EFE0;color:#2B2B2B;font:600 14px/1 'DM Sans',sans-serif;cursor:pointer;">Reintentar</button>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ hojaOpen }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Personalización" style="position:absolute;inset:0;background:rgba(43,43,43,0.45);display:flex;flex-direction:column;align-items:center;justify-content:{{ hojaAlign }};z-index:10;">
+  <div role="dialog" aria-modal="true" aria-label="{{ hojaNombre }}" style="width:100%;max-width:520px;max-height:{{ hojaMaxH }};background:#FFFFFF;border-radius:{{ hojaRadius }};box-shadow:0 -8px 24px rgba(43,43,43,0.12);display:flex;flex-direction:column;overflow:hidden;">
+    <div style="padding:10px 20px 14px;border-bottom:1px solid #E3DCCB;display:flex;flex-direction:column;gap:8px;">
+      <span aria-hidden="true" style="align-self:center;width:40px;height:4px;border-radius:999px;background:#E3DCCB;"></span>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <h2 style="margin:0;font:700 22px/1.25 'DM Sans',sans-serif;letter-spacing:-0.01em;">{{ hojaNombre }}</h2>
+          <span style="font:600 16px/1.3 'DM Sans',sans-serif;color:#5F5F5F;">{{ hojaPrecio }}</span>
+        </div>
+        <button type="button" onClick="{{ cerrarHoja }}" aria-label="Cerrar" style="width:44px;height:44px;margin:-4px -10px 0 0;border:0;border-radius:12px;background:transparent;color:#2B2B2B;cursor:pointer;display:flex;align-items:center;justify-content:center;" style-hover="background:#F5EFE0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+      </div>
+    </div>
+
+    <div style="flex:1;min-height:0;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:24px;">
+      <sc-if value="{{ esPack }}" hint-placeholder-val="{{ false }}">
+        <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;">
+          <legend style="padding:0;margin-bottom:10px;font:600 16px/1.3 'DM Sans',sans-serif;">Marinado para tu pack</legend>
+          <sc-for list="{{ modos }}" as="m" hint-placeholder-count="2">
+            <button type="button" role="radio" onClick="{{ m.pick }}" style="min-height:52px;padding:12px 14px;border:1.5px solid {{ m.borde }};border-radius:12px;background:{{ m.fondo }};display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:#2B2B2B;font:500 15px/1.35 Inter,sans-serif;">
+              <span style="flex:none;width:20px;height:20px;border-radius:999px;border:2px solid #5B6B2F;box-sizing:border-box;display:flex;align-items:center;justify-content:center;"><span style="width:10px;height:10px;border-radius:999px;background:{{ m.dot }};"></span></span>
+              <span>{{ m.label }}</span>
+            </button>
+          </sc-for>
+        </fieldset>
+      </sc-if>
+
+      <sc-if value="{{ mezcla }}" hint-placeholder-val="{{ false }}">
+        <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;">
+          <legend style="padding:0;margin-bottom:10px;width:100%;display:flex;justify-content:space-between;align-items:baseline;gap:8px;"><span style="font:600 16px/1.3 'DM Sans',sans-serif;">Tu mezcla</span><span style="font:600 14px Inter,sans-serif;color:{{ mezclaColor }};">{{ mezclaTotal }}</span></legend>
+          <sc-for list="{{ mezclaFilas }}" as="m" hint-placeholder-count="4">
+            <div style="min-height:56px;padding:6px 6px 6px 14px;border:1.5px solid #E3DCCB;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <span style="font:600 15px/1.3 'DM Sans',sans-serif;">{{ m.nombre }}</span>
+              <div style="display:flex;align-items:center;">
+                <button type="button" aria-label="Quitar uno de {{ m.nombre }}" onClick="{{ m.dec }}" style="width:44px;height:44px;border:0;background:transparent;color:{{ m.menosColor }};font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">−</button>
+                <span style="min-width:20px;text-align:center;font:600 16px/1 'DM Sans',sans-serif;">{{ m.n }}</span>
+                <button type="button" aria-label="Agregar uno de {{ m.nombre }}" onClick="{{ m.inc }}" style="width:44px;height:44px;border:0;background:transparent;color:{{ m.masColor }};font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">+</button>
+              </div>
+            </div>
+          </sc-for>
+        </fieldset>
+      </sc-if>
+
+      <sc-if value="{{ modoUno }}" hint-placeholder-val="{{ true }}">
+      <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;">
+        <legend style="padding:0;margin-bottom:10px;font:600 16px/1.3 'DM Sans',sans-serif;">Marinado <span style="font:400 14px Inter,sans-serif;color:#5F5F5F;">(elige uno)</span></legend>
+        <sc-for list="{{ marinados }}" as="m" hint-placeholder-count="4">
+          <button type="button" role="radio" onClick="{{ m.pick }}" style="min-height:56px;padding:12px 14px;border:1.5px solid {{ m.borde }};border-radius:12px;background:{{ m.fondo }};display:flex;align-items:flex-start;gap:12px;text-align:left;cursor:pointer;color:#2B2B2B;">
+            <span style="flex:none;margin-top:1px;width:20px;height:20px;border-radius:999px;border:2px solid #5B6B2F;box-sizing:border-box;display:flex;align-items:center;justify-content:center;"><span style="width:10px;height:10px;border-radius:999px;background:{{ m.dot }};"></span></span>
+            <span style="display:flex;flex-direction:column;gap:2px;"><span style="font:600 15px/1.3 'DM Sans',sans-serif;">{{ m.nombre }}</span><span style="font:400 13px/1.4 Inter,sans-serif;color:#5F5F5F;">{{ m.desc }}</span></span>
+          </button>
+        </sc-for>
+      </fieldset>
+      </sc-if>
+
+      <sc-if value="{{ noPack }}" hint-placeholder-val="{{ true }}">
+      <fieldset style="border:0;margin:0;padding:0;">
+        <legend style="padding:0;margin-bottom:10px;font:600 16px/1.3 'DM Sans',sans-serif;">Salsa incluida <span style="font:400 14px Inter,sans-serif;color:#5F5F5F;">(elige una)</span></legend>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <sc-for list="{{ salsas }}" as="s" hint-placeholder-count="5">
+            <button type="button" role="radio" aria-checked="{{ s.on }}" onClick="{{ s.pick }}" style="min-height:44px;padding:0 14px;border-radius:999px;border:1.5px solid {{ s.borde }};background:{{ s.fondo }};color:{{ s.color }};font:500 14px/1 Inter,sans-serif;cursor:pointer;">{{ s.nombre }}</button>
+          </sc-for>
+        </div>
+      </fieldset>
+      </sc-if>
+
+      <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;">
+        <legend style="padding:0;margin-bottom:4px;font:600 16px/1.3 'DM Sans',sans-serif;">Salsas extra <span style="font:400 14px Inter,sans-serif;color:#5F5F5F;">(opcional)</span></legend>
+        <p style="margin:0 0 6px;font-size:13px;color:#5F5F5F;">1 salsa incluida. Cada salsa extra: S/ 2.</p>
+        <sc-for list="{{ extras }}" as="e" hint-placeholder-count="5">
+          <button type="button" role="checkbox" onClick="{{ e.toggle }}" style="min-height:48px;padding:0 14px;border:1.5px solid {{ e.borde }};border-radius:12px;background:{{ e.fondo }};display:flex;align-items:center;gap:12px;cursor:pointer;color:#2B2B2B;text-align:left;">
+            <span style="flex:none;width:20px;height:20px;border-radius:6px;border:2px solid {{ e.checkBorde }};background:{{ e.check }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ e.tick }}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+            <span style="flex:1;font:500 15px/1.3 Inter,sans-serif;">{{ e.nombre }}</span>
+            <span style="font:500 14px/1 'DM Sans',sans-serif;color:#5F5F5F;">+ S/ 2</span>
+          </button>
+        </sc-for>
+      </fieldset>
+    </div>
+
+    <div style="padding:14px 20px 18px;border-top:1px solid #E3DCCB;display:flex;align-items:center;gap:12px;">
+      <div aria-label="Cantidad" style="flex:none;display:flex;align-items:center;border:1.5px solid #5B6B2F;border-radius:12px;">
+        <button type="button" aria-label="Quitar uno" onClick="{{ hojaDec }}" style="width:44px;height:46px;border:0;background:transparent;color:#5B6B2F;font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">−</button>
+        <span style="min-width:20px;text-align:center;font:600 16px/1 'DM Sans',sans-serif;">{{ hojaQ }}</span>
+        <button type="button" aria-label="Agregar uno" onClick="{{ hojaInc }}" style="width:44px;height:46px;border:0;background:transparent;color:#5B6B2F;font:600 20px/1 'DM Sans',sans-serif;cursor:pointer;">+</button>
+      </div>
+      <button type="button" onClick="{{ confirmar }}" style="flex:1;min-height:50px;border:0;border-radius:12px;background:{{ hojaCtaBg }};color:#2B2B2B;font:600 16px/1 'DM Sans',sans-serif;cursor:pointer;font-variant-numeric:tabular-nums;" style-hover="background:#DC6E28;">{{ hojaCta }}</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vista&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;menu&quot;,&quot;carrito&quot;],&quot;default&quot;:&quot;menu&quot;,&quot;tsType&quot;:&quot;'menu'|'carrito'&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;estado&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;normal&quot;,&quot;cargando&quot;,&quot;sin-menu&quot;,&quot;error-red&quot;],&quot;default&quot;:&quot;normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;carritoInicial&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;vacio&quot;,&quot;ejemplo&quot;,&quot;bajo-minimo&quot;],&quot;default&quot;:&quot;vacio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;hoja&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;&quot;,&quot;burrito-pollo&quot;,&quot;pack-7&quot;],&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;corteCerrado&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;fideosAgotado&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estado&quot;},&quot;mostrarProteina&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Propuestas&quot;}}">
+const PRODUCTOS = [
+  { id: 'burrito-pollo', nombre: 'Burrito de pollo', descripcion: 'Pollo marinado, arroz, frejoles y vegetales envueltos en tortilla de trigo.', precio: 12, cat: 'burritos-quesadillas' },
+  { id: 'quesadilla-pollo', nombre: 'Quesadilla de pollo', descripcion: 'Pollo marinado y queso fundido en tortilla dorada.', precio: 12, cat: 'burritos-quesadillas' },
+  { id: 'arroz-pollo', nombre: 'Arroz con pollo', descripcion: 'Pollo marinado sobre arroz con verduras; salsa aparte.', precio: 11, cat: 'arroz-fideos' },
+  { id: 'fideos-pollo', nombre: 'Fideos con pollo', descripcion: 'Pasta corta al dente con pollo marinado; salsa aparte.', precio: 11, cat: 'arroz-fideos' }
+];
+const PACK = { id: 'pack-7', nombre: 'Pack semanal x7', precio: 80, unidades: 7, base: 12, pack: true };
+const MARINADOS = [
+  ['Ají panca', 'Ahumado y suave, con ajo y comino. El clásico.'],
+  ['Achiote', 'Color intenso, sabor suave y terroso.'],
+  ['Limón con ajo y orégano', 'Fresco y ligero.'],
+  ['Teriyaki', 'Dulce y salado, al estilo oriental.']
+];
+const SALSAS = ['Ají amarillo cremoso', 'Chimichurri', 'Salsa criolla', 'Teriyaki extra', 'Huancaína'];
+const EXTRA = 2, MINIMO = 50;
+const FILTROS = [['todos', 'Todos'], ['burritos-quesadillas', 'Burritos y quesadillas'], ['arroz-fideos', 'Arroz y fideos'], ['packs', 'Packs']];
+const INICIALES = {
+  vacio: [],
+  ejemplo: [
+    { id: 'burrito-pollo', mar: 0, sal: 0, ext: [], q: 2 },
+    { id: 'quesadilla-pollo', mar: 1, sal: 4, ext: [], q: 2 },
+    { id: 'arroz-pollo', mar: 1, sal: 2, ext: [1], q: 1 }
+  ],
+  'bajo-minimo': [{ id: 'quesadilla-pollo', mar: 3, sal: 3, ext: [], q: 1 }, { id: 'fideos-pollo', mar: 2, sal: 0, ext: [], q: 1 }]
+};
+const prod = id => id === PACK.id ? PACK : PRODUCTOS.find(p => p.id === id);
+const fmt = n => 'S/ ' + (Number.isInteger(n) ? n : n.toFixed(2).replace('.', ','));
+let uid = 1;
+const STANDALONE = () => decodeURIComponent(location.pathname).endsWith('Menu.dc.html');
+const URLP = () => (STANDALONE() ? new URLSearchParams(location.search) : new URLSearchParams());
+const STORED = () => { if (!STANDALONE()) return null; try { const v = JSON.parse(localStorage.getItem('ap-carrito')); return Array.isArray(v) ? v.map(l => ({ mar: 0, sal: 0, ext: [], modo: 'uno', ...l, key: uid++ })) : null; } catch (e) { return null; } };
+
+class Component extends DCLogic {
+  rootRef = React.createRef();
+  state = {
+    lines: STORED() || (INICIALES[this.props.carritoInicial ?? 'vacio'] || []).map(l => ({ ...l, key: uid++ })),
+    filtro: 'todos',
+    vista: URLP().get('vista') || this.props.vista || 'menu',
+    hoja: URLP().get('hoja') || this.props.hoja || null,
+    cfg: { mar: 0, sal: 0, ext: [], q: 1, modo: 'elegir', mix: [7, 0, 0, 0] },
+    ancho: 390,
+    carga: this.props.estado ?? 'normal'
+  };
+  componentDidMount() {
+    this.persist();
+    const el = this.rootRef.current;
+    if (!el) return;
+    this.ro = new ResizeObserver(() => this.setState({ ancho: el.clientWidth }));
+    this.ro.observe(el);
+  }
+  componentWillUnmount() { this.ro && this.ro.disconnect(); }
+  persist() {
+    if (!STANDALONE() || this._last === this.state.lines) return;
+    this._last = this.state.lines;
+    try {
+      localStorage.setItem('ap-carrito', JSON.stringify(this.state.lines.map(({ key, ...l }) => l)));
+      localStorage.setItem('ap-resumen', JSON.stringify(this.state.lines.map(l => ({ nombre: prod(l.id).nombre, detalle: this.detalle(l), q: l.q, total: this.unit(l) * l.q }))));
+    } catch (e) {}
+  }
+  componentDidUpdate(prev) {
+    if (prev.vista !== this.props.vista && this.props.vista) this.setState({ vista: this.props.vista });
+    if (prev.hoja !== this.props.hoja) this.setState({ hoja: this.props.hoja || null });
+    if (prev.carritoInicial !== this.props.carritoInicial)
+      this.setState({ lines: (INICIALES[this.props.carritoInicial] || []).map(l => ({ ...l, key: uid++ })) });
+  }
+  quick(id, d) {
+    this.setState(s => {
+      const lines = s.lines.map(l => ({ ...l }));
+      if (d > 0) {
+        const l = lines.find(l => l.id === id && l.mar === 0 && l.sal === 0 && !l.ext.length);
+        if (l) l.q++; else lines.push({ id, mar: 0, sal: 0, ext: [], q: 1, key: uid++ });
+      } else {
+        const l = [...lines].reverse().find(l => l.id === id);
+        if (l) l.q--;
+      }
+      return { lines: lines.filter(l => l.q > 0) };
+    });
+  }
+  setLine(key, d) {
+    this.setState(s => ({ lines: s.lines.map(l => l.key === key ? { ...l, q: l.q + d } : l).filter(l => l.q > 0) }));
+  }
+  abrir(id) { this.setState({ hoja: id, cfg: { mar: 0, sal: 0, ext: [], q: 1, modo: 'elegir', mix: [7, 0, 0, 0] } }); }
+  cfg(patch) { this.setState(s => ({ cfg: { ...s.cfg, ...patch } })); }
+  confirmar() {
+    const s0 = this.state, p = prod(s0.hoja);
+    if (p && p.pack && s0.cfg.modo === 'elegir' && s0.cfg.mix.reduce((a, b) => a + b, 0) !== 7) return;
+    this.setState(s => ({ lines: [...s.lines, { id: s.hoja, ...s.cfg, ext: [...s.cfg.ext], mix: [...s.cfg.mix], key: uid++ }], hoja: null }));
+  }
+  unit(l) { return prod(l.id).precio + l.ext.length * EXTRA; }
+  detalle(l) {
+    const p = prod(l.id);
+    const ext = l.ext.length ? ` · Extra: ${l.ext.map(i => SALSAS[i]).join(', ')}` : '';
+    if (p.pack) return (l.modo === 'mix' ? 'Mix de la casa' : (l.mix || [7, 0, 0, 0]).map((n, i) => n ? `${n} ${MARINADOS[i][0]}` : '').filter(Boolean).join(', ')) + ext;
+    return `${MARINADOS[l.mar][0]} · Salsa: ${SALSAS[l.sal]}${ext}`;
+  }
+  renderVals() {
+    const s = this.state;
+    if (STANDALONE() && this._last !== s.lines) setTimeout(() => this.persist(), 0);
+    const cerrado = this.props.corteCerrado ?? false;
+    const agotadoId = (this.props.fideosAgotado ?? false) ? 'fideos-pollo' : null;
+    const desk = s.ancho >= 720;
+    const count = s.lines.reduce((a, l) => a + l.q, 0);
+    const subtotal = s.lines.reduce((a, l) => a + this.unit(l) * l.q, 0);
+    const qty = id => s.lines.filter(l => l.id === id).reduce((a, l) => a + l.q, 0);
+    const hp = s.hoja ? prod(s.hoja) : null;
+    const c = s.cfg;
+    const hojaTotal = hp ? (hp.precio + c.ext.length * EXTRA) * c.q : 0;
+    const falta = Math.max(0, MINIMO - subtotal);
+    const ON = { borde: '#5B6B2F', fondo: '#EEF0E3' }, OFF = { borde: '#E3DCCB', fondo: '#FFFFFF' };
+    return {
+      rootRef: this.rootRef,
+      cargando: s.carga === 'cargando', sinMenu: s.carga === 'sin-menu', hayMenu: s.carga === 'normal' || s.carga === 'error-red',
+      errorRed: s.carga === 'error-red', reintentar: () => this.setState({ carga: 'normal' }),
+      esqueletos: [1, 2, 3, 4],
+      abierto: !cerrado, cerrado,
+      prot: this.props.mostrarProteina ?? true,
+      count, hasCount: count > 0,
+      isMenu: s.vista === 'menu', isCart: s.vista === 'carrito',
+      verMenu: () => this.setState({ vista: 'menu' }),
+      verCarrito: () => this.setState({ vista: 'carrito', hoja: null }),
+      filtros: FILTROS.map(([id, label]) => {
+        const active = s.filtro === id;
+        return { label, active, borde: '#5B6B2F', fondo: active ? '#5B6B2F' : 'transparent', color: active ? '#FFFFFF' : '#5B6B2F', pick: () => this.setState({ filtro: id }) };
+      }),
+      productos: PRODUCTOS.filter(p => s.filtro === 'todos' || s.filtro === p.cat).map(p => {
+        const q = qty(p.id), ag = p.id === agotadoId;
+        return { ...p, q, precioTxt: fmt(p.precio), agotado: ag, disponible: !ag, has: !ag && q > 0, none: !ag && q === 0, opacidad: ag ? 0.6 : 1,
+          inc: () => this.quick(p.id, 1), dec: () => this.quick(p.id, -1), abrir: () => this.abrir(p.id) };
+      }),
+      showPack: s.filtro === 'todos' || s.filtro === 'packs',
+      abrirPack: () => this.abrir(PACK.id),
+      sinPack: PACK.unidades * PACK.base,
+      ahorro: PACK.unidades * PACK.base - PACK.precio,
+      barra: count > 0,
+      barraTexto: `${count} ${count === 1 ? 'ítem' : 'ítems'} · ${fmt(subtotal)}`,
+      // hoja
+      hojaOpen: !!hp,
+      hojaAlign: desk ? 'center' : 'flex-end',
+      hojaRadius: desk ? '24px' : '24px 24px 0 0',
+      hojaMaxH: desk ? '88%' : '92%',
+      hojaNombre: hp ? hp.nombre : '',
+      hojaPrecio: hp ? fmt(hp.precio) : '',
+      esPack: !!(hp && hp.pack), noPack: !!(hp && !hp.pack),
+      modoUno: !(hp && hp.pack),
+      mezcla: !!(hp && hp.pack) && c.modo === 'elegir',
+      mezclaFilas: MARINADOS.map(([nombre], i) => {
+        const tot = c.mix.reduce((a, b) => a + b, 0), n = c.mix[i];
+        const setN = v => this.cfg({ mix: c.mix.map((x, j) => (j === i ? v : x)) });
+        return { nombre, n, inc: () => tot < 7 && setN(n + 1), dec: () => n > 0 && setN(n - 1), masColor: tot < 7 ? '#5B6B2F' : '#C9C2B0', menosColor: n > 0 ? '#5B6B2F' : '#C9C2B0' };
+      }),
+      mezclaTotal: `${c.mix.reduce((a, b) => a + b, 0)} de 7 elegidos`,
+      mezclaColor: c.mix.reduce((a, b) => a + b, 0) === 7 ? '#3E7C4A' : '#6E5108',
+      modos: [['elegir', 'Elige tu mezcla'], ['mix', 'Mix de la casa (nosotros combinamos)']].map(([id, label]) => {
+        const on = c.modo === id;
+        return { label, ...(on ? ON : OFF), dot: on ? '#5B6B2F' : 'transparent', pick: () => this.cfg({ modo: id }) };
+      }),
+      marinados: MARINADOS.map(([nombre, desc], i) => {
+        const on = c.mar === i;
+        return { nombre, desc, ...(on ? ON : OFF), dot: on ? '#5B6B2F' : 'transparent', pick: () => this.cfg({ mar: i }) };
+      }),
+      salsas: SALSAS.map((nombre, i) => {
+        const on = c.sal === i;
+        return { nombre, on, borde: on ? '#5B6B2F' : '#E3DCCB', fondo: on ? '#5B6B2F' : '#FFFFFF', color: on ? '#FFFFFF' : '#2B2B2B', pick: () => this.cfg({ sal: i }) };
+      }),
+      extras: SALSAS.map((nombre, i) => {
+        const on = c.ext.includes(i);
+        return { nombre, ...(on ? ON : OFF), check: on ? '#5B6B2F' : '#FFFFFF', checkBorde: on ? '#5B6B2F' : '#B9B2A0', tick: on ? '#FFFFFF' : 'transparent',
+          toggle: () => this.cfg({ ext: on ? c.ext.filter(x => x !== i) : [...c.ext, i].sort() }) };
+      }),
+      hojaQ: c.q,
+      hojaInc: () => this.cfg({ q: c.q + 1 }),
+      hojaDec: () => this.cfg({ q: Math.max(1, c.q - 1) }),
+      hojaCta: (hp && hp.pack && c.modo === 'elegir' && c.mix.reduce((a, b) => a + b, 0) !== 7) ? `Elige ${7 - c.mix.reduce((a, b) => a + b, 0)} más` : `Agregar · ${fmt(hojaTotal)}`,
+      hojaCtaBg: (hp && hp.pack && c.modo === 'elegir' && c.mix.reduce((a, b) => a + b, 0) !== 7) ? '#EDE5D2' : '#E8772E',
+      confirmar: () => this.confirmar(),
+      cerrarHoja: () => this.setState({ hoja: null }),
+      // carrito
+      cartEmpty: s.lines.length === 0, cartHas: s.lines.length > 0,
+      lineas: s.lines.map(l => ({ nombre: prod(l.id).nombre, detalle: this.detalle(l), q: l.q, total: fmt(this.unit(l) * l.q), unitario: `${fmt(this.unit(l))} c/u`,
+        inc: () => this.setLine(l.key, 1), dec: () => this.setLine(l.key, -1), quitar: () => this.setLine(l.key, -l.q) })),
+      subtotal: fmt(subtotal),
+      bajoMinimo: falta > 0, okMinimo: falta === 0,
+      minimoTexto: `El pedido mínimo es ${fmt(MINIMO)}. Te faltan ${fmt(falta)}.`,
+      semana: cerrado ? 'domingo 29' : 'domingo 22'
+    };
+  }
+}
+</script>
+</body>
+</html>

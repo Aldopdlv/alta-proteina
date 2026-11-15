@@ -10,12 +10,17 @@ Comida preparada alta en proteína, congelada y bajo pedido, con corte semanal, 
 | 11-nov-2026 | Análisis inicial: modelo bajo pedido con corte semanal, costos por porción (pollo S/ 14,31/kg, 150 g cocidos = 250 g crudos) y menú |
 | 11-nov-2026 | Bosquejo de web MVP y marca: nombre de trabajo, paleta oliva/crema/naranja, flujo de pedido, pagos tarjeta con recargo y Yape con captura, panel interno |
 | 14-nov-2026 | Paquete completo para Claude Design (`claude-design/`): brief consolidado, textos, datos de ejemplo, tokens, contraste verificado y wordmark provisional. Zip listo para subir |
+| 15-nov-2026 | Claude Design entregó el prototipo (`claude-design/handoff-15-nov-2026/`) con la configuración confirmada. **Web y panel implementados en `web/`**, corriendo en el Dappnode (127.0.0.1:8097). Falta publicar el túnel `altaproteina.solvelab.digital` |
 
 ## Concepto en una línea
 
 Platos con 150 g de pollo cocido por porción, congelados el mismo día, que el cliente pide una vez por semana desde una web simple, paga con Yape o tarjeta y recibe en un día fijo en su zona.
 
 > Nota: el brief del 10-nov proponía suscripción semanal y un estándar de 40 g de proteína por porción. Las decisiones del 11-nov lo reemplazan por pedido semanal sin suscripción (por ahora) y 150 g de pollo cocido por porción, que equivalen a unos 45 g de proteína. El brief se conserva como registro.
+
+## Web de pedidos (`web/`)
+
+Implementación del prototipo de Claude Design: web pública (inicio, menú, carrito, entrega, pago con Yape o tarjeta, estado del pedido, términos) y panel interno (pedidos, Yape, producción, entregas, configuración editable). Ver [web/README.md](web/README.md).
 
 ## Documentos
 
