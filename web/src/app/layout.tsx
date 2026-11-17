@@ -11,7 +11,13 @@ export const metadata: Metadata = {
   description:
     'Platos con 150 g de pollo, listos en 4 minutos. Pides una vez a la semana y recibes todo congelado en tu puerta. Lima.',
   metadataBase: new URL(process.env.SITIO_URL ?? 'https://altaproteina.solvelab.digital'),
-  openGraph: { locale: 'es_PE', siteName: 'Alta Proteína', type: 'website' },
+  openGraph: {
+    locale: 'es_PE',
+    siteName: 'Alta Proteína',
+    type: 'website',
+    images: [{ url: '/img/og.jpg', width: 1200, height: 630, alt: 'Platos de Alta Proteína con 150 g de pollo' }],
+  },
+  twitter: { card: 'summary_large_image', images: ['/img/og.jpg'] },
   // Hasta el lanzamiento, fuera de Google (SITIO_INDEXABLE=1 lo abre).
   robots: indexable ? undefined : { index: false, follow: false },
   icons: { icon: '/marca/isotipo.svg' },

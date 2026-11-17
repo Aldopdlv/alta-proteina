@@ -46,16 +46,17 @@ export default async function Inicio() {
             </div>
           </div>
           <div className="min-w-0 flex-[1_1_340px]">
-            <div role="img" aria-label="Foto: varias porciones etiquetadas" className="flex aspect-video flex-col items-center justify-center gap-3 rounded-2xl bg-crema-oscura text-oliva">
-              <svg width="120" height="64" viewBox="0 0 120 64" fill="none" stroke="#5B6B2F" strokeWidth="1.75" strokeLinejoin="round" aria-hidden="true">
-                <rect x="2" y="14" width="34" height="46" rx="5" />
-                <rect x="43" y="6" width="34" height="54" rx="5" />
-                <rect x="84" y="14" width="34" height="46" rx="5" />
-                <path d="M8 26h22M49 18h22M90 26h22" />
-                <path d="M8 32h14M49 24h14M90 32h14" />
-              </svg>
-              <span className="text-[13px] font-medium">Foto · Tu semana resuelta</span>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element -- imagen fija ya optimizada en public/img */}
+            <img
+              src="/img/heroe.webp"
+              srcSet="/img/heroe-800.webp 800w, /img/heroe.webp 1344w"
+              sizes="(max-width: 760px) 100vw, 50vw"
+              width={1344}
+              height={752}
+              fetchPriority="high"
+              alt="Burritos, quesadillas, arroz y fideos con pollo de Alta Proteína en sus envases"
+              className="block aspect-video h-auto w-full rounded-2xl bg-crema-oscura object-cover"
+            />
           </div>
         </section>
 
