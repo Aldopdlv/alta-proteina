@@ -45,6 +45,8 @@ docker compose logs -f app            # ver errores
 node scripts/clave-panel.mjs "nueva-contraseña"   # → PANEL_CLAVE_HASH en .env; luego docker compose up -d
 ```
 
+Túnel (desde 17-nov-2026): túnel de Cloudflare `alta-proteina` (id f84b8ccd…), servicio `cloudflared` del compose; `web/tunel/config.yml` y `credenciales.json` fuera de git. CNAME `altaproteina.solvelab.digital` en la zona solvelab.digital.
+
 Respaldo diario (cron del host, 3:25 a. m.): `scripts/respaldo.sh` (base + capturas + fotos, 30 días, copia en `~/respaldos-fuera/altaproteina`).
 
 ## Pruebas
