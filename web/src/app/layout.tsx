@@ -20,7 +20,13 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', images: ['/img/og.jpg'] },
   // Hasta el lanzamiento, fuera de Google (SITIO_INDEXABLE=1 lo abre).
   robots: indexable ? undefined : { index: false, follow: false },
-  icons: { icon: '/marca/isotipo.svg' },
+  icons: {
+    icon: [
+      { url: '/marca/favicon.svg', type: 'image/svg+xml' },
+      { url: '/marca/favicon-32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: '/marca/apple-touch-icon.png',
+  },
 };
 
 export const viewport: Viewport = {

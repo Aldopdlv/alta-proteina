@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 104 104"><circle cx="52" cy="52" r="52" fill="#5B6B2F"/><path d="M54 20 C 36 28, 26 46, 30 72 C 52 70, 68 56, 72 30 C 66 25, 60 21, 54 20 Z" fill="#F5EFE0"/><path d="M31 71 L 56 42" stroke="#5B6B2F" stroke-width="4" stroke-linecap="round" fill="none"/><circle cx="80" cy="24" r="9" fill="#E8772E"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Alta Proteína">
+  <circle cx="100" cy="100" r="92" fill="#F5EFE0" stroke="#5B6B2F" stroke-width="8"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M46 150 L77 52 L108 150" stroke="#5B6B2F" stroke-width="24"/>
+    <path d="M124 150 V54 H139 a28 28 0 0 1 0 56 H124" stroke="#F5EFE0" stroke-width="34"/>
+    <path d="M124 150 V54 H139 a28 28 0 0 1 0 56 H124" stroke="#5B6B2F" stroke-width="24"/>
+  </g>
+  <g stroke="#F5EFE0" stroke-width="6" stroke-linejoin="round" paint-order="stroke">
+    <path d="M38 138 C 46 112, 70 100, 104 98 L 100 88 L 124 92 L 110 112 L 108 103 C 96 124, 70 134, 38 138 Z" fill="#E8772E"/>
+  </g>
+  <path d="M50 130 Q 76 114 104 104" fill="none" stroke="#F5EFE0" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

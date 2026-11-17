@@ -15,3 +15,11 @@ Pendiente (Claude Code), con la variante confirmada:
 2. Componer el logo horizontal: isotipo + «Alta Proteína» en DM Sans Bold, verde oliva #5B6B2F.
 3. Actualizar `web/src/componentes/Logo.tsx`, favicon (32 px) y og:image.
 4. Probar legibilidad a 32 px y dentro de un círculo (perfil de WhatsApp/Instagram).
+
+## Hecho (17-nov-2026, Claude Code) — variante v4 confirmada por Aldo
+
+- `web/public/marca/isotipo.svg`: v4 redibujada en vector (anillo, A y P oliva, hoja-flecha naranja).
+- `web/public/marca/favicon.svg`: versión simplificada para 16-32 px (círculo oliva relleno, letras crema, sin anillo) + `favicon-32.png` y `apple-touch-icon.png` (180 px).
+- `web/src/componentes/Logo.tsx`: mismos trazos; `invertido` (pie de página) = círculo oliva, letras y anillo crema.
+- `web/public/img/og.jpg`: imagen al compartir con el logo y «Comida de verdad, sin complicarte.» sobre la foto.
+- El texto «Alta Proteína» va en DM Sans Bold (fuente de la web), no en la imagen.

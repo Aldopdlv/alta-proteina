@@ -60,7 +60,7 @@ DATABASE_URL=postgresql://…/altaproteina_test CAPTURAS_DIR=/tmp/cap \
 
 ## Pendientes conocidos
 
-- Logo definitivo: reemplazar `src/componentes/Logo.tsx` y `public/marca/isotipo.svg`.
+- ~~Logo definitivo~~ HECHO 17-nov: monograma AP v4 en `src/componentes/Logo.tsx`, `public/marca/isotipo.svg` y `favicon.svg` (+ PNG 32 y apple-touch-icon).
 - Fotos de producto y QR de Yape: se suben desde Panel → Configuración.
 - Nombres definitivos de salsas: Panel → Configuración → Marinados y salsas.
 - Proveedor del link de pago.
