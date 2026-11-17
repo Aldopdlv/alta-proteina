@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTienda } from '@/lib/carrito';
 import { soles } from '@/lib/formato';
+import { imagenEmpaque } from '@/lib/imagenes';
 import { IconoCerrar } from './Iconos';
 import { Casilla, Radio, Stepper } from './Piezas';
 import type { PackModo, Producto } from '@/lib/tipos';
@@ -17,6 +18,7 @@ export function HojaPersonalizacion({ producto, alCerrar }: { producto: Producto
   const { marinados, salsas, config } = t.catalogo;
   const esPack = producto.categoria === 'packs';
   const unidades = producto.packUnidades ?? 7;
+  const empaque = imagenEmpaque(producto.id);
 
   const [marinado, setMarinado] = useState(marinados[0]?.id);
   const [salsa, setSalsa] = useState(salsas[0]?.id);
@@ -83,6 +85,16 @@ export function HojaPersonalizacion({ producto, alCerrar }: { producto: Producto
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-6 overflow-auto p-5">
+          {empaque && (
+            <figure className="m-0 flex flex-col gap-2">
+              {/* eslint-disable-next-line @next/next/no-img-element -- imagen fija ya optimizada en public/img */}
+              <img src={empaque} alt={`Cómo llega: ${producto.nombre}`} width={800} height={603} className="block aspect-[16/10] h-auto w-full rounded-2xl bg-crema object-cover" />
+              <figcaption className="text-[13px] leading-[1.4] text-tinta-suave">
+                <span className="font-titulo font-semibold text-tinta">Así te llega:</span>{' '}
+                {esPack ? 'en su caja, cada porción sellada y etiquetada, con sus salsas aparte.' : 'congelado, sellado y etiquetado, con su salsa aparte.'}
+              </figcaption>
+            </figure>
+          )}
           {esPack ? (
             <>
               <fieldset className="m-0 flex flex-col gap-2 border-0 p-0" role="radiogroup">

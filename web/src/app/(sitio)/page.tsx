@@ -6,6 +6,7 @@ import { IconoCopo, IconoOjo, IconoTemporizador } from '@/componentes/Iconos';
 import { Preguntas } from './Preguntas';
 import { catalogoPublico, leerCatalogo } from '@/lib/catalogo';
 import { DIAS } from '@/lib/formato';
+import { IMAGENES_PASOS } from '@/lib/imagenes';
 import { preguntasFrecuentes } from '@/lib/textos';
 
 export default async function Inicio() {
@@ -64,10 +65,14 @@ export default async function Inicio() {
           <h2 className="h2-seccion mb-6">Así de simple</h2>
           <div className="grid gap-3 [grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))]">
             {pasos.map(([titulo, texto], i) => (
-              <div key={titulo} className="tarjeta flex flex-col gap-2 p-5">
-                <span className="font-titulo text-[40px] font-bold leading-none tracking-[-0.02em] text-oliva">{i + 1}</span>
-                <h3 className="m-0 mt-2 font-titulo text-lg font-semibold leading-[1.3]">{titulo}</h3>
-                <p className="m-0 text-[15px] text-tinta-suave">{texto}</p>
+              <div key={titulo} className="tarjeta flex flex-col overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element -- imagen fija ya optimizada en public/img */}
+                <img src={IMAGENES_PASOS[i].src} alt={IMAGENES_PASOS[i].alt} width={800} height={800} loading="lazy" className="block aspect-[4/3] h-auto w-full bg-crema-oscura object-cover" />
+                <div className="flex flex-col gap-2 p-5">
+                  <span className="font-titulo text-[40px] font-bold leading-none tracking-[-0.02em] text-oliva">{i + 1}</span>
+                  <h3 className="m-0 mt-2 font-titulo text-lg font-semibold leading-[1.3]">{titulo}</h3>
+                  <p className="m-0 text-[15px] text-tinta-suave">{texto}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -95,14 +100,29 @@ export default async function Inicio() {
 
         <section className="contenedor py-[clamp(56px,8vw,104px)]">
           <h2 className="h2-seccion mb-7">Lo que ves es lo que comes</h2>
-          <div className="grid gap-x-8 gap-y-7 [grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))]">
-            {razones.map(([icono, titulo, texto]) => (
-              <div key={titulo} className="flex flex-col gap-2">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-oliva-claro text-oliva">{icono}</span>
-                <h3 className="m-0 mt-2 font-titulo text-lg font-semibold leading-[1.3]">{titulo}</h3>
-                <p className="m-0 text-[15px] text-tinta-suave">{texto}</p>
-              </div>
-            ))}
+          <div className="flex flex-wrap items-center gap-x-[clamp(28px,5vw,64px)] gap-y-8">
+            <div className="flex min-w-0 flex-[1_1_340px] flex-col gap-7">
+              {razones.map(([icono, titulo, texto]) => (
+                <div key={titulo} className="flex items-start gap-4">
+                  <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-oliva-claro text-oliva">{icono}</span>
+                  <div className="flex flex-col gap-1">
+                    <h3 className="m-0 font-titulo text-lg font-semibold leading-[1.3]">{titulo}</h3>
+                    <p className="m-0 text-[15px] text-tinta-suave">{texto}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="min-w-0 flex-[1_1_300px] sm:max-w-[380px]">
+              {/* eslint-disable-next-line @next/next/no-img-element -- imagen fija ya optimizada en public/img */}
+              <img
+                src="/img/microondas-4-min.webp"
+                alt="Una porción de arroz con pollo saliendo del microondas, lista en 4 minutos"
+                width={720}
+                height={900}
+                loading="lazy"
+                className="block aspect-square h-auto w-full rounded-2xl bg-crema-oscura object-cover object-[center_65%]"
+              />
+            </div>
           </div>
         </section>
 
